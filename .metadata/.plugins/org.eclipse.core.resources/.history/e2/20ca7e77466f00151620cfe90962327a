@@ -1,0 +1,59 @@
+package bicing;
+
+
+public class Furgoneta {
+	private Estacion estacioE;
+	private Estacion estacioP1;
+	private Estacion estacioP2;
+	private Integer np1;
+	private Integer np2;
+	
+	public Furgoneta(Integer estacioE, Integer estacioP1, Integer estacioP2, Integer np1, Integer np2) {
+		super();
+		this.estacioE = estacioE;
+		this.estacioP1 = estacioP1;
+		this.estacioP2 = estacioP2;
+		this.np1 = np1;
+		this.np2 = np2;
+	}
+	
+	public Integer getEstacioE() {
+		return estacioE;
+	}
+	
+	public void setEstacioE(Integer estacioE) {
+		this.estacioE = estacioE;
+	}
+	
+	public Integer getEstacioP1() {
+		return estacioP1;
+	}
+	
+	public void setEstacioP1(Integer estacioP1) {
+		this.estacioP1 = estacioP1;
+	}
+	
+	public Integer getEstacioP2() {
+		return estacioP2;
+	}
+	
+	public void setEstacioP2(Integer estacioP2) {
+		this.estacioP2 = estacioP2;
+	}
+	
+	public Integer getNp1() {
+		return np1;
+	}
+	
+	public void setNp1(Integer np1) {
+		this.np1 = np1;
+	}
+	
+	public Integer getNp2() {
+		return np2;
+	}
+	
+	public void setNp2(Integer np2) {
+		this.np2 = np2;
+	}
+}

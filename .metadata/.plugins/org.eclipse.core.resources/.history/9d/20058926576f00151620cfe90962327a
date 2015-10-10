@@ -1,0 +1,20 @@
+package bicing;
+
+import IA.Bicing.Estacion;
+import IA.Bicing.Estaciones;
+public class GeneraProblema {
+
+	private Estaciones es;
+	
+	public GeneraProblema(int nest, int nbic,int dem, int seed) {
+		Estaciones est=Estaciones(nest,nbic,dem,seed);
+	}
+
+	public Estaciones getEstaciones() {
+		return es;
+	}
+	
+	
+	
+	
+}
