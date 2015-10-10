@@ -3,15 +3,7 @@ package bicing;
 import IA.Bicing.Estaciones;
 
 import IA.Bicing.Estacion;
-/**
- * Projecto de IA- Búsqueda local
- * 
- * Es la classe que define el estado del problema.
- * 
- * 
- * @author Patricia
- *
- */
+
 public class estado {
 
 
@@ -100,54 +92,39 @@ public class estado {
 	public void canviarP2(Integer numFurgoneta, Estacion EstacioP2){
 		vfugorneta[numFurgoneta].setEstacioP2(EstacioP2);
 	}
-	
-	private void adjustarNumero(Integer numFurgoneta){
-		if(vfugorneta[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()<vfugorneta[numFurgoneta].getNp1()+vfugorneta[numFurgoneta].getNp2()){
-			int diff=-vfugorneta[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()+vfugorneta[numFurgoneta].getNp1()+vfugorneta[numFurgoneta].getNp2();
-			int mig=diff/2;
-			vfugorneta[numFurgoneta].setNp1(vfugorneta[numFurgoneta].getNp1()-mig);
-			vfugorneta[numFurgoneta].setNp1(vfugorneta[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()-vfugorneta[numFurgoneta].getNp1());
-		}
-		
-	}
-	
 	public void intercambiarEs(Integer numFurgoneta1, Integer numFurgoneta2){
 		
 		Estacion EF1=vfugorneta[numFurgoneta1].getEstacioE();
 		Estacion EF2=vfugorneta[numFurgoneta2].getEstacioE();
-		vfugorneta[numFurgoneta1].setEstacioE(EF2);
-		
-		vfugorneta[numFurgoneta2].setEstacioE(EF1);
+		vfugorneta[numFurgoneta1].setEstacioE(EF1);
+		vfugorneta[numFurgoneta2].setEstacioE(EF2);
 		Estaciones es=GeneraProblema.getEstaciones();
 		if(EF1 != null){
 			int index1=es.indexOf(EF1);
-			vEstaciones[index1]=numFurgoneta2;
-			adjustarNumero(numFurgoneta2);
+			if()
 		}
 		if(EF2 != null){
+
 			int index2=es.indexOf(EF2);
-			vEstaciones[index2]=numFurgoneta1;
-			adjustarNumero(numFurgoneta1);
-		}
-	}
-	
-	public void intercambiarE(Estacion numEstacion1, Estacion numEstacion2){
-		Estaciones es=GeneraProblema.getEstaciones();
-		int index1=es.indexOf(numEstacion1);
-		int index2=es.indexOf(numEstacion2);
-		int fnum1=vEstaciones[index1];
-		int fnum2=vEstaciones[index2];
-		vEstaciones[index1]=fnum2;
-		vEstaciones[index2]=fnum1;
-		if(fnum1 != -1){
-			vfugorneta[fnum1].setEstacioE(numEstacion2);
-			adjustarNumero(fnum1);
+			
 		}
 		
-		if(fnum2 != -1){
-			vfugorneta[fnum2].setEstacioE(numEstacion1);
-			adjustarNumero(fnum2);
-		}
+		
+		
+	}
+	
+	public void intercambiarE(Integer numFurgoneta, Integer numEstacio){
+		
+		Integer EF1=vfugorneta[numFurgoneta].getEstacioE();
+		Integer novaF=vEstacions[numEstacio];
+		vEstacions[numEstacio]=numFurgoneta;
+		vEstacions[EF1]=novaF;
+		if(novaF != null){
+			
+			vfugorneta[novaF].setEstacioE(numEstacio);
+			if(vfugorneta[novaF].getNp1()+vfugorneta[novaF].getNp2()>)
+			if()
+		}	
 	}
 	
 }
