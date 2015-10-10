@@ -23,15 +23,7 @@ public class estado {
 	private Integer biciMalColocades;
 	private Double costGasolina;
 	private Double heuristic4;
-	/**
-	 * Constructor de la clase
-	 * @param vfugorneta -> vector de la clase Furgoneta, donde cada posicion es una furgoneta diferente
-	 * @param vEstaciones -> vector de enteros, cada posicion es una estacion y el valor de cada posicion el entero que representa cada furgoneta
-	 * @param bicisBenColocades -> numero de bicicletas que te hacen ganar 1 euro
-	 * @param biciMalColocades -> numero de bicicletas que te hacen perder 1 euro
-	 * @param costGasolina -> coste de la gasolina
-	 * @param heuristic4 -> valor del heuristico4
-	 */
+	
 	public estado(Furgoneta[] vfugorneta, Integer[] vEstaciones, Integer bicisBenColocades, Integer biciMalColocades,
 			Double costGasolina, Double heuristic4) {
 		this.vfugorneta = vfugorneta;
@@ -41,17 +33,9 @@ public class estado {
 		this.costGasolina = costGasolina;
 		this.heuristic4 = heuristic4;
 	}
-	/**
-	 * 
-	 * @return el vector de las furgonetas
-	 */
 	public Furgoneta[] getVfugorneta() {
 		return vfugorneta;
 	}
-	/**
-	 * 
-	 * @param vfugorneta
-	 */
 	public void setVfugorneta(Furgoneta[] vfugorneta) {
 		this.vfugorneta = vfugorneta;
 	}
