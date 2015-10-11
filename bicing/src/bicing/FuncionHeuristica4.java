@@ -5,8 +5,8 @@ import aima.search.framework.HeuristicFunction;
 public class FuncionHeuristica4 implements HeuristicFunction {
 
 	public double getHeuristicValue(Object state) {
-		estado actual = (Estado) state;
-		return (actual.getHeuristic4());
+		Estado actual = (Estado) state;
+		return (actual.getHeuristico4());
 	}
 	
 	public boolean equals(Object obj) {

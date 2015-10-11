@@ -5,8 +5,8 @@ import aima.search.framework.HeuristicFunction;
 public class FuncionHeuristica2 implements HeuristicFunction {
 
 	public double getHeuristicValue(Object state) {
-		estado actual = (Estado) state;
-		double dif = actual.getBicisBenColocades() - actual.getBiciMalColocades() - actual.getCostGasolina();
+		Estado actual = (Estado) state;
+		double dif = actual.getBicisBienColocadas() - actual.getBicisMalColocadas() - actual.getCosteGasolina();
 		return (dif);
 	}
 	

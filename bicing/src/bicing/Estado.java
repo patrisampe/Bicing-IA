@@ -5,54 +5,53 @@ import IA.Bicing.Estaciones;
 
 import IA.Bicing.Estacion;
 /**
- * Projecto de IA- B�squeda local
+ * Projecto de IA- Busqueda local
  * 
- * Es la classe que define el estado del problema.
+ * Clase que define el estado del problema.
  * 
  * 
  * @author Patricia
  *
  */
-public class estado {
+public class Estado {
 
-
-	private Furgoneta[] vfugorneta;
+	private Furgoneta[] vFurgonetas;
 	private Integer[] vEstaciones;
-	private Integer bicisBenColocades;
-	private Integer biciMalColocades;
-	private Double costGasolina;
-	private Double heuristic4;
+	private Integer bicisBienColocadas;
+	private Integer bicisMalColocadas;
+	private Double costeGasolina;
+	private Double heuristico4;
 	/**
 	 * Constructor de la clase
-	 * @param vfugorneta -> vector de la clase Furgoneta, donde cada posicion es una furgoneta diferente
+	 * @param vFurgonetas -> vector de la clase Furgoneta, donde cada posicion es una furgoneta diferente
 	 * @param vEstaciones -> vector de enteros, cada posicion es una estacion y el valor de cada posicion el entero que representa cada furgoneta
-	 * @param bicisBenColocades -> numero de bicicletas que te hacen ganar 1 euro
-	 * @param biciMalColocades -> numero de bicicletas que te hacen perder 1 euro
-	 * @param costGasolina -> coste de la gasolina
-	 * @param heuristic4 -> valor del heuristico4
+	 * @param bicisBienColocadas -> numero de bicicletas que te hacen ganar 1 euro
+	 * @param bicisMalColocadas -> numero de bicicletas que te hacen perder 1 euro
+	 * @param costeGasolina -> coste de la gasolina
+	 * @param heuristico4 -> valor del heuristico 4
 	 */
-	public estado(Furgoneta[] vfugorneta, Integer[] vEstaciones, Integer bicisBenColocades, Integer biciMalColocades,
-			Double costGasolina, Double heuristic4) {
-		this.vfugorneta = vfugorneta;
+	public Estado(Furgoneta[] vFurgonetas, Integer[] vEstaciones, Integer bicisBienColocadas, Integer bicisMalColocadas,
+			Double costeGasolina, Double heuristico4) {
+		this.vFurgonetas = vFurgonetas;
 		this.vEstaciones = vEstaciones;
-		this.bicisBenColocades = bicisBenColocades;
-		this.biciMalColocades = biciMalColocades;
-		this.costGasolina = costGasolina;
-		this.heuristic4 = heuristic4;
+		this.bicisBienColocadas = bicisBienColocadas;
+		this.bicisMalColocadas = bicisMalColocadas;
+		this.costeGasolina = costeGasolina;
+		this.heuristico4 = heuristico4;
 	}
 	/**
 	 * 
 	 * @return el vector de las furgonetas
 	 */
-	public Furgoneta[] getVfugorneta() {
-		return vfugorneta;
+	public Furgoneta[] getvFurgonetas() {
+		return vFurgonetas;
 	}
 	/**
 	 * 
-	 * @param vfugorneta
+	 * @param vFurgonetas
 	 */
-	public void setVfugorneta(Furgoneta[] vfugorneta) {
-		this.vfugorneta = vfugorneta;
+	public void setvFurgonetas(Furgoneta[] vFurgonetas) {
+		this.vFurgonetas = vFurgonetas;
 	}
 	public Integer[] getvEstaciones() {
 		return vEstaciones;
@@ -60,81 +59,81 @@ public class estado {
 	public void setvEstaciones(Integer[] vEstaciones) {
 		this.vEstaciones = vEstaciones;
 	}
-	public Integer getBicisBenColocades() {
-		return bicisBenColocades;
+	public Integer getBicisBienColocadas() {
+		return bicisBienColocadas;
 	}
-	public void setBicisBenColocades(Integer bicisBenColocades) {
-		this.bicisBenColocades = bicisBenColocades;
+	public void setBicisBienColocadas(Integer bicisBienColocadas) {
+		this.bicisBienColocadas = bicisBienColocadas;
 	}
-	public Integer getBiciMalColocades() {
-		return biciMalColocades;
+	public Integer getBicisMalColocadas() {
+		return bicisMalColocadas;
 	}
-	public void setBiciMalColocades(Integer biciMalColocades) {
-		this.biciMalColocades = biciMalColocades;
+	public void setBicisMalColocadas(Integer bicisMalColocadas) {
+		this.bicisMalColocadas = bicisMalColocadas;
 	}
-	public Double getCostGasolina() {
-		return costGasolina;
+	public Double getCosteGasolina() {
+		return costeGasolina;
 	}
-	public void setCostGasolina(Double costGasolina) {
-		this.costGasolina = costGasolina;
+	public void setCosteGasolina(Double costeGasolina) {
+		this.costeGasolina = costeGasolina;
 	}
-	public Double getHeuristic4() {
-		return heuristic4;
+	public Double getHeuristico4() {
+		return heuristico4;
 	}
-	public void setHeuristic4(Double heuristic4) {
-		this.heuristic4 = heuristic4;
+	public void setHeuristico4(Double heuristico4) {
+		this.heuristico4 = heuristico4;
 	}
 	
 	public void incrementarNNENP1(Integer n, Integer numFurgoneta){
-		vfugorneta[numFurgoneta].setNp1(vfugorneta[numFurgoneta].getNp1()+n);
+		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()+n);
 	}
 	public void incrementarNNENP2(Integer n, Integer numFurgoneta){
-		vfugorneta[numFurgoneta].setNp2(vfugorneta[numFurgoneta].getNp2()+n);
+		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()+n);
 	}
 	public void incrementarNNP1decrementarNP2(Integer n, Integer numFurgoneta){
-		vfugorneta[numFurgoneta].setNp2(vfugorneta[numFurgoneta].getNp2()-n);
-		vfugorneta[numFurgoneta].setNp1(vfugorneta[numFurgoneta].getNp1()+n);
+		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()-n);
+		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()+n);
 	}
 	
 	public void incrementarNNP2decrementarNP1(Integer n, Integer numFurgoneta){
-		vfugorneta[numFurgoneta].setNp2(vfugorneta[numFurgoneta].getNp2()+n);
-		vfugorneta[numFurgoneta].setNp1(vfugorneta[numFurgoneta].getNp1()-n);
+		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()+n);
+		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-n);
 	}
 	public void decrementarNNENP2(Integer n, Integer numFurgoneta){
-		vfugorneta[numFurgoneta].setNp2(vfugorneta[numFurgoneta].getNp2()-n);
+		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()-n);
 	}
 	public void decrementarNNENP1(Integer n, Integer numFurgoneta){
-		vfugorneta[numFurgoneta].setNp1(vfugorneta[numFurgoneta].getNp1()-n);
+		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-n);
 	}
 	public void intercambiarP1P2(Integer numFurgoneta){
-		Estacion P1=vfugorneta[numFurgoneta].getEstacioP1();
-		vfugorneta[numFurgoneta].setEstacioP1(vfugorneta[numFurgoneta].getEstacioP2());
-		vfugorneta[numFurgoneta].setEstacioP2(P1);
+		Estacion P1 = vFurgonetas[numFurgoneta].getEstacioP1();
+		vFurgonetas[numFurgoneta].setEstacioP1(vFurgonetas[numFurgoneta].getEstacioP2());
+		vFurgonetas[numFurgoneta].setEstacioP2(P1);
 	}
 	public void canviarP1(Integer numFurgoneta, Estacion EstacioP1){
-		vfugorneta[numFurgoneta].setEstacioP1(EstacioP1);
+		vFurgonetas[numFurgoneta].setEstacioP1(EstacioP1);
 	}
 	public void canviarP2(Integer numFurgoneta, Estacion EstacioP2){
-		vfugorneta[numFurgoneta].setEstacioP2(EstacioP2);
+		vFurgonetas[numFurgoneta].setEstacioP2(EstacioP2);
 	}
 	
-	private void adjustarNumero(Integer numFurgoneta){
-		if(vfugorneta[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()<vfugorneta[numFurgoneta].getNp1()+vfugorneta[numFurgoneta].getNp2()){
-			int diff=-vfugorneta[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()+vfugorneta[numFurgoneta].getNp1()+vfugorneta[numFurgoneta].getNp2();
+	private void ajustarNumero(Integer numFurgoneta){
+		if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()<vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2()){
+			int diff=-vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()+vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2();
 			int mig=diff/2;
-			vfugorneta[numFurgoneta].setNp1(vfugorneta[numFurgoneta].getNp1()-mig);
-			vfugorneta[numFurgoneta].setNp1(vfugorneta[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()-vfugorneta[numFurgoneta].getNp1());
+			vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-mig);
+			vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()-vFurgonetas[numFurgoneta].getNp1());
 		}
 		
 	}
 	
 	public void intercambiarEs(Integer numFurgoneta1, Integer numFurgoneta2){
 		
-		Estacion EF1=vfugorneta[numFurgoneta1].getEstacioE();
-		Estacion EF2=vfugorneta[numFurgoneta2].getEstacioE();
-		vfugorneta[numFurgoneta1].setEstacioE(EF2);
+		Estacion EF1=vFurgonetas[numFurgoneta1].getEstacioE();
+		Estacion EF2=vFurgonetas[numFurgoneta2].getEstacioE();
+		vFurgonetas[numFurgoneta1].setEstacioE(EF2);
 		
-		vfugorneta[numFurgoneta2].setEstacioE(EF1);
+		vFurgonetas[numFurgoneta2].setEstacioE(EF1);
 		Estaciones es=GeneraProblema.getEstaciones();
 		if(EF1 != null){
 			int index1=es.indexOf(EF1);
@@ -157,12 +156,12 @@ public class estado {
 		vEstaciones[index1]=fnum2;
 		vEstaciones[index2]=fnum1;
 		if(fnum1 != -1){
-			vfugorneta[fnum1].setEstacioE(numEstacion2);
+			vFurgonetas[fnum1].setEstacioE(numEstacion2);
 			adjustarNumero(fnum1);
 		}
 		
 		if(fnum2 != -1){
-			vfugorneta[fnum2].setEstacioE(numEstacion1);
+			vFurgonetas[fnum2].setEstacioE(numEstacion1);
 			adjustarNumero(fnum2);
 		}
 	}

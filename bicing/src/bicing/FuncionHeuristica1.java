@@ -6,7 +6,7 @@ public class FuncionHeuristica1 implements HeuristicFunction {
 
 	public double getHeuristicValue(Object state) {
 		Estado actual = (Estado) state;
-		double dif = actual.getBicisBenColocades() - actual.getBiciMalColocades();
+		double dif = actual.getBicisBienColocadas() - actual.getBicisMalColocadas();
 		return (dif);
 	}
 	
