@@ -13,7 +13,7 @@ import IA.Bicing.Estacion;
  * @author Patricia
  *
  */
-public class estado {
+public class Estado {
 
 	private Furgoneta[] vFurgonetas;
 	private Integer[] vEstaciones;
@@ -30,7 +30,7 @@ public class estado {
 	 * @param costeGasolina -> coste de la gasolina
 	 * @param heuristico4 -> valor del heuristico 4
 	 */
-	public estado(Furgoneta[] vFurgonetas, Integer[] vEstaciones, Integer bicisBienColocadas, Integer bicisMalColocadas,
+	public Estado(Furgoneta[] vFurgonetas, Integer[] vEstaciones, Integer bicisBienColocadas, Integer bicisMalColocadas,
 			Double costeGasolina, Double heuristico4) {
 		this.vFurgonetas = vFurgonetas;
 		this.vEstaciones = vEstaciones;
@@ -39,7 +39,7 @@ public class estado {
 		this.costeGasolina = costeGasolina;
 		this.heuristico4 = heuristico4;
 	}
-	public estado(estado E1){
+	public Estado(Estado E1){
 		
 		vEstaciones=E1.vEstaciones;
 		vFurgonetas=E1.vFurgonetas;
@@ -212,7 +212,7 @@ public class estado {
 	
 	
 	
-	public estado estadoInicial(int numF, int numE){
+	public Estado estadoInicial(int numF, int numE){
 		
 		int min= minim(numF,numE);
 		
@@ -283,7 +283,7 @@ public class estado {
 		for (int i=min;i<numE;++i){
 			vEst[i]=-1;
 		}
-		return new estado(vfurg,vEst,BSuman,Brestan,g,h);
+		return new Estado(vfurg,vEst,BSuman,Brestan,g,h);
 	}
 	
 	
