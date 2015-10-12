@@ -138,12 +138,12 @@ public class Estado {
 		if(EF1 != null){
 			int index1=es.indexOf(EF1);
 			vEstaciones[index1]=numFurgoneta2;
-			adjustarNumero(numFurgoneta2);
+			ajustarNumero(numFurgoneta2);
 		}
 		if(EF2 != null){
 			int index2=es.indexOf(EF2);
 			vEstaciones[index2]=numFurgoneta1;
-			adjustarNumero(numFurgoneta1);
+			ajustarNumero(numFurgoneta1);
 		}
 	}
 	
@@ -157,12 +157,12 @@ public class Estado {
 		vEstaciones[index2]=fnum1;
 		if(fnum1 != -1){
 			vFurgonetas[fnum1].setEstacioE(numEstacion2);
-			adjustarNumero(fnum1);
+			ajustarNumero(fnum1);
 		}
 		
 		if(fnum2 != -1){
 			vFurgonetas[fnum2].setEstacioE(numEstacion1);
-			adjustarNumero(fnum2);
+			ajustarNumero(fnum2);
 		}
 	}
 	
@@ -175,7 +175,7 @@ public class Estado {
 	
 	
 	
-	public estado estadoInicial(int numF, int numE){
+	public Estado estadoInicial(int numF, int numE){
 		
 		int min= minim(numF,numE);
 		
@@ -246,7 +246,7 @@ public class Estado {
 		for (int i=min;i<numE;++i){
 			vEst[i]=-1;
 		}
-		return new estado(vfurg,vEst,BSuman,Brestan,g,h);
+		return new Estado(vfurg,vEst,BSuman,Brestan,g,h);
 	}
 	
 	
