@@ -85,7 +85,7 @@ public class Operadores {
 	public static Estado decNeNp1(Estado e, int f) {
 		Estado ret = new Estado(e);
 		ret.decrementarNNENP1(num, f);
-		if (neNegativo(ret,f)) return null;
+		if (ret.getvFurgonetas()[f].getNp1() < 0) return null;
 		//TODO recálculo cosas
 		updateCosteFurgoneta(e,ret,f);
 		return ret;
@@ -94,24 +94,24 @@ public class Operadores {
 	public static Estado decNeNp2(Estado e, int f) {
 		Estado ret = new Estado(e);
 		ret.decrementarNNENP2(num, f);
-		if (neNegativo(ret,f)) return null;
+		if (ret.getvFurgonetas()[f].getNp2() < 0) return null;
 		//TODO recálculo cosas
 		return ret;
 	}
 	
 	public static Estado incNp1decNp2(Estado e, int f) {
 		Estado ret = new Estado(e);
-		//TODO condición de aplicabilidad
-		ret.incrementarNNENP1(num, f);
 		ret.decrementarNNENP2(num, f);
+		if (ret.getvFurgonetas()[f].getNp2() < 0) return null;
+		ret.incrementarNNENP1(num, f);
 		//TODO recálculo cosas
 		return ret;
 	}
 	
 	public static Estado decNp1incNp2(Estado e, int f) {
 		Estado ret = new Estado(e);
-		//TODO condición de aplicabilidad
 		ret.decrementarNNENP1(num, f);
+		if (ret.getvFurgonetas()[f].getNp1() < 0) return null;
 		ret.incrementarNNENP2(num, f);
 		//TODO recálculo cosas
 		return ret;
