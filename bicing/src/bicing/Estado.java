@@ -13,7 +13,7 @@ import IA.Bicing.Estacion;
  * @author Patricia
  *
  */
-public class Estado {
+public class estado {
 
 	private Furgoneta[] vFurgonetas;
 	private Integer[] vEstaciones;
@@ -30,7 +30,7 @@ public class Estado {
 	 * @param costeGasolina -> coste de la gasolina
 	 * @param heuristico4 -> valor del heuristico 4
 	 */
-	public Estado(Furgoneta[] vFurgonetas, Integer[] vEstaciones, Integer bicisBienColocadas, Integer bicisMalColocadas,
+	public estado(Furgoneta[] vFurgonetas, Integer[] vEstaciones, Integer bicisBienColocadas, Integer bicisMalColocadas,
 			Double costeGasolina, Double heuristico4) {
 		this.vFurgonetas = vFurgonetas;
 		this.vEstaciones = vEstaciones;
@@ -39,6 +39,17 @@ public class Estado {
 		this.costeGasolina = costeGasolina;
 		this.heuristico4 = heuristico4;
 	}
+	public estado(estado E1){
+		
+		vEstaciones=E1.vEstaciones;
+		vFurgonetas=E1.vFurgonetas;
+		bicisBienColocadas=E1.bicisBienColocadas;
+		bicisMalColocadas=E1.bicisMalColocadas;
+		costeGasolina=E1.costeGasolina;
+		heuristico4=E1.heuristico4;
+		
+	}
+	
 	/**
 	 * 
 	 * @return el vector de las furgonetas
@@ -175,7 +186,7 @@ public class Estado {
 	
 	
 	
-	public Estado estadoInicial(int numF, int numE){
+	public estado estadoInicial(int numF, int numE){
 		
 		int min= minim(numF,numE);
 		
@@ -246,7 +257,7 @@ public class Estado {
 		for (int i=min;i<numE;++i){
 			vEst[i]=-1;
 		}
-		return new Estado(vfurg,vEst,BSuman,Brestan,g,h);
+		return new estado(vfurg,vEst,BSuman,Brestan,g,h);
 	}
 	
 	
