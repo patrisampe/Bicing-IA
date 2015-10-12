@@ -175,7 +175,7 @@ public class estado {
 	
 	
 	
-	public estado estadoInicial(int numF, int numE){
+	public Estado estadoInicial(int numF, int numE){
 		
 		int min= minim(numF,numE);
 		
@@ -246,7 +246,7 @@ public class estado {
 		for (int i=min;i<numE;++i){
 			vEst[i]=-1;
 		}
-		return new estado(vfurg,vEst,BSuman,Brestan,g,h);
+		return new Estado(vfurg,vEst,BSuman,Brestan,g,h);
 	}
 	
 	
