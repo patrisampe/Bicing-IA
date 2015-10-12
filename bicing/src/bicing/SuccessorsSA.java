@@ -23,18 +23,25 @@ public class SuccessorsSA implements SuccessorFunction {
 		if (op == 4) sucesores.add(Operadores.incNeNp2(e, f));
 		if (op == 5) sucesores.add(Operadores.incNp1decNp2(e, f));
 		if (op == 6) sucesores.add(Operadores.decNp1incNp2(e, f));
-		op -= 7;
-		if (op < e.getvEstaciones().length) sucesores.add(Operadores.modificarP1(e, f, op));
-		op -= e.getvEstaciones().length;
-		if (op < e.getvEstaciones().length) sucesores.add(Operadores.modificarP2(e, f, op));
-		op -= e.getvEstaciones().length;
-		int a = 0;
-		for (int i = e.getvEstaciones().length-1; i < op; --i) { //seguro que se puede hacer mejor
-			op -= i;
-			++a;
+		if (op >= 7) {
+			op -= 7;
+			if (op < e.getvEstaciones().length) sucesores.add(Operadores.modificarP1(e, f, op));
+			else {
+				op -= e.getvEstaciones().length;
+				if (op < e.getvEstaciones().length) sucesores.add(Operadores.modificarP2(e, f, op));
+				else {
+					op -= e.getvEstaciones().length;
+					int a = 0;
+					for (int i = e.getvEstaciones().length-1; i < op; --i) { //seguro que se puede hacer mejor
+						op -= i;
+						++a;
+					}
+					int b = op;
+					sucesores.add(Operadores.intercambiarE(e, f, a, b));
+				}
+			}
 		}
-		int b = op;
-		sucesores.add(Operadores.intercambiarE(e, f, a, b));
+		if (sucesores.get(0) == null) return getSuccessors(e); 
 		return sucesores;
 	}
 
