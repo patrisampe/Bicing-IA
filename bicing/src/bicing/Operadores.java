@@ -8,10 +8,33 @@ public class Operadores {
 	
 	public static int num = 1;
 	
-	private static boolean neSePasa(Estado e, int f) {
+
+	private static void updateBicisBienFurgoneta(Estado ini, Estado fin, int f) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private static void updateBicisMalFurgoneta(Estado e, Estado ret, int f) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private static void updateH4Furgoneta(Estado ini, Estado fi, int f) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private static void updateCompletoFurgoneta(Estado ini, Estado fi, int f) {
+		updateBicisBienFurgoneta(ini,fi,f);
+		updateBicisMalFurgoneta(ini,fi,f);
+		updateCosteFurgoneta(ini,fi,f);
+		updateH4Furgoneta(ini,fi,f);
+	}
+	
+	private static boolean neSePasaria(Estado e, int f) {
 		Furgoneta furgo = e.getvFurgonetas()[f];
 		int np1 = furgo.getNp1(), np2 = furgo.getNp2();
-		return np1+np2 > furgo.getEstacioE().getNumBicicletasNoUsadas();
+		return np1+np2+num > furgo.getEstacioE().getNumBicicletasNoUsadas();
 	}
 	
 	private static void updateCosteFurgoneta (Estado inicial, Estado sucesor, int f) {
@@ -36,75 +59,76 @@ public class Operadores {
 	public static Estado intercambiarE(Estado e, int a, int b) {
 		Estado ret = new Estado(e);
 		e.intercambiarE(a, b);
-		//TODO recálculo cosas
+		int f1 = e.getvEstaciones()[a], f2 = e.getvEstaciones()[b];
+		if (f1 != -1) updateCompletoFurgoneta(e,ret,f1);
+		if (f2 != -1) updateCompletoFurgoneta(e,ret,f2);
 		return ret;
 	}
 	
 	public static Estado modificarP1(Estado e, int f, int p) {
 		Estado ret = new Estado(e);
 		ret.canviarP1(f,p);
-		//TODO recálculo cosas
+		updateCompletoFurgoneta(e,ret,f);
 		return ret;
 	}
-	
+
 	public static Estado modificarP2(Estado e, int f, int p) {
 		Estado ret = new Estado(e);
 		ret.canviarP2(f,p);
-		//TODO recálculo cosas
+		updateCompletoFurgoneta(e,ret,f);
 		return ret;
 	}
 	
 	public static Estado intercambiarP1P2(Estado e, int f) {
 		Estado ret = new Estado(e);
 		ret.intercambiarP1P2(f);
-		//TODO, si se no se intercambia también el número hay que recalcular las bicis bien colocadas
 		updateCosteFurgoneta(e,ret,f);
+		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	
 	
 	public static Estado incNeNp1(Estado e, int f) {
+		if (neSePasaria(e,f)) return null;
 		Estado ret = new Estado(e);
 		ret.incrementarNNENP1(num, f);
-		if (neSePasa(ret,f)) return null;
-		//TODO recálculo cosas
-		updateCosteFurgoneta(e,ret,f);
+		updateCompletoFurgoneta(e,ret,f);
 		return ret;
 	}
 	
 	public static Estado incNeNp2(Estado e, int f) {
+		if (neSePasaria(e,f)) return null;
 		Estado ret = new Estado(e);
 		ret.incrementarNNENP2(num, f);
-		if (neSePasa(ret,f)) return null;
-		//TODO recálculo cosas
-		updateCosteFurgoneta(e,ret,f);
+		updateCompletoFurgoneta(e,ret,f);
 		return ret;
 	}
 	
 
 	public static Estado decNeNp1(Estado e, int f) {
 		Estado ret = new Estado(e);
+		if (ret.getvFurgonetas()[f].getNp1() < 1) return null;
 		ret.decrementarNNENP1(num, f);
-		if (ret.getvFurgonetas()[f].getNp1() < 0) return null;
-		//TODO recálculo cosas
-		updateCosteFurgoneta(e,ret,f);
+		updateCompletoFurgoneta(e,ret,f);
 		return ret;
 	}
 
 	public static Estado decNeNp2(Estado e, int f) {
 		Estado ret = new Estado(e);
+		if (ret.getvFurgonetas()[f].getNp2() < 1) return null;
 		ret.decrementarNNENP2(num, f);
-		if (ret.getvFurgonetas()[f].getNp2() < 0) return null;
-		//TODO recálculo cosas
+		updateCompletoFurgoneta(e,ret,f);
 		return ret;
 	}
-	
+
 	public static Estado incNp1decNp2(Estado e, int f) {
 		Estado ret = new Estado(e);
 		ret.decrementarNNENP2(num, f);
 		if (ret.getvFurgonetas()[f].getNp2() < 0) return null;
 		ret.incrementarNNENP1(num, f);
-		//TODO recálculo cosas
+		updateBicisBienFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
+		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	
@@ -113,7 +137,9 @@ public class Operadores {
 		ret.decrementarNNENP1(num, f);
 		if (ret.getvFurgonetas()[f].getNp1() < 0) return null;
 		ret.incrementarNNENP2(num, f);
-		//TODO recálculo cosas
+		updateBicisBienFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
+		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	

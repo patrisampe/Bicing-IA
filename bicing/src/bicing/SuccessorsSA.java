@@ -15,7 +15,7 @@ public class SuccessorsSA implements SuccessorFunction {
 		Random r = new Random();
 		List<Estado> sucesores = new ArrayList<Estado>();
 		int f = r.nextInt(e.getvFurgonetas().length);
-		int op = r.nextInt(7+e.getvEstaciones().length*2+(e.getvEstaciones().length)*(e.getvEstaciones().length-1)/2);
+		int op = r.nextInt(7+e.getvEstaciones().length*3);
 		if (op == 0) sucesores.add(Operadores.intercambiarP1P2(e, f));
 		if (op == 1) sucesores.add(Operadores.decNeNp1(e, f));
 		if (op == 2) sucesores.add(Operadores.incNeNp1(e, f));
@@ -31,13 +31,8 @@ public class SuccessorsSA implements SuccessorFunction {
 				if (op < e.getvEstaciones().length) sucesores.add(Operadores.modificarP2(e, f, op));
 				else {
 					op -= e.getvEstaciones().length;
-					int a = 0;
-					for (int i = e.getvEstaciones().length-1; i < op; --i) { //seguro que se puede hacer mejor
-						op -= i;
-						++a;
-					}
-					int b = op;
-					sucesores.add(Operadores.intercambiarE(e, f, a, b));
+					int b = GeneraProblema.getEstaciones().indexOf(e.getvFurgonetas()[f].getEstacioE());
+					sucesores.add(Operadores.intercambiarE(e, op, b));
 				}
 			}
 		}
