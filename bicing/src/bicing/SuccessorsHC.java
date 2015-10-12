@@ -3,7 +3,6 @@ package bicing;
 import java.util.ArrayList;
 import java.util.List;
 
-import IA.Bicing.Estacion;
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
 
@@ -21,10 +20,9 @@ public class SuccessorsHC implements SuccessorFunction {
 			for (int p= 0; p < e.getvEstaciones().length; ++p) {
 				sucesores.add(Operadores.modificarP2(e, i, p));
 			}
-			for (int a = 0; a < e.getvEstaciones().length; ++a) {
-				for (int b = a+1; b < e.getvEstaciones().length; ++b) {
-					sucesores.add(Operadores.intercambiarE(e, i, a, b));
-				}
+			int b = GeneraProblema.getEstaciones().indexOf(e.getvFurgonetas()[i].getEstacioE());
+			for (int p= 0; p < e.getvEstaciones().length; ++p) {
+				sucesores.add(Operadores.intercambiarE(e, p, b));
 			}
 			sucesores.add(Operadores.intercambiarP1P2(e, i));
 			sucesores.add(Operadores.decNeNp1(e, i));

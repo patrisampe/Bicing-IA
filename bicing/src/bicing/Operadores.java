@@ -1,6 +1,6 @@
 package bicing;
 
-import IA.Bicing.Estacion;
+import IA.Bicing.*;
 
 public class Operadores {
 	
@@ -33,7 +33,7 @@ public class Operadores {
 	}
 
 	
-	public static Estado intercambiarE(Estado e, int f, int a, int b) {
+	public static Estado intercambiarE(Estado e, int a, int b) {
 		Estado ret = new Estado(e);
 		e.intercambiarE(a, b);
 		//TODO recálculo cosas
