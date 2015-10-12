@@ -30,7 +30,7 @@ public class estado {
 	 * @param costeGasolina -> coste de la gasolina
 	 * @param heuristico4 -> valor del heuristico 4
 	 */
-	public estado(Furgoneta[] vFurgonetas, Integer[] vEstaciones, Integer bicisBienColocadas, Integer bicisMalColocadas,
+	public Estado(Furgoneta[] vFurgonetas, Integer[] vEstaciones, Integer bicisBienColocadas, Integer bicisMalColocadas,
 			Double costeGasolina, Double heuristico4) {
 		this.vFurgonetas = vFurgonetas;
 		this.vEstaciones = vEstaciones;
@@ -39,14 +39,14 @@ public class estado {
 		this.costeGasolina = costeGasolina;
 		this.heuristico4 = heuristico4;
 	}
-	public estado(estado E1){
+	public Estado(Estado E1){
 		
 		vEstaciones=E1.vEstaciones;
 		vFurgonetas=E1.vFurgonetas;
 		bicisBienColocadas=E1.bicisBienColocadas;
 		bicisMalColocadas=E1.bicisMalColocadas;
 		costeGasolina=E1.costeGasolina;
-		heuristico4= E1.heuristico4;
+		heuristico4=E1.heuristico4;
 		
 	}
 	
@@ -128,16 +128,6 @@ public class estado {
 		vFurgonetas[numFurgoneta].setEstacioP2(EstacioP2);
 	}
 	
-	public void canviarP1(Integer numFurgoneta, Integer EstacioP1){
-		Estaciones est=GeneraProblema.getEstaciones();
-		vFurgonetas[numFurgoneta].setEstacioP1(est.get(EstacioP1));
-	}
-	public void canviarP2(Integer numFurgoneta, Integer EstacioP2){
-		Estaciones est=GeneraProblema.getEstaciones();
-		vFurgonetas[numFurgoneta].setEstacioP1(est.get(EstacioP2));
-	}
-	
-	
 	private void ajustarNumero(Integer numFurgoneta){
 		if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()<vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2()){
 			int diff=-vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()+vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2();
@@ -168,7 +158,10 @@ public class estado {
 		}
 	}
 	
-	private void intercambiarprivate(Estacion numEstacion1,Estacion numEstacion2, Integer index1,Integer index2){
+	public void intercambiarE(Estacion numEstacion1, Estacion numEstacion2){
+		Estaciones es=GeneraProblema.getEstaciones();
+		int index1=es.indexOf(numEstacion1);
+		int index2=es.indexOf(numEstacion2);
 		int fnum1=vEstaciones[index1];
 		int fnum2=vEstaciones[index2];
 		vEstaciones[index1]=fnum2;
@@ -182,25 +175,6 @@ public class estado {
 			vFurgonetas[fnum2].setEstacioE(numEstacion1);
 			ajustarNumero(fnum2);
 		}
-		
-		
-	}
-	
-	public void intercambiarE(Estacion numEstacion1, Estacion numEstacion2){
-		Estaciones es=GeneraProblema.getEstaciones();
-		int index1=es.indexOf(numEstacion1);
-		int index2=es.indexOf(numEstacion2);
-		intercambiarprivate(numEstacion1,numEstacion2,index1,index2);
-	}
-	
-	
-	
-	
-	public void intercambiarE(Integer numEstacion1, Integer numEstacion2){
-		Estaciones es=GeneraProblema.getEstaciones();
-		Estacion e1=es.get(numEstacion1);
-		Estacion e2=es.get(numEstacion2);
-		intercambiarprivate(e1,e2,numEstacion1,numEstacion2);
 	}
 	
 	private int minim(int a,int b){
@@ -212,7 +186,7 @@ public class estado {
 	
 	
 	
-	public estado estadoInicial(int numF, int numE){
+	public Estado estadoInicial(int numF, int numE){
 		
 		int min= minim(numF,numE);
 		
@@ -283,7 +257,7 @@ public class estado {
 		for (int i=min;i<numE;++i){
 			vEst[i]=-1;
 		}
-		return new estado(vfurg,vEst,BSuman,Brestan,g,h);
+		return new Estado(vfurg,vEst,BSuman,Brestan,g,h);
 	}
 	
 	

@@ -134,7 +134,7 @@ public class estado {
 	}
 	public void canviarP2(Integer numFurgoneta, Integer EstacioP2){
 		Estaciones est=GeneraProblema.getEstaciones();
-		vFurgonetas[numFurgoneta].setEstacioP1(est.get(EstacioP2));
+		vFurgonetas[numFurgoneta].setEstacioP1(est.get(EstacioP1));
 	}
 	
 	
