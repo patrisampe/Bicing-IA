@@ -10,7 +10,8 @@ public class Main {
 		int nbic = s.nextInt();
 		int dem = s.nextInt();
 		int seed = s.nextInt();
-		new GeneraProblema(nest, nbic, dem, seed);
+		GeneraProblema a=new GeneraProblema();
+		a.CrearProblema(nest, nbic, dem, seed);
 		s.close();
 	}
 }

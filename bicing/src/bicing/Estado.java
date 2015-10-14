@@ -428,7 +428,6 @@ public class Estado {
 			Integer d1=(t+9)/10;
 			Integer d2=(np2+9)/10;
 			gau=d1*km1+d2*(km1+km2);
-			h=h+(Bsu-Brau)/gau;
 			BSuman=BSuman+Brau;
 			Brestan=Brestan+Brau;
 			g=g+gau;
@@ -439,9 +438,9 @@ public class Estado {
 		}
 		
 		for (int i=min;i<numE;++i){
-			vEst[i]=-1;
+			vEst[i].setFurg(-1);
 		}
-		return new Estado(vfurg,vEst,BSuman,Brestan,g,h);
+		return new Estado(vfurg,vEst,g,BSuman,Brestan);
 	}
 	
 	
