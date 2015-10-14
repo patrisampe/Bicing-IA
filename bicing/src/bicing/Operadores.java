@@ -25,7 +25,7 @@ public class Operadores {
 	}
 	
 	private static int bicisMal(Estado e, int f) {
-		Furgoneta furgo = ini.getvFurgonetas()[f];
+		Furgoneta furgo = e.getvFurgonetas()[f];
 		int mal = furgo.getNp1()+furgo.getNp2()-furgo.getEstacioE().getNumBicicletasNoUsadas();
 		if (mal < 0) mal = 0;
 		return mal;
