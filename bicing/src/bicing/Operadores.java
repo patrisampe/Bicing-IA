@@ -12,16 +12,12 @@ public class Operadores {
 	private static void updateBicisBienFurgoneta(Estado ini, Estado suc, int f) {
 		// TODO Auto-generated method stub
 		
-		
 	}
 	
 	private static void updateBicisMalFurgoneta(Estado ini, Estado suc, int f) {
-		// TODO Auto-generated method stub
 		int malabans = bicisMal(ini,f);
 		int maldespres = bicisMal(suc,f);
-		suc.
-		
-		
+		suc.setBicisMalColocadas(ini.getBicisMalColocadas()-malabans+maldespres);	
 	}
 	
 	private static int bicisMal(Estado e, int f) {
