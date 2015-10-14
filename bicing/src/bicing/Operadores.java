@@ -9,16 +9,28 @@ public class Operadores {
 	public static int num = 1;
 	
 
-	private static void updateBicisBienFurgoneta(Estado ini, Estado fin, int f) {
+	private static void updateBicisBienFurgoneta(Estado ini, Estado suc, int f) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 	
-	private static void updateBicisMalFurgoneta(Estado e, Estado ret, int f) {
+	private static void updateBicisMalFurgoneta(Estado ini, Estado suc, int f) {
 		// TODO Auto-generated method stub
+		int malabans = bicisMal(ini,f);
+		int maldespres = bicisMal(suc,f);
+		suc.
+		
 		
 	}
 	
+	private static int bicisMal(Estado e, int f) {
+		Furgoneta furgo = ini.getvFurgonetas()[f];
+		int mal = furgo.getNp1()+furgo.getNp2()-furgo.getEstacioE().getNumBicicletasNoUsadas();
+		if (mal < 0) mal = 0;
+		return mal;
+	}
+
 	private static void updateCompletoFurgoneta(Estado ini, Estado fi, int f) {
 		updateBicisBienFurgoneta(ini,fi,f);
 		updateBicisMalFurgoneta(ini,fi,f);
