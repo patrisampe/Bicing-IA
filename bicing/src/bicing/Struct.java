@@ -13,6 +13,12 @@ public class Struct {
 		this.bicisColocades = bicisColocades;
 	}
 	
+	public Struct(){
+		furg=-1;
+		bicisColocades=0;
+		
+	}
+	
 	public Struct(Struct S){
 		furg=S.furg;
 		bicisColocades=S.bicisColocades;
