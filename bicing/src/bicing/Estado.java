@@ -2,10 +2,10 @@ package bicing;
 
 import java.util.Random;
 import IA.Bicing.Estaciones;
-
 import IA.Bicing.Estacion;
+
 /**
- * Projecto de IA- Busqueda local
+ * Proyecto de IA- Busqueda local
  * 
  * Clase que define el estado del problema.
  * 
