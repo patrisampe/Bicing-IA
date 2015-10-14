@@ -19,16 +19,10 @@ public class Operadores {
 		
 	}
 	
-	private static void updateH4Furgoneta(Estado ini, Estado fi, int f) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	private static void updateCompletoFurgoneta(Estado ini, Estado fi, int f) {
 		updateBicisBienFurgoneta(ini,fi,f);
 		updateBicisMalFurgoneta(ini,fi,f);
 		updateCosteFurgoneta(ini,fi,f);
-		updateH4Furgoneta(ini,fi,f);
 	}
 	
 	private static boolean neSePasaria(Estado e, int f) {
@@ -59,7 +53,7 @@ public class Operadores {
 	public static Estado intercambiarE(Estado e, int a, int b) {
 		Estado ret = new Estado(e);
 		e.intercambiarE(a, b);
-		int f1 = e.getvEstaciones()[a], f2 = e.getvEstaciones()[b];
+		int f1 = e.getvEstaciones()[a].getFurg(), f2 = e.getvEstaciones()[b].getFurg();
 		if (f1 != -1) updateCompletoFurgoneta(e,ret,f1);
 		if (f2 != -1) updateCompletoFurgoneta(e,ret,f2);
 		return ret;
@@ -83,7 +77,6 @@ public class Operadores {
 		Estado ret = new Estado(e);
 		ret.intercambiarP1P2(f);
 		updateCosteFurgoneta(e,ret,f);
-		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	
@@ -128,7 +121,6 @@ public class Operadores {
 		ret.incrementarNNENP1(num, f);
 		updateBicisBienFurgoneta(e,ret,f);
 		updateCosteFurgoneta(e,ret,f);
-		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	
@@ -139,7 +131,6 @@ public class Operadores {
 		ret.incrementarNNENP2(num, f);
 		updateBicisBienFurgoneta(e,ret,f);
 		updateCosteFurgoneta(e,ret,f);
-		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	
