@@ -9,26 +9,28 @@ public class Operadores {
 	public static int num = 1;
 	
 
-	private static void updateBicisBienFurgoneta(Estado ini, Estado fin, int f) {
+	private static void updateBicisBienFurgoneta(Estado ini, Estado suc, int f) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	private static void updateBicisMalFurgoneta(Estado e, Estado ret, int f) {
-		// TODO Auto-generated method stub
-		
+	private static void updateBicisMalFurgoneta(Estado ini, Estado suc, int f) {
+		int malabans = bicisMal(ini,f);
+		int maldespres = bicisMal(suc,f);
+		suc.setBicisMalColocadas(ini.getBicisMalColocadas()-malabans+maldespres);	
 	}
 	
-	private static void updateH4Furgoneta(Estado ini, Estado fi, int f) {
-		// TODO Auto-generated method stub
-		
+	private static int bicisMal(Estado e, int f) {
+		Furgoneta furgo = e.getvFurgonetas()[f];
+		int mal = furgo.getNp1()+furgo.getNp2()-furgo.getEstacioE().getNumBicicletasNoUsadas();
+		if (mal < 0) mal = 0;
+		return mal;
 	}
-	
+
 	private static void updateCompletoFurgoneta(Estado ini, Estado fi, int f) {
 		updateBicisBienFurgoneta(ini,fi,f);
 		updateBicisMalFurgoneta(ini,fi,f);
 		updateCosteFurgoneta(ini,fi,f);
-		updateH4Furgoneta(ini,fi,f);
 	}
 	
 	private static boolean neSePasaria(Estado e, int f) {
@@ -59,7 +61,7 @@ public class Operadores {
 	public static Estado intercambiarE(Estado e, int a, int b) {
 		Estado ret = new Estado(e);
 		e.intercambiarE(a, b);
-		int f1 = e.getvEstaciones()[a], f2 = e.getvEstaciones()[b];
+		int f1 = e.getvEstaciones()[a].getFurg(), f2 = e.getvEstaciones()[b].getFurg();
 		if (f1 != -1) updateCompletoFurgoneta(e,ret,f1);
 		if (f2 != -1) updateCompletoFurgoneta(e,ret,f2);
 		return ret;
@@ -83,7 +85,6 @@ public class Operadores {
 		Estado ret = new Estado(e);
 		ret.intercambiarP1P2(f);
 		updateCosteFurgoneta(e,ret,f);
-		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	
@@ -128,7 +129,6 @@ public class Operadores {
 		ret.incrementarNNENP1(num, f);
 		updateBicisBienFurgoneta(e,ret,f);
 		updateCosteFurgoneta(e,ret,f);
-		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	
@@ -139,7 +139,6 @@ public class Operadores {
 		ret.incrementarNNENP2(num, f);
 		updateBicisBienFurgoneta(e,ret,f);
 		updateCosteFurgoneta(e,ret,f);
-		updateH4Furgoneta(e,ret,f);
 		return ret;
 	}
 	
