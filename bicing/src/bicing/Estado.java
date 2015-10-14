@@ -1,5 +1,6 @@
 package bicing;
 
+import java.util.Arrays;
 import java.util.Random;
 import IA.Bicing.Estaciones;
 import IA.Bicing.Estacion;
@@ -15,88 +16,64 @@ import IA.Bicing.Estacion;
  */
 public class Estado {
 
+
+
+
 	private Furgoneta[] vFurgonetas;
-	private Integer[] vEstaciones;
-	private Integer bicisBienColocadas;
-	private Integer bicisMalColocadas;
+	private Struct[] vEstaciones;
+   
 	private Double costeGasolina;
-	private Double heuristico4;
-	/**
-	 * Constructor de la clase
-	 * @param vFurgonetas -> vector de la clase Furgoneta, donde cada posicion es una furgoneta diferente
-	 * @param vEstaciones -> vector de enteros, cada posicion es una estacion y el valor de cada posicion el entero que representa cada furgoneta
-	 * @param bicisBienColocadas -> numero de bicicletas que te hacen ganar 1 euro
-	 * @param bicisMalColocadas -> numero de bicicletas que te hacen perder 1 euro
-	 * @param costeGasolina -> coste de la gasolina
-	 * @param heuristico4 -> valor del heuristico 4
-	 */
-	public Estado(Furgoneta[] vFurgonetas, Integer[] vEstaciones, Integer bicisBienColocadas, Integer bicisMalColocadas,
-			Double costeGasolina, Double heuristico4) {
+	
+	public Estado(Furgoneta[] vFurgonetas, Struct[] vEstaciones, Double costeGasolina) {
 		this.vFurgonetas = vFurgonetas;
 		this.vEstaciones = vEstaciones;
-		this.bicisBienColocadas = bicisBienColocadas;
-		this.bicisMalColocadas = bicisMalColocadas;
 		this.costeGasolina = costeGasolina;
-		this.heuristico4 = heuristico4;
-	}
-	public Estado(Estado E1){
-		
-		vEstaciones=E1.vEstaciones;
-		vFurgonetas=E1.vFurgonetas;
-		bicisBienColocadas=E1.bicisBienColocadas;
-		bicisMalColocadas=E1.bicisMalColocadas;
-		costeGasolina=E1.costeGasolina;
-		heuristico4= E1.heuristico4;
-		
 	}
 	
-	/**
-	 * 
-	 * @return el vector de las furgonetas
-	 */
+	private Furgoneta[] copyvFurg(Furgoneta[] vFurg){
+		Furgoneta[] newe = new Furgoneta[vFurg.length];
+		for(int i=0; i<vFurg.length;++i){
+			newe[i]= new Furgoneta(vFurg[i]);
+		}
+		return newe;
+	}
+	
+	private Struct[] copyvStruct(Struct[] vSt){
+		Struct[] newe = new Struct[vSt.length];
+		for(int i=0; i<vSt.length;++i){
+			newe[i]= new Struct(vSt[i]);
+		}
+		return newe;
+	}
+	
+	public Estado(Estado E1){
+		vFurgonetas=copyvFurg(E1.vFurgonetas);
+		vEstaciones=copyvStruct(E1.vEstaciones);
+		costeGasolina=E1.costeGasolina;
+		
+	}
 	public Furgoneta[] getvFurgonetas() {
 		return vFurgonetas;
 	}
-	/**
-	 * 
-	 * @param vFurgonetas
-	 */
 	public void setvFurgonetas(Furgoneta[] vFurgonetas) {
 		this.vFurgonetas = vFurgonetas;
 	}
-	public Integer[] getvEstaciones() {
+	public Struct[] getvEstaciones() {
 		return vEstaciones;
 	}
-	public void setvEstaciones(Integer[] vEstaciones) {
+	public void setvEstaciones(Struct[] vEstaciones) {
 		this.vEstaciones = vEstaciones;
 	}
-	public Integer getBicisBienColocadas() {
-		return bicisBienColocadas;
-	}
-	public void setBicisBienColocadas(Integer bicisBienColocadas) {
-		this.bicisBienColocadas = bicisBienColocadas;
-	}
-	public Integer getBicisMalColocadas() {
-		return bicisMalColocadas;
-	}
-	public void setBicisMalColocadas(Integer bicisMalColocadas) {
-		this.bicisMalColocadas = bicisMalColocadas;
-	}
+	
 	public Double getCosteGasolina() {
 		return costeGasolina;
 	}
 	public void setCosteGasolina(Double costeGasolina) {
 		this.costeGasolina = costeGasolina;
 	}
-	public Double getHeuristico4() {
-		return heuristico4;
-	}
-	public void setHeuristico4(Double heuristico4) {
-		this.heuristico4 = heuristico4;
-	}
-	
 	public void incrementarNNENP1(Integer n, Integer numFurgoneta){
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()+n);
+		
 	}
 	public void incrementarNNENP2(Integer n, Integer numFurgoneta){
 		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()+n);

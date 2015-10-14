@@ -26,6 +26,15 @@ public class Furgoneta {
 		this.np2 = 0;
 	}
 	
+	public Furgoneta(Furgoneta F1){
+		
+		estacioE=F1.estacioE;
+		estacioP1=F1.estacioP1;
+		estacioP2=F1.estacioP2;
+		np1=F1.np1;
+		np2=F1.np2;
+	}
+	
 	public Estacion getEstacioE() {
 		return estacioE;
 	}
