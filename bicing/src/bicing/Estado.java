@@ -118,15 +118,18 @@ public class Estado {
 		
 	}
 	
+
 	
-	private Integer bicisMalColocadas(Integer np1,Integer np2,Integer nsobre){
-		Integer t= np1+np2;
+	private Integer bicisMalColocadas(Integer t,Integer nsobre){
+		
 		if (nsobre <0)return t;
 		else if(t>nsobre) return (t-nsobre);
 		return 0;
 		
 	}
-	
+	private Integer bicisMalColocadas(Integer np1,Integer np2,Integer nsobre){
+		return bicisMalColocadas(np1+np2,nsobre);
+	}
 	private void RecalcularBicisMal(Estacion e, Integer abansnpc, Integer aranpc,Integer nes){
 		
 		Integer nsobre=e.getDemanda()-e.getNumBicicletasNext();
@@ -255,9 +258,22 @@ public class Estado {
 		if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()<vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2()){
 			int diff=-vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()+vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2();
 			int mig=diff/2;
+			Estaciones vest=GeneraProblema.getEstaciones();
+			Estacion P1=vFurgonetas[numFurgoneta].getEstacioP1();
+			Estacion P2=vFurgonetas[numFurgoneta].getEstacioP2();
+			Integer ne1=vEstaciones[vest.indexOf(P1)].getBicisColocades();
+			Integer ne2=vEstaciones[vest.indexOf(P2)].getBicisColocades();
 			vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-mig);
-			vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()-vFurgonetas[numFurgoneta].getNp1());
+			Integer np2=vFurgonetas[numFurgoneta].getNp2();
+			vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()-vFurgonetas[numFurgoneta].getNp1());
+			vEstaciones[vest.indexOf(P1)].restaNBicis(mig);
+			vEstaciones[vest.indexOf(P2)].restaNBicis(np2-vFurgonetas[numFurgoneta].getNp2());
+			vEstaciones[vest.indexOf(vFurgonetas[numFurgoneta].getEstacioE())].restaNBicis(diff);
+			RecalcularBicisBien(P1,ne1,ne1-mig);
+			RecalcularBicisBien(P1,ne2,ne2-(np2-vFurgonetas[numFurgoneta].getNp2()));
 		}
+		
+		
 		
 	}
 	
@@ -266,35 +282,62 @@ public class Estado {
 		
 		Estacion EF1=vFurgonetas[numFurgoneta1].getEstacioE();
 		Estacion EF2=vFurgonetas[numFurgoneta2].getEstacioE();
-		vFurgonetas[numFurgoneta1].setEstacioE(EF2);
 		
+		Integer bicisMalEF1bef=0;
+		Integer bicisMalEF2bef=0;
+		Integer bicisMalEF1now=0;
+		Integer bicisMalEF2now=0;
+		Integer neEF1=vFurgonetas[numFurgoneta1].getNp1()+vFurgonetas[numFurgoneta1].getNp2();
+		Integer neEF2=vFurgonetas[numFurgoneta2].getNp1()+vFurgonetas[numFurgoneta2].getNp2();
+		vFurgonetas[numFurgoneta1].setEstacioE(EF2);
 		vFurgonetas[numFurgoneta2].setEstacioE(EF1);
 		Estaciones es=GeneraProblema.getEstaciones();
 		if(EF1 != null){
 			int index1=es.indexOf(EF1);
 			vEstaciones[index1].setFurg(numFurgoneta2);
+			bicisMalEF1bef=bicisMalColocadas(neEF1,EF1.getDemanda()-EF1.getNumBicicletasNext());
+			
 			ajustarNumero(numFurgoneta2);
+			bicisMalEF1now=bicisMalColocadas(vFurgonetas[numFurgoneta2].getNp1()+vFurgonetas[numFurgoneta2].getNp2(),EF1.getDemanda()-EF1.getNumBicicletasNext());
 		}
 		if(EF2 != null){
 			int index2=es.indexOf(EF2);
 			vEstaciones[index2].setFurg(numFurgoneta1);
+			bicisMalEF2bef=bicisMalColocadas(neEF2,EF2.getDemanda()-EF2.getNumBicicletasNext());
+			
 			ajustarNumero(numFurgoneta1);
+			bicisMalEF2now=bicisMalColocadas(vFurgonetas[numFurgoneta1].getNp1()+vFurgonetas[numFurgoneta1].getNp2(),EF2.getDemanda()-EF2.getNumBicicletasNext());
 		}
+		BicisMalColocadas= BicisMalColocadas+bicisMalEF2now+bicisMalEF1now-bicisMalEF1bef-bicisMalEF2bef;
 	}
 	
 	private void intercambiarprivate(Estacion numEstacion1,Estacion numEstacion2, Integer index1,Integer index2){
-		int fnum1=vEstaciones[index1];
-		int fnum2=vEstaciones[index2];
-		vEstaciones[index1]=fnum2;
-		vEstaciones[index2]=fnum1;
+		int fnum1=vEstaciones[index1].getFurg();
+		int fnum2=vEstaciones[index2].getFurg();
+		vEstaciones[index1].setFurg(fnum2);
+		vEstaciones[index2].setFurg(fnum1);;
 		if(fnum1 != -1){
+			
+			Integer ant=bicisMalColocadas(vFurgonetas[fnum1].getNp1()+vFurgonetas[fnum1].getNp2(),numEstacion2.getDemanda()-numEstacion2.getNumBicicletasNext());
 			vFurgonetas[fnum1].setEstacioE(numEstacion2);
 			ajustarNumero(fnum1);
+			Integer des=bicisMalColocadas(vFurgonetas[fnum1].getNp1()+vFurgonetas[fnum1].getNp2(),numEstacion2.getDemanda()-numEstacion2.getNumBicicletasNext());
+			BicisMalColocadas=BicisMalColocadas-ant+des;
 		}
-		
+		else{
+			BicisMalColocadas= BicisMalColocadas-bicisMalColocadas(vEstaciones[index2].getBicisColocades(),numEstacion2.getDemanda()-numEstacion2.getNumBicicletasNext());
+			vEstaciones[index2].setBicisColocades(0);
+		}
 		if(fnum2 != -1){
+			Integer ant=bicisMalColocadas(vFurgonetas[fnum2].getNp1()+vFurgonetas[fnum2].getNp2(),numEstacion1.getDemanda()-numEstacion1.getNumBicicletasNext());
 			vFurgonetas[fnum2].setEstacioE(numEstacion1);
 			ajustarNumero(fnum2);
+			Integer des=bicisMalColocadas(vFurgonetas[fnum2].getNp1()+vFurgonetas[fnum2].getNp2(),numEstacion1.getDemanda()-numEstacion1.getNumBicicletasNext());
+			BicisMalColocadas=BicisMalColocadas-ant+des;
+		}
+		else{
+			BicisMalColocadas= BicisMalColocadas-bicisMalColocadas(vEstaciones[index1].getBicisColocades(),numEstacion1.getDemanda()-numEstacion1.getNumBicicletasNext());
+			vEstaciones[index1].setBicisColocades(0);
 		}
 		
 		
@@ -333,9 +376,8 @@ public class Estado {
 		Integer BSuman=0;
 		Integer Brestan=0;
 		Double g=0.0;
-		Double h=0.0;
 		Furgoneta[] vfurg= new Furgoneta[numF];
-		Integer[] vEst= new Integer[numE];
+		Struct[] vEst= new Struct[numE];
 		Random rnd= new Random();
 		Estaciones est=GeneraProblema.getEstaciones();
 		java.util.ArrayList<Integer> ve = new java.util.ArrayList<Integer>();
@@ -363,9 +405,11 @@ public class Estado {
 			Estacion p2=est.get(rp2);
 			Double auxi=rnd.nextDouble();
 			Double n= auxi*e.getNumBicicletasNoUsadas();
-			int np1=n.intValue()/2;
-			int np2=n.intValue()-np1;
-			vEst[re]=i;
+			Integer ne=n.intValue();
+			int np1=ne/2;
+			int np2=ne-np1;
+			vEst[re].setFurg(i);
+			vEst[re].setBicisColocades(ne);
 			Furgoneta aux=new Furgoneta(e,p1,p2,np1,np2);
 			vfurg[i]=aux;
 			Integer nsobre=e.getDemanda()-e.getNumBicicletasNext();
