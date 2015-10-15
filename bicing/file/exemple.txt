@@ -1,0 +1,24 @@
+ENTRADA BICING
+
+IMPORTANTE: Dejar un espacio entre los ':' cuando se rellenen los campos
+
+Número de bicis:
+Número de estaciones:
+Número de furgonetas: 
+Tipo demanda(EQUILIBRIUM o RUSH_HOUR):
+Semilla:
+
+Algoritmo(HC o SA):
+
+Información adicional sobre la ejecución del algoritmo
+Camino de búsqueda(S/N): 
+Ejecución búsqueda(S/N):
+
+Si el Algoritmo es SA, rellenad los siguientes campos, en caso contrario dejar en blanco
+Número máximo de iteraciones:
+Número de iteraciones por cada paso de temperatura:
+Parámetro k:
+Parámetro lambda:
+
+Indique el número (1 a 3) la función heurística que se usuará
+Función heurística:
