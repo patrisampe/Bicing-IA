@@ -1,6 +1,5 @@
 package bicing;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.charset.Charset;
@@ -18,29 +17,32 @@ import aima.search.informed.SimulatedAnnealingSearch;
 public class Main {
 	
 	public static void main(String[] args) {
+		// args[0] nombre del fichero de entrada
 		Path path = Paths.get(System.getProperty("user.dir"), args[0]);
 	    Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
 			String alg = getString(lines.get(10));
+			long startTime = System.currentTimeMillis();
 			if (alg == "HC") HC(lines);
 			else SA(lines);
-		    } catch (IOException e) {
+			long endTime = System.currentTimeMillis();
+			System.out.println("Ha tardado " + (endTime - startTime) + " milliseconds");
+		    } catch (Exception e) {
 		      System.out.println(e);
 		    }		
 	}
 	
-	private static void HC(List<String> lines) {
+	private static void HC(List<String> lines) throws Exception{
 		System.out.println("HillClimbing\n");
 		//Leemos datos necesarios para HC
 		int numB = getNum(lines.get(4));
 		int numE = getNum(lines.get(5));
 		int numF = getNum(lines.get(6));
-		String dem = getString(lines.get(7)); //AIXO NO HO TINC CLAR
+		int dem = getNum(lines.get(7)); //AIXO NO HO TINC CLAR, HAURE DE PARLAR AMB LA PATRI
 		int seed = getNum(lines.get(8));
 		
-		//new GeneraProblema = new GeneraProblema();
-		GeneraProblema.CrearProblema(numE, numB,numF, seed);
+		GeneraProblema.CrearProblema(numE, numB, dem, seed);
 		Estado estado = Estado.estadoInicial(numF, numE);
 		SuccessorsHC succ = new SuccessorsHC();
 		EstadoFinal ef = new EstadoFinal();
@@ -63,26 +65,23 @@ public class Main {
 		if (getString(lines.get(14)) == "S") printInstrumentation(agent.getInstrumentation());
 	}
 	
-	private static void SA(List<String> lines) {
+	private static void SA(List<String> lines) throws Exception {
 		System.out.println("Simulated Annealing\n");
 		//Leemos datos necesarios para SA
 		int numB = getNum(lines.get(4));
 		int numE = getNum(lines.get(5));
 		int numF = getNum(lines.get(6));
-		String dem = getString(lines.get(7)); //AIXO NO HO TINC CLAR
+		int dem = getNum(lines.get(7)); //AIXO NO HO TINC CLAR, HAURE DE PARLAR AMB LA PATRI
 		int seed = getNum(lines.get(8));
 		int itMAX = getNum(lines.get(17));
 		int it = getNum(lines.get(18));
 		int k = getNum(lines.get(19));
 		double lam = getDouble(lines.get(20));
 		
-		//new GeneraProblema = new GeneraProblema();
-		//new GeneraProblema = new CrearProblema(int nest, int nbic,int dem, int seed);
-		GeneraProblema.CrearProblema(numE, numB,numF, seed);
+		GeneraProblema.CrearProblema(numE, numB, dem, seed);
 		Estado estado = Estado.estadoInicial(numF, numE);
 		SuccessorsSA succ = new SuccessorsSA();
 		EstadoFinal ef = new EstadoFinal();
-		FuncionHeuristica1 h1 = new FuncionHeuristica1();
 		int numh = getNum(lines.get(23));
 		Problem problem = null;
 		switch (numh) {
@@ -128,7 +127,6 @@ public class Main {
             String property = properties.getProperty(key);
             System.out.println(key + " : " + property);
         }
-        
     }
     
     private static void printActions(List actions) {
