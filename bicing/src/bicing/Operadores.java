@@ -17,7 +17,7 @@ public class Operadores {
 	private static void updateBicisMalFurgoneta(Estado ini, Estado suc, int f) {
 		int malabans = bicisMal(ini,f);
 		int maldespres = bicisMal(suc,f);
-		suc.setBicisMalColocadas(ini.getBicisMalColocadas()-malabans+maldespres);	
+		if (suc.getBicisMalColocadas() != ini.getBicisMalColocadas()-malabans+maldespres) System.out.println("Patri != Yoel");	
 	}
 	
 	private static int bicisMal(Estado e, int f) {
