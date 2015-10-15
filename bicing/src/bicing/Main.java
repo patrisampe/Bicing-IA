@@ -22,19 +22,9 @@ public class Main {
 	    Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
-			String alg = getString(lines.get(9));
+			String alg = getString(lines.get(10));
 			if (alg == "HC") HC(lines);
 			else SA(lines);
-			
-			int nbicis = getNum(lines.get(4));
-			int nest = getNum(lines.get(5));
-			int nFurg = getNum(lines.get(6));
-			String dem = getString(lines.get(7)); //AIXO NO HO TINC CLAR
-
-		      for (String line : lines) {
-		    	  int n = getNum(line);
-		    	  System.out.println(String.valueOf(n));
-		      }
 		    } catch (IOException e) {
 		      System.out.println(e);
 		    }		
@@ -47,11 +37,14 @@ public class Main {
 		int numE = getNum(lines.get(5));
 		int numF = getNum(lines.get(6));
 		String dem = getString(lines.get(7)); //AIXO NO HO TINC CLAR
+		int seed = getNum(lines.get(8));
 		
+		new GeneraProblema = new GeneraProblema();
+		new GeneraProblema = new CrearProblema(int nest, int nbic,int dem, int seed);
 		Estado estado = Estado.estadoInicial(numF, numE);
 		SuccessorsHC succ = new SuccessorsHC();
 		EstadoFinal ef = new EstadoFinal();
-		int numh = getNum(lines.get(22));
+		int numh = getNum(lines.get(23));
 		Problem problem = null;
 		switch (numh) {
 			case 1: 
@@ -66,20 +59,49 @@ public class Main {
 		}
 		Search search = new HillClimbingSearch();
 		SearchAgent agent = new SearchAgent(problem, search);
+		if (getString(lines.get(13)) == "S") printActions(agent.getActions());
+		if (getString(lines.get(14)) == "S") printInstrumentation(agent.getInstrumentation());
 	}
 	
 	private static void SA(List<String> lines) {
 		System.out.println("Simulated Annealing\n");
-		Estado estado = new Estado();
-		estado = estado.estadoInicial(numF, nest);
-		SuccessorsSA sa= new SuccessorsSA();
+		//Leemos datos necesarios para SA
+		int numB = getNum(lines.get(4));
+		int numE = getNum(lines.get(5));
+		int numF = getNum(lines.get(6));
+		String dem = getString(lines.get(7)); //AIXO NO HO TINC CLAR
+		int seed = getNum(lines.get(8));
+		int itMAX = getNum(lines.get(17));
+		int it = getNum(lines.get(18));
+		int k = getNum(lines.get(19));
+		double lam = getDouble(lines.get(20));
+		
+		new GeneraProblema = new GeneraProblema();
+		new GeneraProblema = new CrearProblema(int nest, int nbic,int dem, int seed);
+		Estado estado = Estado.estadoInicial(numF, numE);
+		SuccessorsSA succ = new SuccessorsSA();
 		EstadoFinal ef = new EstadoFinal();
 		FuncionHeuristica1 h1 = new FuncionHeuristica1();
-		Problem problem = new Problem(estado,sa, ef, h1);
+		int numh = getNum(lines.get(23));
+		Problem problem = null;
+		switch (numh) {
+			case 1: 
+				problem = new Problem(estado, succ, ef, new FuncionHeuristica1()); 
+				break;
+			case 2: 
+				problem = new Problem(estado, succ, ef, new FuncionHeuristica2()); 
+				break;
+			default: 
+				problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
+				break;			
+		}
 		Search search = new SimulatedAnnealingSearch(itMAX, it, k, lam);
-		Searchagent agent = new SearchAgent(problem, search);
+		SearchAgent agent = new SearchAgent(problem, search);
+		if (getString(lines.get(13)) == "S") printActions(agent.getActions());
+		if (getString(lines.get(14)) == "S") printInstrumentation(agent.getInstrumentation());
 	}
 	
+	//Funcions auxiliars
 	
 	private static int getNum(String s) {
 		int i = s.indexOf(':');
@@ -91,18 +113,12 @@ public class Main {
 		int i = s.indexOf(':');
 		return s.substring(i+2);
 	}
-	/*
-	public static void main(String args[]) {
-		int nest = s.nextInt();
-		int nbic = s.nextInt();
-		int dem = s.nextInt();
-		int seed = s.nextInt();
-		int numF = s.nextInt();
-		GeneraProblema a = new GeneraProblema();
-		a.CrearProblema(nest, nbic, dem, seed);
-		s.close();
+	
+	private static double getDouble(String s) {
+		int i = s.indexOf(':');
+		String num = s.substring(i+2);
+		return Double.parseDouble(num);
 	}
-	*/
 	
 	private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();
