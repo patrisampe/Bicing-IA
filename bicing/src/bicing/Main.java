@@ -39,8 +39,8 @@ public class Main {
 		String dem = getString(lines.get(7)); //AIXO NO HO TINC CLAR
 		int seed = getNum(lines.get(8));
 		
-		new GeneraProblema = new GeneraProblema();
-		new GeneraProblema = new CrearProblema(int nest, int nbic,int dem, int seed);
+		//new GeneraProblema = new GeneraProblema();
+		GeneraProblema.CrearProblema(numE, numB,numF, seed);
 		Estado estado = Estado.estadoInicial(numF, numE);
 		SuccessorsHC succ = new SuccessorsHC();
 		EstadoFinal ef = new EstadoFinal();
@@ -76,8 +76,9 @@ public class Main {
 		int k = getNum(lines.get(19));
 		double lam = getDouble(lines.get(20));
 		
-		new GeneraProblema = new GeneraProblema();
-		new GeneraProblema = new CrearProblema(int nest, int nbic,int dem, int seed);
+		//new GeneraProblema = new GeneraProblema();
+		//new GeneraProblema = new CrearProblema(int nest, int nbic,int dem, int seed);
+		GeneraProblema.CrearProblema(numE, numB,numF, seed);
 		Estado estado = Estado.estadoInicial(numF, numE);
 		SuccessorsSA succ = new SuccessorsSA();
 		EstadoFinal ef = new EstadoFinal();

@@ -99,7 +99,7 @@ public class Estado {
 	public void setCosteGasolina(Double costeGasolina) {
 		this.costeGasolina = costeGasolina;
 	}
-	private Integer bicisBienColocadesEstacionE(Integer n,Integer falten){
+	private static Integer bicisBienColocadesEstacionE(Integer n,Integer falten){
 		
 		if(falten>0)return minim(falten,n);
 		return 0;
@@ -115,7 +115,7 @@ public class Estado {
 	
 	
 	
-	private Integer bicisMalColocadas(Integer t,Integer nsobre){
+	private static Integer bicisMalColocadas(Integer t,Integer nsobre){
 		
 		if (nsobre <0)return t;
 		else if(t>nsobre) return (t-nsobre);
@@ -349,7 +349,7 @@ public class Estado {
 		intercambiarprivate(e1,e2,numEstacion1,numEstacion2);
 	}
 	
-	private int minim(int a,int b){
+	private static int minim(int a,int b){
 		
 		if(a>b)return a;
 		else return b;
@@ -358,7 +358,7 @@ public class Estado {
 	
 	
 	
-	public Estado estadoInicial(int numF, int numE){
+	public static Estado estadoInicial(int numF, int numE){
 		
 		int min= minim(numF,numE);
 		

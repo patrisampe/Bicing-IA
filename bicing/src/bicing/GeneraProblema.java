@@ -9,12 +9,18 @@ public class GeneraProblema {
 	private static Estaciones es;
 	private static Map<DosEst,Double> dist;
 	
+	
+	
+	public GeneraProblema() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	private static Double calcDistancia(Estacion A, Estacion B){
 		Double x=Math.pow(A.getCoordX()-B.getCoordX(), 2);
 		Double y=Math.pow(A.getCoordY()-B.getCoordY(), 2);
 		return Math.sqrt(x+y);
 	}
-	
 	
 	private static void calculardist(){
 		
