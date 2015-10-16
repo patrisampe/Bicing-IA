@@ -6,24 +6,35 @@ public class Struct {
 
 	private Integer furg;
 	private Integer bicisColocades;
-	
-	public Struct(Integer furg, Integer bicisColocades) {
+	private Integer bicisAgafen;
+	public Struct(Integer furg, Integer bicisColocades,Integer bicisAgafen) {
 		super();
 		this.furg = furg;
 		this.bicisColocades = bicisColocades;
+		this.bicisAgafen=bicisAgafen;
 	}
 	
 	public Struct(){
 		furg=-1;
 		bicisColocades=0;
+		bicisAgafen=0;
 		
 	}
 	
 	public Struct(Struct S){
 		furg=S.furg;
 		bicisColocades=S.bicisColocades;
+		bicisAgafen=S.bicisAgafen;
 	}
 	
+	public Integer getBicisAgafen() {
+		return bicisAgafen;
+	}
+
+	public void setBicisAgafen(Integer bicisAgafen) {
+		this.bicisAgafen = bicisAgafen;
+	}
+
 	public Integer getFurg() {
 		return furg;
 	}

@@ -6,7 +6,7 @@ Número de bicis: 1250
 Número de estaciones: 25
 Número de furgonetas: 5
 Tipo demanda(EQUILIBRIUM o RUSH_HOUR): EQUILIBRIUM
-Semilla: 12345
+Semilla: 658
 
 Algoritmo(HC o SA): HC
 
@@ -22,4 +22,3 @@ Parámetro lambda:
 
 Indique el número (1 a 3) la función heurística que se usuará
 Función heurística: 1
-
