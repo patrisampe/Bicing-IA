@@ -324,7 +324,7 @@ public class Estado {
 		
 	}
 	/**
-	 * Como mínimo una de las dos estaciones tiene de tener una Furgoneta assignada
+	 * Como mï¿½nimo una de las dos estaciones tiene de tener una Furgoneta assignada
 	 * @param numEstacion1
 	 * @param numEstacion2
 	 */
@@ -338,7 +338,7 @@ public class Estado {
 	
 	
 	/**
-	 * Como mínimo una de las dos estaciones tiene de tener una Furgoneta assignada
+	 * Como mï¿½nimo una de las dos estaciones tiene de tener una Furgoneta assignada
 	 * @param numEstacion1
 	 * @param numEstacion2
 	 */
@@ -351,7 +351,7 @@ public class Estado {
 	
 	private static int minim(int a,int b){
 		
-		if(a>b)return a;
+		if(a<b)return a;
 		else return b;
 		
 	}
@@ -371,6 +371,7 @@ public class Estado {
 		Estaciones est=GeneraProblema.getEstaciones();
 		java.util.ArrayList<Integer> ve = new java.util.ArrayList<Integer>();
 		java.util.ArrayList<Integer> vp = new java.util.ArrayList<Integer>();
+		System.out.println("Jose");
 		for(int i=0; i < numE; ++i)
 		{
 			vEst[i]= new Struct();
@@ -381,38 +382,51 @@ public class Estado {
 
 		
 		for(int i=0;i<min;++i){
-			int te = rnd.nextInt(ve.size());
-			int re = ve.get(te);
+			int te = rnd.nextInt(ve.size()-1);
+			System.out.println("Vector");
+			int pe = ve.get(te);
+			Integer re=(Integer) pe;
 			ve.remove(te);
-			int tp1 = rnd.nextInt(vp.size());
-			while(tp1==te)tp1 = rnd.nextInt(vp.size());
-			int rp1 = ve.get(tp1);
+			int tp1 = rnd.nextInt(vp.size()-1);
+			while(tp1==te)tp1 = rnd.nextInt(vp.size()-1);
+			System.out.println("Vector2");
+			int rp1 = vp.get(tp1);
 			vp.remove(tp1);
-			int tp2 = rnd.nextInt(vp.size());
-			while(tp2==te)tp2 = rnd.nextInt(vp.size());
-			int rp2 = ve.get(tp2);
+			int tp2 = rnd.nextInt(vp.size()-1);
+			while(tp2==te)tp2 = rnd.nextInt(vp.size()-1);
+			System.out.println("Vector3");
+			int rp2 = vp.get(tp2);
 			vp.remove(tp2);
+
 			Estacion e=est.get(re);
+			System.out.println("Vector4");
 			Estacion p1=est.get(rp1);
+			System.out.println("Vector5");
 			Estacion p2=est.get(rp2);
+			System.out.println("Vector6");
 			Double auxi=rnd.nextDouble();
 			Double n= auxi*e.getNumBicicletasNoUsadas();
+			System.out.println(n);
 			Integer ne=n.intValue();
+			System.out.println(ne);
 			int np1=ne/2;
+			System.out.println(np1);
 			int np2=ne-np1;
+			System.out.println(np2);
 			vEst[re].setFurg(i);
 			vEst[re].setBicisColocades(ne);
 			Integer arp1=vEst[rp1].getBicisColocades();
 			Integer arp2=vEst[rp2].getBicisColocades();
 			Furgoneta aux=new Furgoneta(e,p1,p2,np1,np2);
 			vfurg[i]=aux;
+			System.out.println("Vector7");
 			Integer nsobre=e.getDemanda()-e.getNumBicicletasNext();
 			Integer t= np1+np2;
 			Integer Brau=0;
 			Double gau=0.0;
 			if (nsobre <0)Brau=Brau+t;
 			else if(t>nsobre) Brau=Brau+t-nsobre;
-			
+			System.out.println("Vector8");
 			
 			Integer falten= p1.getNumBicicletasNext()-p1.getDemanda();
 			Integer b=bicisBienColocadesEstacionE(arp1,falten);
@@ -425,15 +439,22 @@ public class Estado {
 			Integer c2=bicisBienColocadesEstacionE(arp2+np2,falten2);
 			vEst[rp2].setBicisColocades(arp2+np2);
 			
-			
-			Double km1= GeneraProblema.distancia(e,p1);
-			Double km2= GeneraProblema.distancia(p1,p2);
+			System.out.println("Vector9");
+			Integer km1= GeneraProblema.distancia(e,p1);
+			Integer km2= GeneraProblema.distancia(p1,p2);
+			System.out.println(km1);
+			System.out.println(km2);
+			System.out.println("Vector9.5");
 			Integer d1=(t+9)/10;
 			Integer d2=(np2+9)/10;
-			gau=d1*km1+d2*(km1+km2);
+			System.out.println("Vector9.6");
+			gau=(double) d1*km1+d2*(km1+km2);
+			System.out.println("Vector9.7");
 			BSuman=BSuman-b+c-b2+c2;
+			System.out.println("Vector9.8");
 			Brestan=Brestan+Brau;
 			g=g+gau;
+			System.out.println("Vector10");
 			
 		}
 		for (int i=min;i<numF;++i){
@@ -441,6 +462,21 @@ public class Estado {
 		}
 		
 		return new Estado(vfurg,vEst,g,BSuman,Brestan);
+	}
+
+
+
+	public void print() {
+		
+		System.out.println("Estaciones:");
+		System.out.println("Furgonetas:");
+		for (Furgoneta f : vFurgonetas) {
+			Estacion E = f.getEstacioE(), P1 = f.getEstacioP1(), P2 = f.getEstacioP2(); 
+			int np1 = f.getNp1(), np2 = f.getNp2();
+			Estaciones es=GeneraProblema.getEstaciones();
+			System.out.println("Inicial:" + es.indexOf(E) + " " + (np1+np2) + " P1: " + es.indexOf(f.getEstacioP1())+ " " + np1 + " P2: " + es.indexOf(f.getEstacioP2())+ " " + np2);
+		}
+		
 	}
 	
 	

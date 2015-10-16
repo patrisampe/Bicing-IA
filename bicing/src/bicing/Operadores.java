@@ -15,9 +15,9 @@ public class Operadores {
 	}
 	
 	private static void updateBicisMalFurgoneta(Estado ini, Estado suc, int f) {
-		int malabans = bicisMal(ini,f);
+		/*int malabans = bicisMal(ini,f);
 		int maldespres = bicisMal(suc,f);
-		if (suc.getBicisMalColocadas() != ini.getBicisMalColocadas()-malabans+maldespres) System.out.println("Patri != Yoel");	
+		if (suc.getBicisMalColocadas() != ini.getBicisMalColocadas()-malabans+maldespres) System.out.println("Patri != Yoel");	*/
 	}
 	
 	private static int bicisMal(Estado e, int f) {
@@ -108,7 +108,7 @@ public class Operadores {
 
 	public static Estado decNeNp1(Estado e, int f) {
 		Estado ret = new Estado(e);
-		if (ret.getvFurgonetas()[f].getNp1() < 1) return null;
+		if (ret.getvFurgonetas()[f].getNp1() < num) return null;
 		ret.decrementarNNENP1(num, f);
 		updateCompletoFurgoneta(e,ret,f);
 		return ret;
@@ -116,7 +116,7 @@ public class Operadores {
 
 	public static Estado decNeNp2(Estado e, int f) {
 		Estado ret = new Estado(e);
-		if (ret.getvFurgonetas()[f].getNp2() < 1) return null;
+		if (ret.getvFurgonetas()[f].getNp2() < num) return null;
 		ret.decrementarNNENP2(num, f);
 		updateCompletoFurgoneta(e,ret,f);
 		return ret;
@@ -125,7 +125,7 @@ public class Operadores {
 	public static Estado incNp1decNp2(Estado e, int f) {
 		Estado ret = new Estado(e);
 		ret.decrementarNNENP2(num, f);
-		if (ret.getvFurgonetas()[f].getNp2() < 0) return null;
+		if (ret.getvFurgonetas()[f].getNp2() < num) return null;
 		ret.incrementarNNENP1(num, f);
 		updateBicisBienFurgoneta(e,ret,f);
 		updateCosteFurgoneta(e,ret,f);

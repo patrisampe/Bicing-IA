@@ -7,6 +7,10 @@ public class DosEst {
 	
 	private Estacion a;
 	private Estacion b;
+	 @Override
+    public int hashCode() {
+		 return a.hashCode()*b.hashCode();
+    }
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -16,20 +20,9 @@ public class DosEst {
 		if (getClass() != obj.getClass())
 			return false;
 		DosEst other = (DosEst) obj;
-		if (a == null) {
-			if (other.a != null)
-				return false;
-		} else if (!a.equals(other.a))
-			return false;
-		if (b == null) {
-			if (other.b != null)
-				return false;
-		} else if (!b.equals(other.b))
-			return false;
-		return true;
+		return a == other.a && b == b;
 	}
 	public DosEst(Estacion a, Estacion b) {
-		super();
 		this.a = a;
 		this.b = b;
 	}

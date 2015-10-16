@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Properties;
 
+import IA.Bicing.Estaciones;
 import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
@@ -18,13 +19,15 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// args[0] nombre del fichero de entrada
-		Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-	    Charset charset = Charset.forName("ISO-8859-1");
+		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
+		Path path = Paths.get(System.getProperty("user.dir"), "file/exemple.txt");
+
+		Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
 			String alg = getString(lines.get(10));
 			long startTime = System.currentTimeMillis();
-			if (alg == "HC") HC(lines);
+			if (alg.equals("HC")) HC(lines);
 			else SA(lines);
 			long endTime = System.currentTimeMillis();
 			System.out.println("Ha tardado " + (endTime - startTime) + " milliseconds");
@@ -33,19 +36,30 @@ public class Main {
 		    }		
 	}
 	
+	private static int readDemanda(String linia) {
+		int dem = Estaciones.RUSH_HOUR;
+		String demS = getString(linia); //AIXO NO HO TINC CLAR, HAURE DE PARLAR AMB LA PATRI
+		if (demS.equals("EQUILIBRIUM")) dem = Estaciones.EQUILIBRIUM;
+		return dem;
+	}
+	
 	private static void HC(List<String> lines) throws Exception{
 		System.out.println("HillClimbing\n");
 		//Leemos datos necesarios para HC
 		int numB = getNum(lines.get(4));
 		int numE = getNum(lines.get(5));
 		int numF = getNum(lines.get(6));
-		int dem = getNum(lines.get(7)); //AIXO NO HO TINC CLAR, HAURE DE PARLAR AMB LA PATRI
+		int dem = readDemanda(lines.get(7));
 		int seed = getNum(lines.get(8));
-		
 		GeneraProblema.CrearProblema(numE, numB, dem, seed);
+		System.out.println("Pepe");
 		Estado estado = Estado.estadoInicial(numF, numE);
+		estado.print();
+		System.out.println("maria");
 		SuccessorsHC succ = new SuccessorsHC();
+		System.out.println("juan");
 		EstadoFinal ef = new EstadoFinal();
+		System.out.println("Octavi");
 		int numh = getNum(lines.get(23));
 		Problem problem = null;
 		switch (numh) {
@@ -59,10 +73,17 @@ public class Main {
 				problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
 				break;			
 		}
+		System.out.println("Pepe3");
 		Search search = new HillClimbingSearch();
+		System.out.println("Pepe4");
 		SearchAgent agent = new SearchAgent(problem, search);
-		if (getString(lines.get(13)) == "S") printActions(agent.getActions());
-		if (getString(lines.get(14)) == "S") printInstrumentation(agent.getInstrumentation());
+		System.out.println("Pepe5");
+		estado.print();
+		Estado result = (Estado) search.getGoalState();
+		result.print();
+		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
+		System.out.println("Pepe6");
+		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
 	}
 	
 	private static void SA(List<String> lines) throws Exception {
@@ -71,7 +92,7 @@ public class Main {
 		int numB = getNum(lines.get(4));
 		int numE = getNum(lines.get(5));
 		int numF = getNum(lines.get(6));
-		int dem = getNum(lines.get(7)); //AIXO NO HO TINC CLAR, HAURE DE PARLAR AMB LA PATRI
+		int dem = readDemanda(lines.get(7));
 		int seed = getNum(lines.get(8));
 		int itMAX = getNum(lines.get(17));
 		int it = getNum(lines.get(18));

@@ -38,7 +38,11 @@ public class SuccessorsHC implements SuccessorFunction {
 				--i;
 			}
 		}
-		return sucesores;
+		List ret = new ArrayList();
+		for (Estado cosa : sucesores) {
+			ret.add(new Successor("",e));
+		}
+		return ret;
 	}
 
 }
