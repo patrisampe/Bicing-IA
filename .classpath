@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="bicing/src"/>
+	<classpathentry kind="lib" path="bicing/file/aima/AIMA.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/appframework-1.0.3.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/gnujaxp.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/iText-2.1.5.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/jfreechart-1.0.13-experimental.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/jfreechart-1.0.13-swt.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/jfreechart-1.0.13.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/junit.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/servlet.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/swing-layout-1.0.4.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/swing-worker-1.1.jar"/>
+	<classpathentry kind="lib" path="bicing/file/aima/lib/swtgraphics2d.jar"/>
+	<classpathentry kind="lib" path="bicing/file/Bicing.jar"/>
+	<classpathentry kind="lib" path="bicing/file/dist/Bicing.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bicing/bin"/>
+</classpath>

@@ -20,7 +20,7 @@ public class Main {
 	public static void main(String[] args) {
 		// args[0] nombre del fichero de entrada
 		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-		Path path = Paths.get(System.getProperty("user.dir"), "file/exemple.txt");
+		Path path = Paths.get(System.getProperty("user.dir"), "bicing/file/exemple.txt");
 
 		Charset charset = Charset.forName("ISO-8859-1");
 		try {

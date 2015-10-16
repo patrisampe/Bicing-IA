@@ -248,22 +248,29 @@ public class Estado {
 	}
 	
 	private void ajustarNumero(Integer numFurgoneta){
+		
 		if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()<vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2()){
-			int diff=-vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()+vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2();
-			int mig=diff/2;
-			Estaciones vest=GeneraProblema.getEstaciones();
-			Estacion P1=vFurgonetas[numFurgoneta].getEstacioP1();
-			Estacion P2=vFurgonetas[numFurgoneta].getEstacioP2();
-			Integer ne1=vEstaciones[vest.indexOf(P1)].getBicisColocades();
-			Integer ne2=vEstaciones[vest.indexOf(P2)].getBicisColocades();
-			vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-mig);
-			Integer np2=vFurgonetas[numFurgoneta].getNp2();
-			vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()-vFurgonetas[numFurgoneta].getNp1());
-			vEstaciones[vest.indexOf(P1)].restaNBicis(mig);
-			vEstaciones[vest.indexOf(P2)].restaNBicis(np2-vFurgonetas[numFurgoneta].getNp2());
-			vEstaciones[vest.indexOf(vFurgonetas[numFurgoneta].getEstacioE())].restaNBicis(diff);
-			RecalcularBicisBien(P1,ne1,ne1-mig);
-			RecalcularBicisBien(P1,ne2,ne2-(np2-vFurgonetas[numFurgoneta].getNp2()));
+			if((vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas())==0){
+				vFurgonetas[numFurgoneta].setNp2(0);
+				vFurgonetas[numFurgoneta].setNp1(0);
+			}
+			else{
+				int diff=(vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2())% (vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()) ;
+				int mig=diff/2;
+				Estaciones vest=GeneraProblema.getEstaciones();
+				Estacion P1=vFurgonetas[numFurgoneta].getEstacioP1();
+				Estacion P2=vFurgonetas[numFurgoneta].getEstacioP2();
+				Integer ne1=vEstaciones[vest.indexOf(P1)].getBicisColocades();
+				Integer ne2=vEstaciones[vest.indexOf(P2)].getBicisColocades();
+				vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-mig);
+				Integer np2=vFurgonetas[numFurgoneta].getNp2();
+				vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()-vFurgonetas[numFurgoneta].getNp1());
+				vEstaciones[vest.indexOf(P1)].restaNBicis(mig);
+				vEstaciones[vest.indexOf(P2)].restaNBicis(np2-vFurgonetas[numFurgoneta].getNp2());
+				vEstaciones[vest.indexOf(vFurgonetas[numFurgoneta].getEstacioE())].restaNBicis(diff);
+				RecalcularBicisBien(P1,ne1,ne1-mig);
+				RecalcularBicisBien(P1,ne2,ne2-(np2-vFurgonetas[numFurgoneta].getNp2()));
+			}
 		}
 	}
 	

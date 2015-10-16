@@ -2,23 +2,24 @@ ENTRADA BICING
 
 IMPORTANTE: Dejar un espacio entre los ':' cuando se rellenen los campos
 
-NÃºmero de bicis: 1250
-NÃºmero de estaciones: 25
-NÃºmero de furgonetas: 5
+Número de bicis: 1250
+Número de estaciones: 25
+Número de furgonetas: 5
 Tipo demanda(EQUILIBRIUM o RUSH_HOUR): EQUILIBRIUM
-Semilla: 1234
+Semilla: 12345
 
 Algoritmo(HC o SA): HC
 
-InformaciÃ³n adicional sobre la ejecuciÃ³n del algoritmo
-Camino de bÃºsqueda(S/N): S
-EjecuciÃ³n bÃºsqueda(S/N): S
+Información adicional sobre la ejecución del algoritmo
+Camino de búsqueda(S/N): S
+Ejecución búsqueda(S/N): S
 
 Si el Algoritmo es SA, rellenad los siguientes campos, en caso contrario dejar en blanco
-NÃºmero mÃ¡ximo de iteraciones:
-NÃºmero de iteraciones por cada paso de temperatura:
-ParÃ¡metro k:
-ParÃ¡metro lambda:
+Número máximo de iteraciones:
+Número de iteraciones por cada paso de temperatura:
+Parámetro k:
+Parámetro lambda:
 
-Indique el nÃºmero (1 a 3) la funciÃ³n heurÃ­stica que se usuarÃ¡
-FunciÃ³n heurÃ­stica: 1
+Indique el número (1 a 3) la función heurística que se usuará
+Función heurística: 1
+
