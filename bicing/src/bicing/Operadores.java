@@ -60,7 +60,7 @@ public class Operadores {
 	
 	public static Estado intercambiarE(Estado e, int a, int b) {
 		Estado ret = new Estado(e);
-		e.intercambiarE(a, b);
+		ret.intercambiarE(a, b);
 		int f1 = e.getvEstaciones()[a].getFurg(), f2 = e.getvEstaciones()[b].getFurg();
 		if (f1 != -1) updateCompletoFurgoneta(e,ret,f1);
 		if (f2 != -1) updateCompletoFurgoneta(e,ret,f2);
