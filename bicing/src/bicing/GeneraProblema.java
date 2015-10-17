@@ -8,6 +8,7 @@ public class GeneraProblema {
 
 	private static Estaciones es;
 	private static Map<DosEst,Integer> dist;
+	private static int semilla;
 	
 	
 	
@@ -40,6 +41,7 @@ public class GeneraProblema {
 	
 	public static void CrearProblema(int nest, int nbic,int dem, int seed) {
 		es = new Estaciones(nest,nbic,dem,seed);
+		semilla = seed;
 		dist = new HashMap<DosEst,Integer>();
 		calculardist();
 	}
@@ -59,6 +61,10 @@ public class GeneraProblema {
 	public static Integer distancia(Estacion a, Estacion b){
 		DosEst aux = new DosEst(a,b);
 		return dist.get(aux);
+	}
+
+	public static int getSemilla() {
+		return semilla;
 	}
 	
 }
