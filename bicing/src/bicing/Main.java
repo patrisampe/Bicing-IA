@@ -21,7 +21,7 @@ public class Main {
 	public static void main(String[] args) {
 		// args[0] nombre del fichero de entrada
 		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-		Path path = Paths.get(System.getProperty("user.dir"), "bicing-ia/bicing/file/exemple.txt");
+		Path path = Paths.get(System.getProperty("user.dir"), "bicing/file/exemple.txt");
 		Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
@@ -95,20 +95,37 @@ public class Main {
 		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
 		else estado = Estado.estadoInicial_v3(numF, numE);
 		printEstado(estado, true);
-		SuccessorsSA succ = new SuccessorsSA();
+		String alg = getString(lines.get(10));
 		EstadoFinal ef = new EstadoFinal();
 		int numh = getNum(lines.get(23));
 		Problem problem = null;
-		switch (numh) {
-			case 1: 
-				problem = new Problem(estado, succ, ef, new FuncionHeuristica1()); 
-				break;
-			case 2: 
-				problem = new Problem(estado, succ, ef, new FuncionHeuristica2()); 
-				break;
-			default: 
-				problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
-				break;			
+		if (alg == "SA") {
+			SuccessorsSA succ = new SuccessorsSA();
+			switch (numh) {
+				case 1: 
+					problem = new Problem(estado, succ, ef, new FuncionHeuristica1()); 
+					break;
+				case 2: 
+					problem = new Problem(estado, succ, ef, new FuncionHeuristica2()); 
+					break;
+				default: 
+					problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
+					break;			
+			}
+		}
+		else {
+			SuccessorsSA2 succ = new SuccessorsSA2();
+			switch (numh) {
+				case 1: 
+					problem = new Problem(estado, succ, ef, new FuncionHeuristica1()); 
+					break;
+				case 2: 
+					problem = new Problem(estado, succ, ef, new FuncionHeuristica2()); 
+					break;
+				default: 
+					problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
+					break;			
+			}			
 		}
 		Search search = new SimulatedAnnealingSearch(itMAX, it, k, lam);
 		long startTime = System.currentTimeMillis();
