@@ -8,20 +8,20 @@ N�mero de furgonetas: 5
 Tipo demanda(EQUILIBRIUM o RUSH_HOUR): EQUILIBRIUM
 Semilla: 1234
 
-Algoritmo(HC o SA): HC
+Algoritmo(HC o SA): SA
 
 Informaci�n adicional sobre la ejecuci�n del algoritmo
-Camino de b�squeda(S/N): S
-Ejecuci�n b�squeda(S/N): S
+Camino de b�squeda(S/N): N
+Ejecuci�n b�squeda(S/N): N
 
 Si el Algoritmo es SA, rellenad los siguientes campos, en caso contrario dejar en blanco
-N�mero m�ximo de iteraciones:
-N�mero de iteraciones por cada paso de temperatura:
-Par�metro k:
-Par�metro lambda:
+N�mero m�ximo de iteraciones: 4000
+N�mero de iteraciones por cada paso de temperatura: 500
+Par�metro k: 50
+Par�metro lambda: 0.01
 
 Indique el n�mero (1 a 3) la funci�n heur�stica que se usuar�
 Funci�n heur�stica: 1
 
 Indique el número (1 a 3) de la solución inicial que se usará
-Estado inicial: 1 
+Estado inicial: 1
