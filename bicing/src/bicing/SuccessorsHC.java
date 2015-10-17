@@ -29,13 +29,16 @@ public class SuccessorsHC implements SuccessorFunction {
 			}
 			*/
 			sucesores.add(Operadores.intercambiarP1P2(e, i));
-			sucesores.add(Operadores.decNeNp1(e, i));
-			sucesores.add(Operadores.incNeNp1(e, i));
-			sucesores.add(Operadores.decNeNp2(e, i));
-			sucesores.add(Operadores.incNeNp2(e, i));
-			sucesores.add(Operadores.incNp1decNp2(e, i));
-			
-			sucesores.add(Operadores.decNp1incNp2(e, i));
+			int nums[] = {1,2,7};
+			for (int index = 0; index < nums.length; ++index) {
+				Operadores.setNum(nums[index]);
+				sucesores.add(Operadores.decNeNp1(e, i));
+				sucesores.add(Operadores.incNeNp1(e, i));
+				sucesores.add(Operadores.decNeNp2(e, i));
+				sucesores.add(Operadores.incNeNp2(e, i));
+				sucesores.add(Operadores.incNp1decNp2(e, i));
+				sucesores.add(Operadores.decNp1incNp2(e, i));
+			}
 			
 		}
 		for (int i = 0; i < sucesores.size(); ++i) {

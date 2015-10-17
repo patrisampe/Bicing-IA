@@ -141,6 +141,10 @@ public class Operadores {
 		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
+
+	public static void setNum(int n) {
+		num = n;	
+	}
 	
 	
 }
