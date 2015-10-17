@@ -29,7 +29,7 @@ public class SuccessorsSA implements SuccessorFunction {
 			else if (op == 6) sucesores.add(Operadores.decNp1incNp2(e, f));
 		}
 		else {
-			op -= 7;
+			op -= 7*nums.length;
 			if (op < e.getvEstaciones().length) sucesores.add(Operadores.modificarP1(e, f, op));
 			else {
 				op -= e.getvEstaciones().length;
