@@ -52,7 +52,7 @@ public class SuccessorsHC implements SuccessorFunction {
 			System.out.println(cosa.getBicisMalColocadas());
 			System.out.println("fin ");
 			*/
-			ret.add(new Successor("",e));
+			ret.add(new Successor("",cosa));
 		}
 		return ret;
 	}
