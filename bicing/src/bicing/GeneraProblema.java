@@ -50,7 +50,7 @@ public class GeneraProblema {
 	
 	public static Integer distancia(Estacion a, Estacion b){
 		DosEst aux = new DosEst(a,b);
-		if (dist.get(aux) == null) System.out.println("nooo");
+		//if (dist.get(aux) == null) System.out.println("nooo");
 		return dist.get(aux);
 	}
 	
