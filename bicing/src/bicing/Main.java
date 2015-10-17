@@ -42,8 +42,12 @@ public class Main {
 		int dem = readDemanda(lines.get(7));
 		int seed = getNum(lines.get(8));
 		GeneraProblema.CrearProblema(numE, numB, dem, seed);
-		printEstaciones();
-		Estado estado = Estado.estadoInicial(numF, numE);
+		printEstaciones(numF);
+		int estadoIni = getNum(lines.get(26));
+		Estado estado = null;
+		if (estadoIni == 1) estado = Estado.estadoInicial_v1(numF, numE);
+		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
+		else estado = Estado.estadoInicial_v3(numF, numE);
 		printEstado(estado, true);
 		SuccessorsHC succ = new SuccessorsHC();
 		EstadoFinal ef = new EstadoFinal();
@@ -85,7 +89,11 @@ public class Main {
 		double lam = getDouble(lines.get(20));
 		
 		GeneraProblema.CrearProblema(numE, numB, dem, seed);
-		Estado estado = Estado.estadoInicial(numF, numE);
+		int estadoIni = getNum(lines.get(26));
+		Estado estado = null;
+		if (estadoIni == 1) estado = Estado.estadoInicial_v1(numF, numE);
+		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
+		else estado = Estado.estadoInicial_v3(numF, numE);
 		printEstado(estado, true);
 		SuccessorsSA succ = new SuccessorsSA();
 		EstadoFinal ef = new EstadoFinal();
@@ -149,14 +157,21 @@ public class Main {
 		result.print();
 	}
 	
-	private static void printEstaciones() {
+	private static void printEstaciones(int numF) {
 		Estaciones Est = GeneraProblema.getEstaciones();
 		System.out.println("Estaciones (NoUsadas, Prevision Demanda)");
+		int beneficiosMax = 0;
 		for (int i = 0; i < Est.size(); ++i) {
 			Estacion est = Est.get(i);
+			int dif = est.getDemanda() - est.getNumBicicletasNext();
+			if (dif < 0) dif = 0;
+			beneficiosMax += dif;
 			System.out.println("Estacion " + i);
 			System.out.println(est.getNumBicicletasNoUsadas() + " " +  est.getNumBicicletasNext() + " " + est.getDemanda());
 		}
+		int aux = numF*30;
+		if (aux < beneficiosMax) beneficiosMax = aux;
+		System.out.println("Beneficios Maximos: " + beneficiosMax);
 		System.out.println();
 	}
 	

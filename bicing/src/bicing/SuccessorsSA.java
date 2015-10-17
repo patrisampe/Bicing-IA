@@ -15,15 +15,20 @@ public class SuccessorsSA implements SuccessorFunction {
 		Random r = new Random();
 		List<Estado> sucesores = new ArrayList<Estado>();
 		int f = r.nextInt(e.getvFurgonetas().length);
-		int op = r.nextInt(7+e.getvEstaciones().length*3);
-		if (op == 0) sucesores.add(Operadores.intercambiarP1P2(e, f));
-		if (op == 1) sucesores.add(Operadores.decNeNp1(e, f));
-		if (op == 2) sucesores.add(Operadores.incNeNp1(e, f));
-		if (op == 3) sucesores.add(Operadores.decNeNp2(e, f));
-		if (op == 4) sucesores.add(Operadores.incNeNp2(e, f));
-		if (op == 5) sucesores.add(Operadores.incNp1decNp2(e, f));
-		if (op == 6) sucesores.add(Operadores.decNp1incNp2(e, f));
-		if (op >= 7) {
+		int nums[] = {1,2,7};
+		int op = r.nextInt(7*nums.length+e.getvEstaciones().length*3);
+		if (op < 7*nums.length) {
+			Operadores.setNum(nums[op%nums.length]);
+			op /= nums.length;
+			if (op == 0) sucesores.add(Operadores.intercambiarP1P2(e, f));
+			if (op == 1) sucesores.add(Operadores.decNeNp1(e, f));
+			if (op == 2) sucesores.add(Operadores.incNeNp1(e, f));
+			if (op == 3) sucesores.add(Operadores.decNeNp2(e, f));
+			if (op == 4) sucesores.add(Operadores.incNeNp2(e, f));
+			if (op == 5) sucesores.add(Operadores.incNp1decNp2(e, f));
+			if (op == 6) sucesores.add(Operadores.decNp1incNp2(e, f));
+		}
+		else {
 			op -= 7;
 			if (op < e.getvEstaciones().length) sucesores.add(Operadores.modificarP1(e, f, op));
 			else {
