@@ -26,11 +26,8 @@ public class Main {
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
 			String alg = getString(lines.get(10));
-			long startTime = System.currentTimeMillis();
 			if (alg.equals("HC")) HC(lines);
 			else SA(lines);
-			long endTime = System.currentTimeMillis();
-			System.out.println("Ha tardado " + (endTime - startTime) + " milliseconds");
 		    } catch (Exception e) {
 		      System.out.println(e);
 		    }		
@@ -52,14 +49,10 @@ public class Main {
 		int dem = readDemanda(lines.get(7));
 		int seed = getNum(lines.get(8));
 		GeneraProblema.CrearProblema(numE, numB, dem, seed);
-		System.out.println("Pepe");
 		Estado estado = Estado.estadoInicial(numF, numE);
 		estado.print();
-		System.out.println("maria");
 		SuccessorsHC succ = new SuccessorsHC();
-		System.out.println("juan");
 		EstadoFinal ef = new EstadoFinal();
-		System.out.println("Octavi");
 		int numh = getNum(lines.get(23));
 		Problem problem = null;
 		switch (numh) {
@@ -75,15 +68,16 @@ public class Main {
 		}
 		System.out.println("Pepe3");
 		Search search = new HillClimbingSearch();
-		System.out.println("Pepe4");
+		long startTime = System.currentTimeMillis();
 		SearchAgent agent = new SearchAgent(problem, search);
-		System.out.println("Pepe5");
+		long endTime = System.currentTimeMillis();
 		estado.print();
 		Estado result = (Estado) search.getGoalState();
 		result.print();
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
 		System.out.println("Pepe6");
 		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
+		System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
 	}
 	
 	private static void SA(List<String> lines) throws Exception {
@@ -117,9 +111,12 @@ public class Main {
 				break;			
 		}
 		Search search = new SimulatedAnnealingSearch(itMAX, it, k, lam);
+		long startTime = System.currentTimeMillis();
 		SearchAgent agent = new SearchAgent(problem, search);
+		long endTime = System.currentTimeMillis();
 		if (getString(lines.get(13)) == "S") printActions(agent.getActions());
 		if (getString(lines.get(14)) == "S") printInstrumentation(agent.getInstrumentation());
+		System.out.println("SA ha tardado " + (endTime - startTime) + " ms");
 	}
 	
 	//Funcions auxiliars
