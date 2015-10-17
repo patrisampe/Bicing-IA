@@ -121,7 +121,8 @@ public class Estado {
 		
 		Estaciones es= GeneraProblema.getEstaciones();
 
-		Integer falten= -e.getNumBicicletasNext()+e.getDemanda()+vEstaciones[es.indexOf(e)].getBicisAgafen();
+		Integer falten= -e.getNumBicicletasNext()+e.getDemanda()-vEstaciones[es.indexOf(e)].getBicisAgafen();
+		
 		
 		//System.out.println("falten");
 		//System.out.println(falten);
