@@ -54,6 +54,14 @@ public class Struct {
 	public void restaNBicis(Integer n){
 		bicisColocades = bicisColocades-n;
 	}
+	
+	public void sumaNBicisAg(Integer n){
+		bicisAgafen = bicisAgafen+n;
+	}
+	public void restaNBicisAg(Integer n){
+		bicisAgafen = bicisAgafen-n;
+	}
+	
 
 }
 

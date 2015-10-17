@@ -101,4 +101,19 @@ public class Furgoneta {
 		return est.get(estacioP2).getDemanda();
 	}
 	
+	public Integer bicisNextE(){
+		Estaciones est=GeneraProblema.getEstaciones();
+		return est.get(estacioE).getNumBicicletasNext();
+	}
+	
+	public Integer bicisNextP1(){
+		Estaciones est=GeneraProblema.getEstaciones();
+		return est.get(estacioP1).getNumBicicletasNext();
+	}
+	public Integer bicisNextP2(){
+		Estaciones est=GeneraProblema.getEstaciones();
+		return est.get(estacioP2).getNumBicicletasNext();
+	}
+	
+	
 }
