@@ -41,7 +41,7 @@ public class GeneraProblema {
 	
 	public static void CrearProblema(int nest, int nbic,int dem, int seed) {
 		es = new Estaciones(nest,nbic,dem,seed);
-		setSemilla(seed);
+		semilla = seed;
 		dist = new HashMap<DosEst,Integer>();
 		calculardist();
 	}
