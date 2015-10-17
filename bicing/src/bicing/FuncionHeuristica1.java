@@ -26,7 +26,6 @@ public class FuncionHeuristica1 implements HeuristicFunction {
 			int delta = est.getBicisColocades() - est.getBicisAgafen();
 			Estacion Est = estaciones.get(i);
 			double aux = Est.getDemanda() - delta - Est.getNumBicicletasNext();
-			if (aux < 0.0) aux = 0.0;
 			sum += aux*aux;
 			no_usadas += Est.getNumBicicletasNoUsadas();
 		}
