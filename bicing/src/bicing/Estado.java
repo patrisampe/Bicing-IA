@@ -486,6 +486,7 @@ public class Estado {
 			Double n= 0.6*e.getNumBicicletasNext();
 			//System.out.println(n);
 			Integer ne=n.intValue();
+			ne=minim(30,ne);
 			//System.out.println(ne);
 			int np1=ne/2;
 			//System.out.println(np1);
