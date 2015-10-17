@@ -61,7 +61,6 @@ public class Struct {
 	public void restaNBicisAg(Integer n){
 		bicisAgafen = bicisAgafen-n;
 	}
-	
 
 }
 

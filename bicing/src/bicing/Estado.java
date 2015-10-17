@@ -107,113 +107,93 @@ public class Estado {
 	public void setCosteGasolina(Double costeGasolina) {
 		this.costeGasolina = costeGasolina;
 	}
-	private static Integer bicisBienColocadesEstacionE(Integer n,Integer falten){
-		
-		if(falten>0)return minim(falten,n);
-		return 0;
-	}
-	
-	private void RecalcularBicisBien(Integer e, Integer abans, Integer ara){
-		//System.out.println("DEMANDA ");
-		//System.out.println(e.getDemanda());
-		//System.out.println("BICICLETAS NEXT");
-		//System.out.println(e.getNumBicicletasNext());
-		
-		Integer falten= -GeneraProblema.getEstacion(e).getNumBicicletasNext()+GeneraProblema.getEstacion(e).getDemanda()-vEstaciones[e].getBicisAgafen();
-		
-		
-		//System.out.println("falten");
-		//System.out.println(falten);
-		/**
-		System.out.println("abans");
-		System.out.println(abans);
-		System.out.println("ara");
-		System.out.println(ara);
-		**/
-		Integer b=bicisBienColocadesEstacionE(abans,falten);
-		
-		
-		
-		Integer c=bicisBienColocadesEstacionE(ara,falten);
-		//System.out.println("empiezo a ahora ");
-		//System.out.println("bicis bien colocadas antes ");
-		//System.out.println(b);
-		//System.out.println("bicis bien colocadas ahora ");
-		//System.out.println(c);
-		//System.out.println("BICIS BIEN ");
-		//System.out.println(BicisBienColocadas);
-		BicisBienColocadas = BicisBienColocadas-b+c;
-		//System.out.println(BicisBienColocadas);
-		
-	}
 	
 	
-	
-	private static Integer bicisMalColocadas(Integer t,Integer nsobre){
-		
-		if (nsobre <0)return t;
-		else if(t>nsobre) return (t-nsobre);
+	private Integer bicisBienColocadasIndexE(Integer e){
+		Integer falten=-GeneraProblema.getEstacion(e).getNumBicicletasNext()+GeneraProblema.getEstacion(e).getDemanda()+vEstaciones[e].getBicisAgafen();
+		if(falten>0)return minim(falten,vEstaciones[e].getBicisColocades());
 		return 0;
 		
 	}
-	private Integer bicisMalColocadas(Integer np1,Integer np2,Integer nsobre){
-		return bicisMalColocadas(np1+np2,nsobre);
-	}
-	private void RecalcularBicisMal(Integer e, Integer abansnpc, Integer aranpc,Integer nes){
-		
-		Integer nsobre=-GeneraProblema.getEstacion(e).getNumBicicletasNext()+GeneraProblema.getEstacion(e).getDemanda();
-
-		Integer b=bicisMalColocadas(abansnpc,nes,nsobre);
-		
-		Integer c=bicisMalColocadas(aranpc,nes,nsobre);
-		//System.out.println("empiezo a ahora ");
-		//System.out.println("bicis mal colocadas antes ");
-		//System.out.println(b);
-		//System.out.println("bicis mal colocadas ahora ");
-		//System.out.println(c);
-		
-		//System.out.println("BICIS MAL ");
-		//System.out.println(BicisMalColocadas);
-		BicisMalColocadas = BicisMalColocadas-b+c;
-		
-	}
 	
+	
+	private Integer bicisMalColocadasIndexE(Integer e){
+		Estacion Es=GeneraProblema.getEstacion(e);
+		Integer mal=0;
+		Integer hay=Es.getNumBicicletasNext();
+		Integer colocamos=vEstaciones[e].getBicisColocades();
+		Integer queremos= Es.getDemanda();
+		Integer quitamos=vEstaciones[e].getBicisAgafen(); 
+		if(quitamos>colocamos){
+			quitamos=quitamos-colocamos;
+			Integer sobran=hay-queremos;
+			if(sobran > 0 & sobran < quitamos){
+				mal=quitamos-sobran;
+			}
+			else{
+				mal=quitamos;
+			}
+			
+		}
+		
+		
+		return mal;
+		
+	}
 	public void incrementarNNENP1(Integer n, Integer numFurgoneta){
 		//System.out.println(" incrementarNNENP1");
+		
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP1();
-		Integer npd=vFurgonetas[numFurgoneta].getNp1();
+		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
+		Integer bienP1=bicisBienColocadasIndexE(iP);
+		Integer malE=bicisMalColocadasIndexE(iE);
+		
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()+n);
-		Integer ne=vEstaciones[iP].getBicisColocades();
-		RecalcularBicisBien(iP,ne,ne+n);
-		RecalcularBicisMal(vFurgonetas[numFurgoneta].getindexEstacioE(),npd,npd+n,vFurgonetas[numFurgoneta].getNp2());
+		
 		vEstaciones[iP].sumaNBicis(n);
-		vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioE()].sumaNBicisAg(n);
-
+		vEstaciones[iE].sumaNBicisAg(n);
+		Integer bienP1v2=bicisBienColocadasIndexE(iP);
+		Integer malEv2=bicisMalColocadasIndexE(iE);
+		
+		BicisBienColocadas= BicisBienColocadas-bienP1+bienP1v2;
+		BicisMalColocadas= BicisMalColocadas-malE+malEv2;
+		
+		
 	}
 	public void incrementarNNENP2(Integer n, Integer numFurgoneta){
 		//System.out.println(" incrementarNNENP2");
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP2();
-		Integer npd=vFurgonetas[numFurgoneta].getNp2();
+		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
+		Integer bienP2=bicisBienColocadasIndexE(iP);
+		Integer malE=bicisMalColocadasIndexE(iE);
+		
 		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()+n);
-		Integer ne=vEstaciones[iP].getBicisColocades();
-		RecalcularBicisBien(iP,ne,ne+n);
-		RecalcularBicisMal(vFurgonetas[numFurgoneta].getindexEstacioE(),npd,npd+n,vFurgonetas[numFurgoneta].getNp1());
+		
 		vEstaciones[iP].sumaNBicis(n);
 		vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioE()].sumaNBicisAg(n);
+		
+		Integer bienP2v2=bicisBienColocadasIndexE(iP);
+		Integer malEv2=bicisMalColocadasIndexE(iE);
+		
+		BicisBienColocadas= BicisBienColocadas-bienP2+bienP2v2;
+		BicisMalColocadas= BicisMalColocadas-malE+malEv2;
 		
 	}
 	public void incrementarNNP1decrementarNP2(Integer n, Integer numFurgoneta){
 		//System.out.println(" incrementarNNP1decrementarNP2");
 		Integer P1=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer P2=vFurgonetas[numFurgoneta].getindexEstacioP2();
-		Integer np2=vEstaciones[P2].getBicisColocades();
-		Integer np1=vEstaciones[P1].getBicisColocades();
+		Integer bienP1=bicisBienColocadasIndexE(P1);
+		Integer bienP2=bicisBienColocadasIndexE(P2);
+
 		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()-n);
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()+n);
-		RecalcularBicisBien(P1,np1,np1+n);
-		RecalcularBicisBien(P2,np2,np2-n);
-		vEstaciones[P1].sumaNBicis(n);
-		vEstaciones[P2].restaNBicis(n);
+		
+		
+		Integer bienP1v2=bicisBienColocadasIndexE(P1);
+		Integer bienP2v2=bicisBienColocadasIndexE(P2);
+		
+		BicisBienColocadas= BicisBienColocadas-bienP1-bienP2+bienP1v2+bienP2v2;
 
 	}
 	
@@ -221,20 +201,29 @@ public class Estado {
 		//System.out.println(" incrementarNNP2decrementarNP1");
 		Integer P1=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer P2=vFurgonetas[numFurgoneta].getindexEstacioP2();
-		Integer np2=vEstaciones[P2].getBicisColocades();
-		Integer np1=vEstaciones[P1].getBicisColocades();
+
+		Integer bienP1=bicisBienColocadasIndexE(P1);
+		Integer bienP2=bicisBienColocadasIndexE(P2);
+
+		
 		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()+n);
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-n);
-		RecalcularBicisBien(P1,np2,np2+n);
-		RecalcularBicisBien(P2,np1,np1-n);
-		vEstaciones[P2].sumaNBicis(n);
-		vEstaciones[P1].restaNBicis(n);
+		
+		
+		Integer bienP1v2=bicisBienColocadasIndexE(P1);
+		Integer bienP2v2=bicisBienColocadasIndexE(P2);
+		
+		BicisBienColocadas= BicisBienColocadas-bienP1-bienP2+bienP1v2+bienP2v2;
 
 	}
 	public void decrementarNNENP2(Integer n, Integer numFurgoneta){
 		//System.out.println(" decrementarNNENP2");
-		Integer npd=vFurgonetas[numFurgoneta].getNp2();
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP2();
+		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
+		
+		Integer bienP2=bicisBienColocadasIndexE(iP);
+		Integer malE=bicisMalColocadasIndexE(iE);
+		
 		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()-n);
 		Integer P=vFurgonetas[numFurgoneta].getindexEstacioP2();
 
@@ -372,7 +361,7 @@ public class Estado {
 	**/
 	
 	private void intercambiarprivate(Estacion numEstacion1,Estacion numEstacion2, Integer index1,Integer index2){
-		/**
+
 		//System.out.println("  NOOOO");
 		int fnum1=vEstaciones[index1].getFurg();
 		int fnum2=vEstaciones[index2].getFurg();
@@ -394,7 +383,7 @@ public class Estado {
 			Integer des=bicisMalColocadas(vFurgonetas[fnum2].getNp1()+vFurgonetas[fnum2].getNp2(),numEstacion1.getDemanda()-numEstacion1.getNumBicicletasNext());
 			BicisMalColocadas=BicisMalColocadas-ant+des;
 		}
-		**/
+		
 		
 		
 	}
