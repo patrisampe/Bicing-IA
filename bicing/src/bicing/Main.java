@@ -48,6 +48,7 @@ public class Main {
 		if (estadoIni == 1) estado = Estado.estadoInicial_v1(numF, numE);
 		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
 		else estado = Estado.estadoInicial_v3(numF, numE);
+		calculBestia(estado);
 		printEstado(estado, true);
 		SuccessorsHC succ = new SuccessorsHC();
 		EstadoFinal ef = new EstadoFinal();
@@ -70,6 +71,7 @@ public class Main {
 		long endTime = System.currentTimeMillis();
 		Estado result = (Estado) search.getGoalState();
 		printEstado(result, false);
+		calculBestia(result);
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
 		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
 		System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
@@ -190,6 +192,22 @@ public class Main {
 		if (aux < beneficiosMax) beneficiosMax = aux;
 		System.out.println("Beneficios Maximos: " + beneficiosMax);
 		System.out.println();
+	}
+	
+	private static void calculBestia(Estado result) {
+		Struct[] v = result.getvEstaciones();
+		Estaciones Est = GeneraProblema.getEstaciones();
+		int beneficios = 0;
+		for (int i = 0; i < v.length; ++i) {
+			Struct s = v[i];
+			Estacion est = Est.get(i);
+			int dif = est.getDemanda() - est.getNumBicicletasNext();
+			if (dif < 0) dif = 0;
+			int delta = s.getBicisColocades() - s.getBicisAgafen();
+			if (delta > dif) delta = dif;
+			beneficios += delta;
+		}
+		System.out.println("Beneficios REALES: " + beneficios);
 	}
 	
 	private static void printInstrumentation(Properties properties) {
