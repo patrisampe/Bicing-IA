@@ -113,17 +113,17 @@ public class Estado {
 	}
 	
 	private void RecalcularBicisBien(Estacion e, Integer abans, Integer ara){
-		System.out.println("DEMANDA ");
-		System.out.println(e.getDemanda());
-		System.out.println("BICICLETAS NEXT");
-		System.out.println(e.getNumBicicletasNext());
+		//System.out.println("DEMANDA ");
+		//System.out.println(e.getDemanda());
+		//System.out.println("BICICLETAS NEXT");
+		//System.out.println(e.getNumBicicletasNext());
 		
 		Estaciones es= GeneraProblema.getEstaciones();
 
 		Integer falten= -e.getNumBicicletasNext()+e.getDemanda()+vEstaciones[es.indexOf(e)].getBicisAgafen();
 		
-		System.out.println("falten");
-		System.out.println(falten);
+		//System.out.println("falten");
+		//System.out.println(falten);
 		/**
 		System.out.println("abans");
 		System.out.println(abans);
@@ -135,15 +135,15 @@ public class Estado {
 		
 		
 		Integer c=bicisBienColocadesEstacionE(ara,falten);
-		System.out.println("empiezo a ahora ");
-		System.out.println("bicis bien colocadas antes ");
-		System.out.println(b);
-		System.out.println("bicis bien colocadas ahora ");
-		System.out.println(c);
-		System.out.println("BICIS BIEN ");
-		System.out.println(BicisBienColocadas);
+		//System.out.println("empiezo a ahora ");
+		//System.out.println("bicis bien colocadas antes ");
+		//System.out.println(b);
+		//System.out.println("bicis bien colocadas ahora ");
+		//System.out.println(c);
+		//System.out.println("BICIS BIEN ");
+		//System.out.println(BicisBienColocadas);
 		BicisBienColocadas = BicisBienColocadas-b+c;
-		System.out.println(BicisBienColocadas);
+		//System.out.println(BicisBienColocadas);
 		
 	}
 	

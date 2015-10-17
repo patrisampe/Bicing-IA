@@ -20,7 +20,7 @@ public class Main {
 	public static void main(String[] args) {
 		// args[0] nombre del fichero de entrada
 		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-		Path path = Paths.get(System.getProperty("user.dir"), "bicing/file/exemple.txt");
+		Path path = Paths.get(System.getProperty("user.dir"), "file/exemple.txt");
 
 		Charset charset = Charset.forName("ISO-8859-1");
 		try {
@@ -66,7 +66,7 @@ public class Main {
 				problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
 				break;			
 		}
-		System.out.println("Pepe3");
+		//System.out.println("Pepe3");
 		Search search = new HillClimbingSearch();
 		long startTime = System.currentTimeMillis();
 		SearchAgent agent = new SearchAgent(problem, search);
@@ -75,9 +75,9 @@ public class Main {
 		Estado result = (Estado) search.getGoalState();
 		result.print();
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
-		System.out.println("Pepe6");
+		//System.out.println("Pepe6");
 		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
-		System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
+		//System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
 	}
 	
 	private static void SA(List<String> lines) throws Exception {

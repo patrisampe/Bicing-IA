@@ -39,7 +39,7 @@ public class SuccessorsSA implements SuccessorFunction {
 		if (sucesores.get(0) == null) return getSuccessors(e); 
 		List ret = new ArrayList();
 		for (Estado cosa : sucesores) {
-			ret.add(new Successor("",e));
+			ret.add(new Successor("",cosa));
 		}
 		return ret;
 	}

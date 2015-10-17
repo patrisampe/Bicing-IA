@@ -20,7 +20,7 @@ public class DosEst {
 		if (getClass() != obj.getClass())
 			return false;
 		DosEst other = (DosEst) obj;
-		return a == other.a && b == b;
+		return a == other.a && b == other.b;
 	}
 	public DosEst(Estacion a, Estacion b) {
 		this.a = a;
