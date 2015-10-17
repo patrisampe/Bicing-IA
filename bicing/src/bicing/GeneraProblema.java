@@ -48,6 +48,14 @@ public class GeneraProblema {
 		return es;
 	}
 	
+	public static Estacion getEstacion(Integer index){
+		return  es.get(index);
+	}
+	
+	public static Integer getIndex(Estacion esta){
+		return  es.indexOf(esta);
+	}
+	
 	public static Integer distancia(Estacion a, Estacion b){
 		DosEst aux = new DosEst(a,b);
 		return dist.get(aux);
