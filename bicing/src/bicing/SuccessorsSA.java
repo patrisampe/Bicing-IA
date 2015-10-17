@@ -12,7 +12,7 @@ public class SuccessorsSA implements SuccessorFunction {
 	@Override
 	public List getSuccessors(Object arg0) {
 		Estado e = (Estado) arg0;
-		Random r = new Random();
+		Random r = new Random(GeneraProblema.getSemilla());
 		List<Estado> sucesores = new ArrayList<Estado>();
 		int f = r.nextInt(e.getvFurgonetas().length);
 		int nums[] = {1,2,7};
