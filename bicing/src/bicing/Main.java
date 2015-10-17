@@ -99,7 +99,7 @@ public class Main {
 		EstadoFinal ef = new EstadoFinal();
 		int numh = getNum(lines.get(23));
 		Problem problem = null;
-		if (alg == "SA") {
+		if (alg.equals("SA")) {
 			SuccessorsSA succ = new SuccessorsSA();
 			switch (numh) {
 				case 1: 
@@ -133,8 +133,8 @@ public class Main {
 		long endTime = System.currentTimeMillis();
 		Estado result = (Estado) search.getGoalState();
 		printEstado(result, false);
-		if (getString(lines.get(13)) == "S") printActions(agent.getActions());
-		if (getString(lines.get(14)) == "S") printInstrumentation(agent.getInstrumentation());
+		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
+		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
 		System.out.println("SA ha tardado " + (endTime - startTime) + " ms");
 	}
 	

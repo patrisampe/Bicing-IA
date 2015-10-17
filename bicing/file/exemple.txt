@@ -6,19 +6,19 @@ Número de bicis: 1250
 Número de estaciones: 25
 Número de furgonetas: 5
 Tipo demanda(EQUILIBRIUM o RUSH_HOUR): EQUILIBRIUM
-Semilla: 658
+Semilla: 1234
 
-Algoritmo(HC o SA): SA
+Algoritmo(HC o SA o SA2): SA2
 
 Información adicional sobre la ejecución del algoritmo
-Camino de búsqueda(S/N): n
-Ejecución búsqueda(S/N): n
+Camino de búsqueda(S/N): N
+Ejecución búsqueda(S/N): N
 
 Si el Algoritmo es SA, rellenad los siguientes campos, en caso contrario dejar en blanco
-Número máximo de iteraciones: 4000
-Número de iteraciones por cada paso de temperatura: 500
+Número máximo de iteraciones: 40000
+Número de iteraciones por cada paso de temperatura: 40
 Parámetro k: 50
-Parámetro lambda: 0.01
+Parámetro lambda: 0.001
 
 Indique el número (1 a 3) la función heurística que se usuará
 Función heurística: 1
