@@ -559,6 +559,7 @@ public class Estado {
 			Estaciones es=GeneraProblema.getEstaciones();
 			System.out.println("Inicial:" + es.indexOf(E) + " " + (np1+np2) + " P1: " + es.indexOf(f.getEstacioP1())+ " " + np1 + " P2: " + es.indexOf(f.getEstacioP2())+ " " + np2);
 		}
+		System.out.println("");
 		
 	}
 	
