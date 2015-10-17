@@ -486,6 +486,7 @@ public class Estado {
 			Double n= 0.6*e.getNumBicicletasNext();
 			//System.out.println(n);
 			Integer ne=n.intValue();
+			ne=minim(30,ne);
 			//System.out.println(ne);
 			int np1=ne/2;
 			//System.out.println(np1);
@@ -559,6 +560,7 @@ public class Estado {
 			Estaciones es=GeneraProblema.getEstaciones();
 			System.out.println("Inicial:" + es.indexOf(E) + " " + (np1+np2) + " P1: " + es.indexOf(f.getEstacioP1())+ " " + np1 + " P2: " + es.indexOf(f.getEstacioP2())+ " " + np2);
 		}
+		System.out.println("");
 		
 	}
 	

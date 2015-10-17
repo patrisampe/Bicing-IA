@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Properties;
 
+import IA.Bicing.Estacion;
 import IA.Bicing.Estaciones;
 import aima.search.framework.Problem;
 import aima.search.framework.Search;
@@ -21,7 +22,6 @@ public class Main {
 		// args[0] nombre del fichero de entrada
 		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
 		Path path = Paths.get(System.getProperty("user.dir"), "bicing/file/exemple.txt");
-
 		Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
@@ -33,14 +33,7 @@ public class Main {
 		    }		
 	}
 	
-	private static int readDemanda(String linia) {
-		int dem = Estaciones.RUSH_HOUR;
-		String demS = getString(linia); //AIXO NO HO TINC CLAR, HAURE DE PARLAR AMB LA PATRI
-		if (demS.equals("EQUILIBRIUM")) dem = Estaciones.EQUILIBRIUM;
-		return dem;
-	}
-	
-	private static void HC(List<String> lines) throws Exception{
+	private static void HC(List<String> lines) throws Exception {
 		System.out.println("HillClimbing\n");
 		//Leemos datos necesarios para HC
 		int numB = getNum(lines.get(4));
@@ -49,8 +42,13 @@ public class Main {
 		int dem = readDemanda(lines.get(7));
 		int seed = getNum(lines.get(8));
 		GeneraProblema.CrearProblema(numE, numB, dem, seed);
-		Estado estado = Estado.estadoInicial(numF, numE);
-		estado.print();
+		printEstaciones(numF);
+		int estadoIni = getNum(lines.get(26));
+		Estado estado = null;
+		if (estadoIni == 1) estado = Estado.estadoInicial_v1(numF, numE);
+		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
+		else estado = Estado.estadoInicial_v3(numF, numE);
+		printEstado(estado, true);
 		SuccessorsHC succ = new SuccessorsHC();
 		EstadoFinal ef = new EstadoFinal();
 		int numh = getNum(lines.get(23));
@@ -66,18 +64,15 @@ public class Main {
 				problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
 				break;			
 		}
-		//System.out.println("Pepe3");
 		Search search = new HillClimbingSearch();
 		long startTime = System.currentTimeMillis();
 		SearchAgent agent = new SearchAgent(problem, search);
 		long endTime = System.currentTimeMillis();
-		estado.print();
 		Estado result = (Estado) search.getGoalState();
-		result.print();
+		printEstado(result, false);
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
-		//System.out.println("Pepe6");
 		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
-		//System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
+		System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
 	}
 	
 	private static void SA(List<String> lines) throws Exception {
@@ -94,7 +89,12 @@ public class Main {
 		double lam = getDouble(lines.get(20));
 		
 		GeneraProblema.CrearProblema(numE, numB, dem, seed);
-		Estado estado = Estado.estadoInicial(numF, numE);
+		int estadoIni = getNum(lines.get(26));
+		Estado estado = null;
+		if (estadoIni == 1) estado = Estado.estadoInicial_v1(numF, numE);
+		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
+		else estado = Estado.estadoInicial_v3(numF, numE);
+		printEstado(estado, true);
 		SuccessorsSA succ = new SuccessorsSA();
 		EstadoFinal ef = new EstadoFinal();
 		int numh = getNum(lines.get(23));
@@ -114,6 +114,8 @@ public class Main {
 		long startTime = System.currentTimeMillis();
 		SearchAgent agent = new SearchAgent(problem, search);
 		long endTime = System.currentTimeMillis();
+		Estado result = (Estado) search.getGoalState();
+		printEstado(result, false);
 		if (getString(lines.get(13)) == "S") printActions(agent.getActions());
 		if (getString(lines.get(14)) == "S") printInstrumentation(agent.getInstrumentation());
 		System.out.println("SA ha tardado " + (endTime - startTime) + " ms");
@@ -136,6 +138,41 @@ public class Main {
 		int i = s.indexOf(':');
 		String num = s.substring(i+2);
 		return Double.parseDouble(num);
+	}
+	
+	private static int readDemanda(String linia) {
+		int dem = Estaciones.RUSH_HOUR;
+		String demS = getString(linia);
+		if (demS.equals("EQUILIBRIUM")) dem = Estaciones.EQUILIBRIUM;
+		return dem;
+	}
+	
+	
+	private static void printEstado(Estado result, boolean inicial) {
+		if (inicial) System.out.println("Estado inicial");
+		else System.out.println("Estado final");
+		int bien = result.getBicisBienColocadas();
+		int mal = result.getBicisMalColocadas();
+		System.out.println("Beneficios: " + (bien-mal));
+		result.print();
+	}
+	
+	private static void printEstaciones(int numF) {
+		Estaciones Est = GeneraProblema.getEstaciones();
+		System.out.println("Estaciones (NoUsadas, Prevision Demanda)");
+		int beneficiosMax = 0;
+		for (int i = 0; i < Est.size(); ++i) {
+			Estacion est = Est.get(i);
+			int dif = est.getDemanda() - est.getNumBicicletasNext();
+			if (dif < 0) dif = 0;
+			beneficiosMax += dif;
+			System.out.println("Estacion " + i);
+			System.out.println(est.getNumBicicletasNoUsadas() + " " +  est.getNumBicicletasNext() + " " + est.getDemanda());
+		}
+		int aux = numF*30;
+		if (aux < beneficiosMax) beneficiosMax = aux;
+		System.out.println("Beneficios Maximos: " + beneficiosMax);
+		System.out.println();
 	}
 	
 	private static void printInstrumentation(Properties properties) {
