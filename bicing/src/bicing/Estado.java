@@ -612,7 +612,7 @@ public class Estado {
 			//System.out.println(np2);
 			
 			
-			
+
 			
 			vEst[rp1].sumaNBicis(np1);
 			vEst[rp2].sumaNBicis(np2);
