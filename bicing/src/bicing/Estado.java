@@ -615,12 +615,13 @@ public class Estado {
 				a.setIndex(i);
 				a.setSobren(e.getNumBicicletasNext()-e.getDemanda());
 				ve.add(a);
+				vEst[i]= new Struct();
 			
 			
 		}
-		
+		System.out.println("hiiii");
 		Collections.sort(ve,(Comparator<Auxi>)ve.get(0));
-		
+		System.out.println("hiiii 2");
 
 		
 		for(int i=0;i<min;++i) {
@@ -630,7 +631,7 @@ public class Estado {
 			//System.out.println(vp.size());
 			//System.out.println(v2);
 			
-			
+			System.out.println("hiiii 3");
 			Integer re=ve.get(i).getIndex();
 			
 			
@@ -645,7 +646,9 @@ public class Estado {
 			Estacion p2=aux.getB();
 			Integer rp1=GeneraProblema.getIndex(p1);
 			Integer rp2=GeneraProblema.getIndex(p2);
-			
+			System.out.println("niiii");
+			System.out.println(rp1);
+			System.out.println(rp2);
 			//System.out.println("mides 2");
 			////System.out.println(ve.size());
 			//System.out.println(vp.size());
@@ -661,11 +664,11 @@ public class Estado {
 
 			Integer sobren=ve.get(i).getSobren();
 			
-			
+			System.out.println("hiiii 3.5");
 
 			//Double n= 
 				Integer ne= minim(e.getNumBicicletasNoUsadas(),sobren);
-
+				if(ne<0)ne=0;
 			
 			////System.out.println(n);
 			ne=minim(30,ne);
@@ -681,14 +684,15 @@ public class Estado {
 			Integer malP1=bicisMalColocadasIndexE(rp1,vEst);
 			Integer malP2=bicisMalColocadasIndexE(rp2,vEst);
 			*/
+			System.out.println("hiiii 3.7");
 			
 			vEst[rp1].sumaNBicis(np1);
 			vEst[rp2].sumaNBicis(np2);
-			
+			System.out.println("hiiii 3.8");
 			vEst[re].setFurg(i);
 			vEst[re].setBicisAgafen(ne);
 			Furgoneta audi=new Furgoneta(re,rp1,rp2,np1,np2);
-			
+			System.out.println("hiiii 4");
 			vfurg[i]=audi;
 			
 			/**
@@ -718,6 +722,7 @@ public class Estado {
 			
 			////System.out.println("Vector9.8");
 			g=g+gau;
+			System.out.println("hiiii 5");
 			//System.out.println("Vector10");
 			
 		}

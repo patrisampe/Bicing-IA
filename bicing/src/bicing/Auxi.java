@@ -1,6 +1,8 @@
 package bicing;
 
-public class Auxi {
+import java.util.Comparator;
+
+public class Auxi implements Comparator<Auxi>{
 	Integer index;
 	Integer sobren;
 	public Auxi(Integer index, Integer sobren) {
@@ -11,8 +13,8 @@ public class Auxi {
 	
 	public Auxi() {
 		super();
-		this.index = index;
-		this.sobren = sobren;
+		this.index =0;
+		this.sobren = 0;
 	}
 	public Integer getIndex() {
 		return index;
@@ -28,7 +30,7 @@ public class Auxi {
 	}
 	
 	public int compare(Auxi m1, Auxi m2){
-	    return (m1.sobren-m2.sobren);
+	    return (m2.sobren-m1.sobren);
 	}
 	@Override
 	public int hashCode() {
