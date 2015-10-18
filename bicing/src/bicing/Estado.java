@@ -432,8 +432,8 @@ public class Estado {
 			Integer indexP1=vFurgonetas[numFurgoneta].getindexEstacioP1();
 			Integer indexP2=vFurgonetas[numFurgoneta].getindexEstacioP2();
 			Integer indexE=vFurgonetas[numFurgoneta].getindexEstacioE();
-			Integer bienE=bicisBienColocadasIndexE(indexE);
-			Integer malE=bicisMalColocadasIndexE(indexE);
+			//Integer bienE=bicisBienColocadasIndexE(indexE);
+			//Integer malE=bicisMalColocadasIndexE(indexE);
 			Integer bienP1=bicisBienColocadasIndexE(indexP1);
 			Integer bienP2=bicisBienColocadasIndexE(indexP2);
 			Integer malP1=bicisMalColocadasIndexE(indexP1);
@@ -467,15 +467,17 @@ public class Estado {
 				vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioE()].setBicisAgafen(diff);
 			}
 			
-			Integer bienEv2=bicisBienColocadasIndexE(indexE);
-			Integer malEv2=bicisMalColocadasIndexE(indexE);
+			//Integer bienEv2=bicisBienColocadasIndexE(indexE);
+			//Integer malEv2=bicisMalColocadasIndexE(indexE);
 			Integer bienP1v2=bicisBienColocadasIndexE(indexP1);
 			Integer bienP2v2=bicisBienColocadasIndexE(indexP2);
 			Integer malP1v2=bicisMalColocadasIndexE(indexP1);
 			Integer malP2v2=bicisMalColocadasIndexE(indexP2);
 			
-			BicisMalColocadas=BicisMalColocadas-malE-malP1-malP2+malEv2+malP1v2+malP2v2;
-			BicisBienColocadas=BicisBienColocadas-bienE-bienP1-bienP2+bienEv2+bienP1v2+bienP2v2;
+			//BicisMalColocadas=BicisMalColocadas-malE-malP1-malP2+malEv2+malP1v2+malP2v2;
+			//BicisBienColocadas=BicisBienColocadas-bienE-bienP1-bienP2+bienEv2+bienP1v2+bienP2v2;
+			BicisMalColocadas=BicisMalColocadas-malP1-malP2+malP1v2+malP2v2;
+			BicisBienColocadas=BicisBienColocadas-bienP1-bienP2+bienP1v2+bienP2v2;
 		}
 		
 		
@@ -663,7 +665,8 @@ public class Estado {
 			Estacion e=GeneraProblema.getEstacion(re);
 
 			Integer sobren=ve.get(i).getSobren();
-			
+			System.out.println("SOOBREEEEN");
+			System.out.println(sobren);
 			System.out.println("hiiii 3.5");
 
 			//Double n= 
