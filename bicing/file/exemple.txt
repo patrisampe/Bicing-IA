@@ -2,9 +2,9 @@
 
 IMPORTANTE: Dejar un espacio entre los ':' cuando se rellenen los campos
 
-Número de bicis: 300
-Número de estaciones: 4
-Número de furgonetas: 2
+Número de bicis: 1250
+Número de estaciones: 25
+Número de furgonetas: 5
 Tipo demanda(EQUILIBRIUM o RUSH_HOUR): EQUILIBRIUM
 Semilla: 1234
 

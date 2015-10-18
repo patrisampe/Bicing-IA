@@ -21,7 +21,7 @@ public class Main {
 	public static void main(String[] args) {
 		// args[0] nombre del fichero de entrada
 		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-		Path path = Paths.get(System.getProperty("user.dir"), "bicing-ia/bicing/file/exemple.txt");
+		Path path = Paths.get(System.getProperty("user.dir"), "file/exemple.txt");
 		Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
@@ -72,11 +72,34 @@ public class Main {
 		Estado result = (Estado) search.getGoalState();
 		calculBestia(result);
 		printEstado(result, false);
+		System.out.println("Distancia total recorrida: "+ calcDistTotal(result)/(double)1000);
+		System.out.println("Gasolina Total: "+ calcGasolinaTotal(result)/1000);
+		System.out.println("Gasolina Total Inc: "+ result.getCosteGasolina()/1000);
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
 		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
 		System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
 	}
 	
+	private static double calcGasolinaTotal(Estado result) {
+		double gasolina = 0;
+		for (Furgoneta furgo : result.getvFurgonetas()) {
+			int distancia1 = GeneraProblema.distancia(furgo.getEstacioE(), furgo.getEstacioP1());
+			int distancia2 = GeneraProblema.distancia(furgo.getEstacioP1(), furgo.getEstacioP2());
+			gasolina += ((furgo.getNp1() + 9)/ 10)*distancia1;
+			gasolina += ((furgo.getNp2() + 9)/ 10)*distancia2;
+		    
+		}
+		return gasolina;
+	}
+
+	private static int calcDistTotal(Estado result) {
+		int distancia = 0;
+		for (Furgoneta furgo : result.getvFurgonetas()) {
+			distancia += GeneraProblema.distancia(furgo.getEstacioE(), furgo.getEstacioP1()) + GeneraProblema.distancia(furgo.getEstacioP1(), furgo.getEstacioP2());
+		}
+		return distancia;
+	}
+
 	private static void SA(List<String> lines) throws Exception {
 		System.out.println("Simulated Annealing\n");
 		//Leemos datos necesarios para SA
