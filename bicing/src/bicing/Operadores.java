@@ -8,31 +8,6 @@ public class Operadores {
 	
 	public static int num = 1;
 	
-
-	private static void updateBicisBienFurgoneta(Estado ini, Estado suc, int f) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private static void updateBicisMalFurgoneta(Estado ini, Estado suc, int f) {
-		/*int malabans = bicisMal(ini,f);
-		int maldespres = bicisMal(suc,f);
-		if (suc.getBicisMalColocadas() != ini.getBicisMalColocadas()-malabans+maldespres) System.out.println("Patri != Yoel");	*/
-	}
-	
-	private static int bicisMal(Estado e, int f) {
-		Furgoneta furgo = e.getvFurgonetas()[f];
-		int mal = furgo.getNp1()+furgo.getNp2()-furgo.getEstacioE().getNumBicicletasNoUsadas();
-		if (mal < 0) mal = 0;
-		return mal;
-	}
-
-	private static void updateCompletoFurgoneta(Estado ini, Estado fi, int f) {
-		updateBicisBienFurgoneta(ini,fi,f);
-		updateBicisMalFurgoneta(ini,fi,f);
-		updateCosteFurgoneta(ini,fi,f);
-	}
-	
 	private static boolean neSePasaria(Estado e, int f) {
 		Furgoneta furgo = e.getvFurgonetas()[f];
 		int np1 = furgo.getNp1(), np2 = furgo.getNp2();
@@ -63,22 +38,22 @@ public class Operadores {
 		Estado ret = new Estado(e);
 		ret.intercambiarE(a, b);
 		int f1 = e.getvEstaciones()[a].getFurg(), f2 = e.getvEstaciones()[b].getFurg();
-		if (f1 != -1) updateCompletoFurgoneta(e,ret,f1);
-		if (f2 != -1) updateCompletoFurgoneta(e,ret,f2);
+		if (f1 != -1) updateCosteFurgoneta(e,ret,f1);
+		if (f2 != -1) updateCosteFurgoneta(e,ret,f2);
 		return ret;
 	}
 	
 	public static Estado modificarP1(Estado e, int f, int p) {
 		Estado ret = new Estado(e);
 		ret.canviarP1(f,p);
-		updateCompletoFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
 
 	public static Estado modificarP2(Estado e, int f, int p) {
 		Estado ret = new Estado(e);
 		ret.canviarP2(f,p);
-		updateCompletoFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
 	
@@ -94,7 +69,7 @@ public class Operadores {
 		if (neSePasaria(e,f)) return null;
 		Estado ret = new Estado(e);
 		ret.incrementarNNENP1(num, f);
-		updateCompletoFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
 	
@@ -102,7 +77,7 @@ public class Operadores {
 		if (neSePasaria(e,f)) return null;
 		Estado ret = new Estado(e);
 		ret.incrementarNNENP2(num, f);
-		updateCompletoFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
 	
@@ -111,7 +86,7 @@ public class Operadores {
 		Estado ret = new Estado(e);
 		if (ret.getvFurgonetas()[f].getNp1() < num) return null;
 		ret.decrementarNNENP1(num, f);
-		updateCompletoFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
 
@@ -119,7 +94,7 @@ public class Operadores {
 		Estado ret = new Estado(e);
 		if (ret.getvFurgonetas()[f].getNp2() < num) return null;
 		ret.decrementarNNENP2(num, f);
-		updateCompletoFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
 
@@ -128,7 +103,6 @@ public class Operadores {
 		ret.decrementarNNENP2(num, f);
 		if (ret.getvFurgonetas()[f].getNp2() < num) return null;
 		ret.incrementarNNENP1(num, f);
-		updateBicisBienFurgoneta(e,ret,f);
 		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
@@ -138,7 +112,27 @@ public class Operadores {
 		ret.decrementarNNENP1(num, f);
 		if (ret.getvFurgonetas()[f].getNp1() < 0) return null;
 		ret.incrementarNNENP2(num, f);
-		updateBicisBienFurgoneta(e,ret,f);
+		updateCosteFurgoneta(e,ret,f);
+		return ret;
+	}
+	public static Estado cambiarNp1(Estado e, int f, int n) {
+		Estado ret = new Estado(e);
+		Furgoneta furgo = ret.getvFurgonetas()[f];
+		int nuevoNe = furgo.getNp2()+n;
+		if (nuevoNe > 30 || nuevoNe > furgo.getEstacioE().getNumBicicletasNoUsadas()) return null;
+		ret.decrementarNNENP1(furgo.getNp1(), f);
+		ret.incrementarNNENP1(n, f);
+		updateCosteFurgoneta(e,ret,f);
+		return ret;
+	}
+	
+	public static Estado cambiarNp2(Estado e, int f, int n) {
+		Estado ret = new Estado(e);
+		Furgoneta furgo = ret.getvFurgonetas()[f];
+		int nuevoNe = furgo.getNp1()+n;
+		if (nuevoNe > 30 || nuevoNe > furgo.getEstacioE().getNumBicicletasNoUsadas()) return null;
+		ret.decrementarNNENP2(furgo.getNp2(), f);
+		ret.incrementarNNENP2(n, f);
 		updateCosteFurgoneta(e,ret,f);
 		return ret;
 	}
