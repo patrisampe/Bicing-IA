@@ -36,7 +36,8 @@ public class Operadores {
 	private static boolean neSePasaria(Estado e, int f) {
 		Furgoneta furgo = e.getvFurgonetas()[f];
 		int np1 = furgo.getNp1(), np2 = furgo.getNp2();
-		return np1+np2+num > furgo.getEstacioE().getNumBicicletasNoUsadas();
+		int nuevoNe = np1+np2+num;
+		return nuevoNe > 30 || nuevoNe > furgo.getEstacioE().getNumBicicletasNoUsadas();
 	}
 	
 	private static void updateCosteFurgoneta (Estado inicial, Estado sucesor, int f) {
