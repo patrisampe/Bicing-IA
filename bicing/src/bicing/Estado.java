@@ -112,8 +112,9 @@ public class Estado {
 	
 	
 	private Integer bicisBienColocadasIndexE(Integer e){
-		Integer falten=-GeneraProblema.getEstacion(e).getNumBicicletasNext()+GeneraProblema.getEstacion(e).getDemanda()+vEstaciones[e].getBicisAgafen();
-		if(falten>0)return minim(falten,vEstaciones[e].getBicisColocades());
+		Integer falten=GeneraProblema.getEstacion(e).getDemanda()-GeneraProblema.getEstacion(e).getNumBicicletasNext();
+		Integer coloquem = vEstaciones[e].getBicisColocades()-vEstaciones[e].getBicisAgafen();
+		if(falten>0 && coloquem>0)return minim(falten,coloquem);
 		return 0;
 		
 	}
@@ -208,7 +209,9 @@ public class Estado {
 	}
 	
 	public void incrementarNNP1decrementarNP2(Integer n, Integer numFurgoneta){
+		
 		//System.out.println(" incrementarNNP1decrementarNP2");
+		
 		Integer P1=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer P2=vFurgonetas[numFurgoneta].getindexEstacioP2();
 		
@@ -229,11 +232,12 @@ public class Estado {
 		
 		BicisBienColocadas= BicisBienColocadas-bienP1-bienP2+bienP1v2+bienP2v2;
 		BicisMalColocadas= BicisMalColocadas-malP1-malP2+malP1v2+malP2v2;
-
+		
 	}
 	
 	public void incrementarNNP2decrementarNP1(Integer n, Integer numFurgoneta){
 		//System.out.println(" incrementarNNP2decrementarNP1");
+		
 		Integer P1=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer P2=vFurgonetas[numFurgoneta].getindexEstacioP2();
 
@@ -254,23 +258,24 @@ public class Estado {
 		
 		BicisBienColocadas= BicisBienColocadas-bienP1-bienP2+bienP1v2+bienP2v2;
 		BicisMalColocadas= BicisMalColocadas-malP1-malP2+malP1v2+malP2v2;
-
+		
 	}
 	public void incrementarNNENP2(Integer n, Integer numFurgoneta){
 		//System.out.println(" incrementarNNENP2");
+		
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP2();
 		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
+		
 		
 		
 		Integer bienE=bicisBienColocadasIndexE(iE);
 		Integer bienP2=bicisBienColocadasIndexE(iP);
 		Integer malE=bicisMalColocadasIndexE(iE);
 		Integer malP2=bicisMalColocadasIndexE(iP);
-		
-		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()+n);
-		
+		Integer np2=vFurgonetas[numFurgoneta].getNp2();
+		vFurgonetas[numFurgoneta].setNp2(np2+n);
 		vEstaciones[iP].sumaNBicis(n);
-		vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioE()].sumaNBicisAg(n);
+		vEstaciones[iE].sumaNBicisAg(n);
 		
 		Integer bienEv2=bicisBienColocadasIndexE(iE);
 		Integer bienP2v2=bicisBienColocadasIndexE(iP);
@@ -283,6 +288,7 @@ public class Estado {
 	}
 	public void decrementarNNENP2(Integer n, Integer numFurgoneta){
 		//System.out.println(" decrementarNNENP2");
+		
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP2();
 		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
 		
@@ -318,8 +324,7 @@ public class Estado {
 		
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-n);
 		vEstaciones[iP].restaNBicis(n);
-		vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioE()].restaNBicisAg(n);
-		
+		vEstaciones[iE].restaNBicisAg(n);
 		
 		Integer bienEv2=bicisBienColocadasIndexE(iE);
 		Integer malP1v2=bicisMalColocadasIndexE(iP);
@@ -348,7 +353,7 @@ public class Estado {
 	 * @param EstacioP1
 	 */
 	public void canviarP1(Integer numFurgoneta, Integer EstacioP1){
-		/**
+		
 		Integer P=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer nP1=vFurgonetas[numFurgoneta].getNp1();
 		
@@ -370,10 +375,10 @@ public class Estado {
 		
 		BicisBienColocadas= BicisBienColocadas-bienP1-bienEP1+bienP1v2+bienEP1v2;
 		BicisMalColocadas = BicisMalColocadas - malP1-malEP1 +malP1v2+malEP1v2;
-		*/
+		
 	}
 	public void canviarP2(Integer numFurgoneta, Integer EstacioP2){
-		/**
+		
 		Integer P2=vFurgonetas[numFurgoneta].getindexEstacioP2();
 		Integer nP2=vFurgonetas[numFurgoneta].getNp2();
 		
@@ -395,7 +400,7 @@ public class Estado {
 		
 		BicisBienColocadas= BicisBienColocadas-bienP2-bienEP2+bienP2v2+bienEP2v2;
 		BicisMalColocadas = BicisMalColocadas - malP2-malEP2 +malP2v2+malEP2v2;
-		*/
+		
 	}
 	
 	
@@ -470,6 +475,7 @@ public class Estado {
 			BicisMalColocadas=BicisMalColocadas-malE-malP1-malP2+malEv2+malP1v2+malP2v2;
 			BicisBienColocadas=BicisBienColocadas-bienE-bienP1-bienP2+bienEv2+bienP1v2+bienP2v2;
 		}
+		
 		
 	}
 	/**
