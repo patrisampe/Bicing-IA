@@ -38,6 +38,10 @@ public class SuccessorsHC implements SuccessorFunction {
 				sucesores.add(Operadores.incNeNp2(e, i));
 				sucesores.add(Operadores.incNp1decNp2(e, i));
 				sucesores.add(Operadores.decNp1incNp2(e, i));
+				for (int n = 1; n <= 30; ++n) {
+					sucesores.add(Operadores.cambiarNp1(e, i, n));
+					sucesores.add(Operadores.cambiarNp2(e, i, n));
+				}
 			}
 			
 		}
