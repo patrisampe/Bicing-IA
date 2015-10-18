@@ -144,8 +144,9 @@ public class Estado {
 	}
 	
 	private static Integer bicisBienColocadasIndexE(Integer e,Struct[] vEst){
-		Integer falten=-GeneraProblema.getEstacion(e).getNumBicicletasNext()+GeneraProblema.getEstacion(e).getDemanda()+vEst[e].getBicisAgafen();
-		if(falten>0)return minim(falten,vEst[e].getBicisColocades());
+		Integer falten=GeneraProblema.getEstacion(e).getDemanda()-GeneraProblema.getEstacion(e).getNumBicicletasNext();
+		Integer coloquem = vEst[e].getBicisColocades()-vEst[e].getBicisAgafen();
+		if(falten>0 && coloquem>0)return minim(falten,coloquem);
 		return 0;
 		
 	}
@@ -647,18 +648,20 @@ public class Estado {
 		}
 		
 		for(int i=0; i<numE;++i){
-			
+			System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
 			BSuman=BSuman+bicisBienColocadasIndexE(i,vEst);
 		}
 		for(int i=0; i<numF;++i){
 			int re=vfurg[i].getindexEstacioE();
+			System.out.println("Mal" + re + " " + bicisMalColocadasIndexE(re,vEst));
 			Brestan =Brestan+bicisMalColocadasIndexE(re,vEst);
 		}
 		
-
+		
 		
 		//System.out.println("restan");
-		//System.out.println(Brestan);
+		System.out.println("restan" + Brestan);
+		System.out.println("suman" + BSuman);
 		
 
 		return new Estado(vfurg,vEst,g,BSuman,Brestan);
