@@ -21,7 +21,7 @@ public class Main {
 	public static void main(String[] args) {
 		// args[0] nombre del fichero de entrada
 		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-		Path path = Paths.get(System.getProperty("user.dir"), "bicing-ia/bicing/file/exemple.txt");
+		Path path = Paths.get(System.getProperty("user.dir"), "/bicing/file/exemple.txt");
 		Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
@@ -180,10 +180,13 @@ public class Main {
 		Estaciones Est = GeneraProblema.getEstaciones();
 		System.out.println("Estaciones (NoUsadas, Prevision Demanda)");
 		int beneficiosMax = 0;
+		int faltan = 0;
+		int sobran = 0;
 		for (int i = 0; i < Est.size(); ++i) {
 			Estacion est = Est.get(i);
 			int dif = est.getDemanda() - est.getNumBicicletasNext();
-			if (dif < 0) dif = 0;
+			if (dif < 0) {dif = 0; sobran += -dif;}
+			if (dif > 0) faltan += dif;
 			beneficiosMax += dif;
 			System.out.println("Estacion " + i);
 			System.out.println(est.getNumBicicletasNoUsadas() + " " +  est.getNumBicicletasNext() + " " + est.getDemanda());
@@ -191,6 +194,7 @@ public class Main {
 		int aux = numF*30;
 		if (aux < beneficiosMax) beneficiosMax = aux;
 		System.out.println("Beneficios Maximos: " + beneficiosMax);
+		System.out.println("Min(sobran,faltan): " + sobran + " " + faltan);
 		System.out.println();
 	}
 	

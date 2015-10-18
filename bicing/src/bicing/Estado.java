@@ -596,9 +596,9 @@ public class Estado {
 		
 		int min= minim(numF,numE);
 		
-		System.out.println(numE);
-		System.out.println(numF);
-		System.out.println(min);
+		//System.out.println(numE);
+		//System.out.println(numF);
+		//System.out.println(min);
 		
 		Integer BSuman=0;
 		Integer Brestan=0;
@@ -612,7 +612,7 @@ public class Estado {
 		java.util.ArrayList<Integer> vp = new java.util.ArrayList<Integer>();
 		
 		
-		System.out.println("Jose");
+		//System.out.println("Jose");
 		for(int i=0; i < numE; ++i)
 		{
 			vEst[i]= new Struct();
@@ -620,9 +620,9 @@ public class Estado {
 			vp.add(i);
 			vp.add(i);
 		}
-		System.out.println("mides");
-		System.out.println(ve.size());
-		System.out.println(vp.size());
+		//System.out.println("mides");
+		//System.out.println(ve.size());
+		//System.out.println(vp.size());
 		auxiclass[] nova= new auxiclass[numE];
 		if(v2==2){
 			for(int i=0; i<numE;++i){
@@ -633,27 +633,27 @@ public class Estado {
 		}
 		for(int i=0;i<min;++i){
 			int re,rp1,rp2;
-			System.out.println("mides 0");
-			System.out.println(ve.size());
-			System.out.println(vp.size());
-			System.out.println(v2);
+			//System.out.println("mides 0");
+			//System.out.println(ve.size());
+			//System.out.println(vp.size());
+			//System.out.println(v2);
 			if(v2==2){
 				re= nova[i].getIndexestacions();
 			}
 			else{
-				System.out.println("hiii");
+				//System.out.println("hiii");
 				int te;
 				if(ve.size()==1)te=0;
 				else te = rnd.nextInt(ve.size()-1);
-				System.out.println(te);
+				//System.out.println(te);
 				re = ve.get(te);
 				
 				ve.remove(te);
 			}
 			
-			System.out.println("mides 1");
-			System.out.println(ve.size());
-			System.out.println(vp.size());
+			//System.out.println("mides 1");
+			//System.out.println(ve.size());
+			//System.out.println(vp.size());
 			
 			int tp1=rnd.nextInt(vp.size()-1);
 			rp1 = vp.get(tp1);
@@ -667,9 +667,9 @@ public class Estado {
 			}
 			if(v4==1)vp.remove(tp1);
 				
-			System.out.println("mides 2");
-			System.out.println(ve.size());
-			System.out.println(vp.size());
+			//System.out.println("mides 2");
+			//System.out.println(ve.size());
+			//System.out.println(vp.size());
 				
 			int tp2;
 			if(vp.size()==1)tp2=0;
@@ -686,9 +686,9 @@ public class Estado {
 			}
 			if(v4==1)vp.remove(tp2);
 	
-			System.out.println("mides 3");
-			System.out.println(ve.size());
-			System.out.println(vp.size());
+			//System.out.println("mides 3");
+			//System.out.println(ve.size());
+			//System.out.println(vp.size());
 			
 			Estacion e=GeneraProblema.getEstacion(re);
 			Estacion p1=GeneraProblema.getEstacion(rp1);
@@ -712,7 +712,7 @@ public class Estado {
 			ne=minim(30,ne);
 			//System.out.println(ne);
 			int np1=ne/2;
-			System.out.println(np1);
+			//System.out.println(np1);
 			int np2=ne-np1;
 			//System.out.println(np2);
 			/**
@@ -758,36 +758,36 @@ public class Estado {
 			
 			//System.out.println("Vector9.8");
 			g=g+gau;
-			System.out.println("Vector10");
+			//System.out.println("Vector10");
 			
 		}
-		System.out.println("Vector102");
+		//System.out.println("Vector102");
 		for (int i=min;i<numF;++i){
-			System.out.println("Vector10w");
+			//System.out.println("Vector10w");
 			vfurg[i]=new Furgoneta();
 		}
 		
-		System.out.println("Vector12");
+		//System.out.println("Vector12");
 		for(int i=0; i<numE;++i){
 			System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
 			BSuman=BSuman+bicisBienColocadasIndexE(i,vEst);
 		}
-		System.out.println("Vector13");
-		System.out.println(numF);
+		//System.out.println("Vector13");
+		//System.out.println(numF);
 		for(int i=0; i<numF;++i){
 			int re=vfurg[i].getindexEstacioE();
 			if(re!=-1){
-				System.out.println("Mal" + re + " " + bicisMalColocadasIndexE(re,vEst));
+				//System.out.println("Mal" + re + " " + bicisMalColocadasIndexE(re,vEst));
 				Brestan =Brestan+bicisMalColocadasIndexE(re,vEst);
 			}
 		}
-		System.out.println("Vector14");
+		//System.out.println("Vector14");
 		
 		
 		
 		//System.out.println("restan");
-		System.out.println("restan" + Brestan);
-		System.out.println("suman" + BSuman);
+		//System.out.println("restan" + Brestan);
+		//System.out.println("suman" + BSuman);
 		
 
 		return new Estado(vfurg,vEst,g,BSuman,Brestan);
