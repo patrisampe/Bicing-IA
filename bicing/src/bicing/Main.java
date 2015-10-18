@@ -194,6 +194,11 @@ public class Main {
 		System.out.println();
 	}
 	
+	private static int min(int a, int b) {
+		if (a < b) return a;
+		else return b;
+	}
+	
 	private static void calculBestia(Estado result) {
 		Struct[] v = result.getvEstaciones();
 		Estaciones Est = GeneraProblema.getEstaciones();
@@ -203,11 +208,15 @@ public class Main {
 			Struct s = v[i];
 			Estacion est = Est.get(i);
 			int dif = est.getDemanda() - est.getNumBicicletasNext();
-			if (dif < 0) dif = 0;
 			int delta = s.getBicisColocades() - s.getBicisAgafen();
+			if (delta < 0) {
+				if (dif > 0) beneficios += delta;
+				if (dif < 0) beneficios += delta - dif;
+			}
+			else {
+				if (dif > 0) beneficios += min(delta, dif);
+			}
 			System.out.println(i + " -> " +  s.getBicisColocades() + " " +  s.getBicisAgafen());
-			if (delta > dif) delta = dif;
-			beneficios += delta;
 		}
 		System.out.println("Beneficios REALES: " + beneficios);
 	}
