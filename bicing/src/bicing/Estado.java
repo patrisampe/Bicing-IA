@@ -142,7 +142,6 @@ public class Estado {
 		
 		
 		return mal;
-		
 	}
 	
 	private static Integer bicisBienColocadasIndexE(Integer e,Struct[] vEst){
@@ -349,7 +348,7 @@ public class Estado {
 	 * @param EstacioP1
 	 */
 	public void canviarP1(Integer numFurgoneta, Integer EstacioP1){
-		
+		/**
 		Integer P=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer nP1=vFurgonetas[numFurgoneta].getNp1();
 		
@@ -371,7 +370,7 @@ public class Estado {
 		
 		BicisBienColocadas= BicisBienColocadas-bienP1-bienEP1+bienP1v2+bienEP1v2;
 		BicisMalColocadas = BicisMalColocadas - malP1-malEP1 +malP1v2+malEP1v2;
-		
+		*/
 	}
 	public void canviarP2(Integer numFurgoneta, Integer EstacioP2){
 		/**
@@ -582,12 +581,12 @@ public class Estado {
 	 * 
 	 * @param numF
 	 * @param numE
-	 * @param v--> [1-4]
+	 * @param v--> [1-2]
 	 * @param v2 -->[1-2]
 	 * @param v3 -->[1-2]
 	 * @return
 	 */
-	private static Estado estadoinicial(int numF,int numE, int v,int v2,int v3){
+	private static Estado estadoinicial(int numF,int numE, int v,int v2,int v3,int v4){
 		
 		int min= minim(numF,numE);
 		
@@ -660,7 +659,7 @@ public class Estado {
 					j=j+1;
 				}
 			}
-			vp.remove(tp1);
+			if(v4==1)vp.remove(tp1);
 				
 			System.out.println("mides 2");
 			System.out.println(ve.size());
@@ -679,7 +678,7 @@ public class Estado {
 					j=j+1;
 				}
 			}
-			vp.remove(tp2);
+			if(v4==1)vp.remove(tp2);
 	
 			System.out.println("mides 3");
 			System.out.println(ve.size());
@@ -695,12 +694,6 @@ public class Estado {
 			//Double n= 
 			Double n;
 			if(v==1)n= 0.6*e.getNumBicicletasNoUsadas();
-			else if(v==2) n=0.6*e.getNumBicicletasNoUsadas();
-			else if(v==3) {
-				Double auxi=rnd.nextDouble();
-				if(auxi<0.0)auxi=auxi*(-1);
-				n= auxi*e.getNumBicicletasNoUsadas();
-			}
 			else{
 				Double auxi=rnd.nextDouble();
 				if(auxi<0.0)auxi=auxi*(-1);
@@ -716,13 +709,13 @@ public class Estado {
 			System.out.println(np1);
 			int np2=ne-np1;
 			//System.out.println(np2);
-			
+			/**
 			Integer bienE=bicisBienColocadasIndexE(re,vEst);
 			Integer bienP1=bicisBienColocadasIndexE(rp1,vEst);
 			Integer bienP2=bicisBienColocadasIndexE(rp2,vEst);
 			Integer malP1=bicisMalColocadasIndexE(rp1,vEst);
 			Integer malP2=bicisMalColocadasIndexE(rp2,vEst);
-			
+			*/
 			
 			vEst[rp1].sumaNBicis(np1);
 			vEst[rp2].sumaNBicis(np2);
@@ -732,7 +725,7 @@ public class Estado {
 			Furgoneta aux=new Furgoneta(re,rp1,rp2,np1,np2);
 			
 			vfurg[i]=aux;
-			
+			/**
 			Integer bienEv2=bicisBienColocadasIndexE(re,vEst);
 			Integer bienP1v2=bicisBienColocadasIndexE(rp1,vEst);
 			Integer bienP2v2=bicisBienColocadasIndexE(rp2,vEst);
@@ -742,7 +735,7 @@ public class Estado {
 			Brestan =Brestan+bicisMalColocadasIndexE(re,vEst)-malP1-malP2+malP1v2+malP2v2;
 			BSuman=BSuman-bienP1-bienP2-bienE+bienEv2+bienP1v2+bienP2v2-bienE+bienEv2;
 			
-			
+			*/
 			
 			
 			//System.out.println("Vector9");
@@ -767,7 +760,7 @@ public class Estado {
 			System.out.println("Vector10w");
 			vfurg[i]=new Furgoneta();
 		}
-		/**
+		
 		System.out.println("Vector12");
 		for(int i=0; i<numE;++i){
 			System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
@@ -783,7 +776,7 @@ public class Estado {
 			}
 		}
 		System.out.println("Vector14");
-		*/
+		
 		
 		
 		//System.out.println("restan");
@@ -797,84 +790,95 @@ public class Estado {
 	
 	
 	public static Estado estadoInicial_v1(int numF, int numE){
-		return estadoinicial(numF,numE,1,1,1);
+		return estadoinicial(numF,numE,1,1,1,1);
 
 	}
 	
 	public static Estado estadoInicial_v2(int numF, int numE){
-		return estadoinicial(numF,numE,2,1,1);
+		return estadoinicial(numF,numE,2,1,1,1);
 
 	}
 	
+
 	public static Estado estadoInicial_v3(int numF, int numE){
-		return estadoinicial(numF,numE,3,1,1);
+		return estadoinicial(numF,numE,1,2,1,1);
 
 	}
 	
 	public static Estado estadoInicial_v4(int numF, int numE){
-		return estadoinicial(numF,numE,4,1,1);
+		return estadoinicial(numF,numE,2,2,1,1);
 
 	}
-
+	
 	public static Estado estadoInicial_v5(int numF, int numE){
-		return estadoinicial(numF,numE,1,2,1);
+		return estadoinicial(numF,numE,1,1,2,1);
 
 	}
 	
 	public static Estado estadoInicial_v6(int numF, int numE){
-		return estadoinicial(numF,numE,2,2,1);
+		return estadoinicial(numF,numE,2,1,2,1);
 
 	}
 	
 	public static Estado estadoInicial_v7(int numF, int numE){
-		return estadoinicial(numF,numE,3,2,1);
+		return estadoinicial(numF,numE,1,2,2,1);
 
 	}
 	
 	public static Estado estadoInicial_v8(int numF, int numE){
-		return estadoinicial(numF,numE,4,2,1);
+		return estadoinicial(numF,numE,2,2,2,1);
 
 	}
-	
-	
 	
 	public static Estado estadoInicial_v9(int numF, int numE){
-		return estadoinicial(numF,numE,1,1,2);
+		return estadoinicial(numF,numE,3,2,2,1);
 
 	}
 	
+	
 	public static Estado estadoInicial_v10(int numF, int numE){
-		return estadoinicial(numF,numE,2,1,2);
+		return estadoinicial(numF,numE,1,1,1,2);
 
 	}
 	
 	public static Estado estadoInicial_v11(int numF, int numE){
-		return estadoinicial(numF,numE,3,1,2);
+		return estadoinicial(numF,numE,2,1,1,2);
 
 	}
 	
+
 	public static Estado estadoInicial_v12(int numF, int numE){
-		return estadoinicial(numF,numE,4,1,2);
+		return estadoinicial(numF,numE,1,2,1,2);
 
 	}
-
+	
 	public static Estado estadoInicial_v13(int numF, int numE){
-		return estadoinicial(numF,numE,1,2,2);
+		return estadoinicial(numF,numE,2,2,1,2);
 
 	}
 	
 	public static Estado estadoInicial_v14(int numF, int numE){
-		return estadoinicial(numF,numE,2,2,2);
+		return estadoinicial(numF,numE,1,1,2,2);
 
 	}
 	
 	public static Estado estadoInicial_v15(int numF, int numE){
-		return estadoinicial(numF,numE,3,2,2);
+		return estadoinicial(numF,numE,2,1,2,2);
 
 	}
 	
 	public static Estado estadoInicial_v16(int numF, int numE){
-		return estadoinicial(numF,numE,4,2,2);
+		return estadoinicial(numF,numE,1,2,2,2);
+
+	}
+	
+	public static Estado estadoInicial_v17(int numF, int numE){
+		return estadoinicial(numF,numE,2,2,2,2);
+
+	}
+	
+	public static Estado estadoInicial_v18(int numF, int numE){
+		return estadoinicial(numF,numE,3,2,2,2);
 
 	}
 	
