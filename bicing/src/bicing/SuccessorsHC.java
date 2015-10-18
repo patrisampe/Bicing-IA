@@ -22,14 +22,14 @@ public class SuccessorsHC implements SuccessorFunction {
 			for (int p= 0; p < e.getvEstaciones().length; ++p) {
 				sucesores.add(Operadores.modificarP2(e, i, p));
 			}
-			/*
+			
 			int b = GeneraProblema.getEstaciones().indexOf(e.getvFurgonetas()[i].getEstacioE());
 			for (int p= 0; p < e.getvEstaciones().length; ++p) {
 				sucesores.add(Operadores.intercambiarE(e, p, b));
 			}
-			*/
+			
 			sucesores.add(Operadores.intercambiarP1P2(e, i));
-			int nums[] = {1,2,7};
+			int nums[] = {1};
 			for (int index = 0; index < nums.length; ++index) {
 				Operadores.setNum(nums[index]);
 				sucesores.add(Operadores.decNeNp1(e, i));
@@ -38,11 +38,11 @@ public class SuccessorsHC implements SuccessorFunction {
 				sucesores.add(Operadores.incNeNp2(e, i));
 				sucesores.add(Operadores.incNp1decNp2(e, i));
 				sucesores.add(Operadores.decNp1incNp2(e, i));
-				for (int n = 1; n <= 30; ++n) {
-					sucesores.add(Operadores.cambiarNp1(e, i, n));
-					sucesores.add(Operadores.cambiarNp2(e, i, n));
-				}
-			}
+			}/*
+			for (int n = 1; n <= 30; ++n) {
+				sucesores.add(Operadores.cambiarNp1(e, i, n));
+				sucesores.add(Operadores.cambiarNp2(e, i, n));
+			}*/
 			
 		}
 		for (int i = 0; i < sucesores.size(); ++i) {
