@@ -39,6 +39,33 @@ public class GeneraProblema {
 		
 	}
 	
+	public static DosEst estmesaprop(Integer e){
+		
+		Estacion ed=es.get(e);
+		Estacion p1=null;
+		Estacion p2=null;
+		Integer a=0;
+		Integer b=0;
+		for(int i=0; i<es.size();++i){
+			Estacion eu=es.get(i);
+			Integer d=calcDistancia(ed,eu);
+			if(d>=a | d>=b ){
+				if(a>b){
+					b=d;
+					p2=eu;
+				}
+				else{
+					a=d;
+					p1=eu;
+				}
+			}
+			
+		}
+		DosEst aux=new DosEst(p1,p2);
+		return aux;
+		
+	}
+	
 	public static void CrearProblema(int nest, int nbic,int dem, int seed) {
 		es = new Estaciones(nest,nbic,dem,seed);
 		semilla = seed;

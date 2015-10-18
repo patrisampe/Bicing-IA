@@ -3,6 +3,7 @@ package bicing;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import IA.Bicing.Estaciones;
@@ -584,6 +585,8 @@ public class Estado {
 	}
 	
 	
+	
+	
 	public static Estado estadoInicial_v1(int numF, int numE){
 		System.out.println("proooofii  ");
 		int min= minim(numF,numE);
@@ -608,48 +611,46 @@ public class Estado {
 		for(int i=0; i < numE; ++i)
 		{
 			Estacion e=GeneraProblema.getEstacion(i);
-			if(e.getDemanda()<e.getNumBicicletasNext()){
 				Auxi a= new Auxi();
 				a.setIndex(i);
 				a.setSobren(e.getNumBicicletasNext()-e.getDemanda());
 				ve.add(a);
-			}
-			else{
-				Auxi a= new Auxi();
-				a.setIndex(i);
-				a.setSobren(-(e.getNumBicicletasNext()-e.getDemanda()));
-				ve.add(a);
-			}
+			
+			
 		}
 		
-		Collections.sort(ve,(Comparator<Auxi>)np[0]);
-		Collections.sort(np,(Comparator<Auxi>)ne[0]);
+		Collections.sort(ve,(Comparator<Auxi>)ve.get(0));
 		
-		
-	
+
 		
 		for(int i=0;i<min;++i) {
-			int re,rp1,rp2;
+			
 			//System.out.println("mides 0");
 			//System.out.println(ve.size());
 			//System.out.println(vp.size());
 			//System.out.println(v2);
-				re= nova[i].getIndexestacions();
+			
+			
+			Integer re=ve.get(i).getIndex();
+			
+			
+			
+			DosEst aux=GeneraProblema.estmesaprop(re);
+			
 			
 			//System.out.println("mides 1");
 			////System.out.println(ve.size());
 			//System.out.println(vp.size());
-			int tp1=rnd.nextInt(vp.size()-1);
-			rp1 = vp.get(tp1);
+			Estacion p1=aux.getA();
+			Estacion p2=aux.getB();
+			Integer rp1=GeneraProblema.getIndex(p1);
+			Integer rp2=GeneraProblema.getIndex(p2);
 			
 			//System.out.println("mides 2");
 			////System.out.println(ve.size());
 			//System.out.println(vp.size());
 				
-			int tp2;
-			if(vp.size()==1)tp2=0;
-			else tp2=rnd.nextInt(vp.size()-1);
-			rp2 = vp.get(tp2);
+		
 			
 	
 			//System.out.println("mides 3");
@@ -657,21 +658,16 @@ public class Estado {
 			//System.out.println(vp.size());
 			
 			Estacion e=GeneraProblema.getEstacion(re);
-			Estacion p1=GeneraProblema.getEstacion(rp1);
-			Estacion p2=GeneraProblema.getEstacion(rp2);
-			
+
+			Integer sobren=ve.get(i).getSobren();
 			
 			
 
 			//Double n= 
-			Double n;
-				Double auxi=rnd.nextDouble();
-				if(auxi<0.0)auxi=auxi*(-1);
-				n= auxi*e.getNumBicicletasNoUsadas();
-			
+				Integer ne= minim(e.getNumBicicletasNoUsadas(),sobren);
+
 			
 			////System.out.println(n);
-			Integer ne=n.intValue();
 			ne=minim(30,ne);
 			////System.out.println(ne);
 			int np1=ne/2;
@@ -691,9 +687,10 @@ public class Estado {
 			
 			vEst[re].setFurg(i);
 			vEst[re].setBicisAgafen(ne);
-			Furgoneta aux=new Furgoneta(re,rp1,rp2,np1,np2);
+			Furgoneta audi=new Furgoneta(re,rp1,rp2,np1,np2);
 			
-			vfurg[i]=aux;
+			vfurg[i]=audi;
+			
 			/**
 			Integer bienEv2=bicisBienColocadasIndexE(re,vEst);
 			Integer bienP1v2=bicisBienColocadasIndexE(rp1,vEst);
@@ -704,8 +701,8 @@ public class Estado {
 			Brestan =Brestan+bicisMalColocadasIndexE(re,vEst)-malP1-malP2+malP1v2+malP2v2;
 			BSuman=BSuman-bienP1-bienP2-bienE+bienEv2+bienP1v2+bienP2v2-bienE+bienEv2;
 			
-			*/
 			
+			*/
 			
 			////System.out.println("Vector9");
 			Integer km1= GeneraProblema.distancia(e,p1);

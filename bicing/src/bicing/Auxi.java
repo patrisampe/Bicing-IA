@@ -28,7 +28,6 @@ public class Auxi {
 	}
 	
 	public int compare(Auxi m1, Auxi m2){
-
 	    return (m1.sobren-m2.sobren);
 	}
 	@Override
