@@ -47,7 +47,7 @@ public class Main {
 		Estado estado = null;
 		if (estadoIni == 1) estado = Estado.estadoInicial_v1(numF, numE);
 		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
-		else estado = Estado.estadoInicial_v3(numF, numE);
+
 		calculBestia(estado);
 		printEstado(estado, true);
 		SuccessorsHC succ = new SuccessorsHC();
@@ -95,7 +95,7 @@ public class Main {
 		Estado estado = null;
 		if (estadoIni == 1) estado = Estado.estadoInicial_v1(numF, numE);
 		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
-		else estado = Estado.estadoInicial_v3(numF, numE);
+
 		printEstado(estado, true);
 		String alg = getString(lines.get(10));
 		EstadoFinal ef = new EstadoFinal();

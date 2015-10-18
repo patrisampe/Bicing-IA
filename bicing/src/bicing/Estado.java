@@ -2,6 +2,7 @@ package bicing;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import IA.Bicing.Estaciones;
@@ -583,17 +584,8 @@ public class Estado {
 	}
 	
 	
-	/**
-	 * 
-	 * @param numF
-	 * @param numE
-	 * @param v--> [1-2]
-	 * @param v2 -->[1-2]
-	 * @param v3 -->[1-2]
-	 * @return
-	 */
-	private static Estado estadoinicial(int numF,int numE, int v,int v2,int v3,int v4){
-		
+	public static Estado estadoInicial_v1(int numF, int numE){
+		System.out.println("proooofii  ");
 		int min= minim(numF,numE);
 		
 		//System.out.println(numE);
@@ -608,86 +600,60 @@ public class Estado {
 		Random rnd = new Random(GeneraProblema.getSemilla());
 		
 		Estaciones est=GeneraProblema.getEstaciones();
-		java.util.ArrayList<Integer> ve = new java.util.ArrayList<Integer>();
-		java.util.ArrayList<Integer> vp = new java.util.ArrayList<Integer>();
-		
+		java.util.ArrayList<Auxi> ve = new java.util.ArrayList<Auxi>();
+		java.util.ArrayList<Auxi> vp = new java.util.ArrayList<Auxi>();
+		System.out.println("proooof 0");
 		
 		//System.out.println("Jose");
 		for(int i=0; i < numE; ++i)
 		{
-			vEst[i]= new Struct();
-			if(v2==1)ve.add(i);
-			vp.add(i);
-			vp.add(i);
-		}
-		//System.out.println("mides");
-		//System.out.println(ve.size());
-		//System.out.println(vp.size());
-		auxiclass[] nova= new auxiclass[numE];
-		if(v2==2){
-			for(int i=0; i<numE;++i){
-				nova[i].setBicisnousades(est.get(i).getNumBicicletasNoUsadas());
-				nova[i].setIndexestacions(i);
+			Estacion e=GeneraProblema.getEstacion(i);
+			if(e.getDemanda()<e.getNumBicicletasNext()){
+				Auxi a= new Auxi();
+				a.setIndex(i);
+				a.setSobren(e.getNumBicicletasNext()-e.getDemanda());
+				ve.add(a);
 			}
-			Arrays.sort(nova);
+			else{
+				Auxi a= new Auxi();
+				a.setIndex(i);
+				a.setSobren(-(e.getNumBicicletasNext()-e.getDemanda()));
+				ve.add(a);
+			}
 		}
-		for(int i=0;i<min;++i){
+		
+		Collections.sort(ve,(Comparator<Auxi>)np[0]);
+		Collections.sort(np,(Comparator<Auxi>)ne[0]);
+		
+		
+	
+		
+		for(int i=0;i<min;++i) {
 			int re,rp1,rp2;
 			//System.out.println("mides 0");
 			//System.out.println(ve.size());
 			//System.out.println(vp.size());
 			//System.out.println(v2);
-			if(v2==2){
 				re= nova[i].getIndexestacions();
-			}
-			else{
-				//System.out.println("hiii");
-				int te;
-				if(ve.size()==1)te=0;
-				else te = rnd.nextInt(ve.size()-1);
-				//System.out.println(te);
-				re = ve.get(te);
-				
-				ve.remove(te);
-			}
 			
 			//System.out.println("mides 1");
-			//System.out.println(ve.size());
+			////System.out.println(ve.size());
 			//System.out.println(vp.size());
-			
 			int tp1=rnd.nextInt(vp.size()-1);
 			rp1 = vp.get(tp1);
-			int j=0;	
-			if(v3==2){
-				while(rp1==re && j<vp.size()){
-					tp1=rnd.nextInt(vp.size()-1);
-					rp1 = vp.get(tp1);
-					j=j+1;
-				}
-			}
-			if(v4==1)vp.remove(tp1);
-				
+			
 			//System.out.println("mides 2");
-			//System.out.println(ve.size());
+			////System.out.println(ve.size());
 			//System.out.println(vp.size());
 				
 			int tp2;
 			if(vp.size()==1)tp2=0;
 			else tp2=rnd.nextInt(vp.size()-1);
 			rp2 = vp.get(tp2);
-			j=0;
-			if(v3==2){
-				while(rp2==re|rp2==rp1&& j<vp.size()){
-					if(vp.size()==1)tp2=0;
-					else tp2=rnd.nextInt(vp.size()-1);
-					rp2 = vp.get(tp2);
-					j=j+1;
-				}
-			}
-			if(v4==1)vp.remove(tp2);
+			
 	
 			//System.out.println("mides 3");
-			//System.out.println(ve.size());
+			////System.out.println(ve.size());
 			//System.out.println(vp.size());
 			
 			Estacion e=GeneraProblema.getEstacion(re);
@@ -699,22 +665,19 @@ public class Estado {
 
 			//Double n= 
 			Double n;
-			if(v==1)n= 0.6*e.getNumBicicletasNoUsadas();
-			else{
 				Double auxi=rnd.nextDouble();
 				if(auxi<0.0)auxi=auxi*(-1);
 				n= auxi*e.getNumBicicletasNoUsadas();
-			}
 			
 			
-			//System.out.println(n);
+			////System.out.println(n);
 			Integer ne=n.intValue();
 			ne=minim(30,ne);
-			//System.out.println(ne);
+			////System.out.println(ne);
 			int np1=ne/2;
 			//System.out.println(np1);
 			int np2=ne-np1;
-			//System.out.println(np2);
+			////System.out.println(np2);
 			/**
 			Integer bienE=bicisBienColocadasIndexE(re,vEst);
 			Integer bienP1=bicisBienColocadasIndexE(rp1,vEst);
@@ -744,19 +707,19 @@ public class Estado {
 			*/
 			
 			
-			//System.out.println("Vector9");
+			////System.out.println("Vector9");
 			Integer km1= GeneraProblema.distancia(e,p1);
 			Integer km2= GeneraProblema.distancia(p1,p2);
-			//System.out.println(km1);
-			//System.out.println(km2);
-			//System.out.println("Vector9.5");
+			////System.out.println(km1);
+			////System.out.println(km2);
+			////System.out.println("Vector9.5");
 			Integer d1=(ne+9)/10;
 			Integer d2=(np2+9)/10;
-			//System.out.println("Vector9.6");
+			////System.out.println("Vector9.6");
 			Double gau=(double) d1*km1+d2*(km1+km2);
-			//System.out.println("Vector9.7");
+			////System.out.println("Vector9.7");
 			
-			//System.out.println("Vector9.8");
+			////System.out.println("Vector9.8");
 			g=g+gau;
 			//System.out.println("Vector10");
 			
@@ -769,7 +732,7 @@ public class Estado {
 		
 		//System.out.println("Vector12");
 		for(int i=0; i<numE;++i){
-			System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
+			//System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
 			BSuman=BSuman+bicisBienColocadasIndexE(i,vEst);
 		}
 		//System.out.println("Vector13");
@@ -785,124 +748,37 @@ public class Estado {
 		
 		
 		
-		//System.out.println("restan");
+		////System.out.println("restan");
 		//System.out.println("restan" + Brestan);
 		//System.out.println("suman" + BSuman);
 		
 
 		return new Estado(vfurg,vEst,g,BSuman,Brestan);
 		
-	}
-	
-	
-	public static Estado estadoInicial_v1(int numF, int numE){
-		return estadoinicial(numF,numE,1,1,1,1);
 
 	}
 	
 	public static Estado estadoInicial_v2(int numF, int numE){
-		return estadoinicial(numF,numE,2,1,1,1);
-
-	}
-	
-
-	public static Estado estadoInicial_v3(int numF, int numE){
-		return estadoinicial(numF,numE,1,2,1,1);
-
-	}
-	
-	public static Estado estadoInicial_v4(int numF, int numE){
-		return estadoinicial(numF,numE,2,2,1,1);
-
-	}
-	
-	public static Estado estadoInicial_v5(int numF, int numE){
-		return estadoinicial(numF,numE,1,1,2,1);
-
-	}
-	
-	public static Estado estadoInicial_v6(int numF, int numE){
-		return estadoinicial(numF,numE,2,1,2,1);
-
-	}
-	
-	public static Estado estadoInicial_v7(int numF, int numE){
-		return estadoinicial(numF,numE,1,2,2,1);
-
-	}
-	
-	public static Estado estadoInicial_v8(int numF, int numE){
-		return estadoinicial(numF,numE,2,2,2,1);
-
-	}
-	
-	public static Estado estadoInicial_v9(int numF, int numE){
-		return estadoinicial(numF,numE,3,2,2,1);
-
-	}
-	
-	
-	public static Estado estadoInicial_v10(int numF, int numE){
-		return estadoinicial(numF,numE,1,1,1,2);
-
-	}
-	
-	public static Estado estadoInicial_v11(int numF, int numE){
-		return estadoinicial(numF,numE,2,1,1,2);
-
-	}
-	
-
-	public static Estado estadoInicial_v12(int numF, int numE){
-		return estadoinicial(numF,numE,1,2,1,2);
-
-	}
-	
-	public static Estado estadoInicial_v13(int numF, int numE){
-		return estadoinicial(numF,numE,2,2,1,2);
-
-	}
-	
-	public static Estado estadoInicial_v14(int numF, int numE){
-		return estadoinicial(numF,numE,1,1,2,2);
-
-	}
-	
-	public static Estado estadoInicial_v15(int numF, int numE){
-		return estadoinicial(numF,numE,2,1,2,2);
-
-	}
-	
-	public static Estado estadoInicial_v16(int numF, int numE){
-		return estadoinicial(numF,numE,1,2,2,2);
-
-	}
-	
-	public static Estado estadoInicial_v17(int numF, int numE){
-		return estadoinicial(numF,numE,2,2,2,2);
-
-	}
-	
-	public static Estado estadoInicial_v18(int numF, int numE){
-		return estadoinicial(numF,numE,3,2,2,2);
-
-	}
-	
-	
-/**
-	public static Estado estadoInicial_v2(int numF, int numE){
-		
+		System.out.println("proooof");
 		int min= minim(numF,numE);
+		
+		//System.out.println(numE);
+		//System.out.println(numF);
+		//System.out.println(min);
 		
 		Integer BSuman=0;
 		Integer Brestan=0;
 		Double g=0.0;
 		Furgoneta[] vfurg= new Furgoneta[numF];
 		Struct[] vEst= new Struct[numE];
-		Random rnd= new Random();
+		Random rnd = new Random(GeneraProblema.getSemilla());
+		
 		Estaciones est=GeneraProblema.getEstaciones();
 		java.util.ArrayList<Integer> ve = new java.util.ArrayList<Integer>();
 		java.util.ArrayList<Integer> vp = new java.util.ArrayList<Integer>();
+		
+		
+		
 		//System.out.println("Jose");
 		for(int i=0; i < numE; ++i)
 		{
@@ -911,298 +787,149 @@ public class Estado {
 			vp.add(i);
 			vp.add(i);
 		}
-
+		//System.out.println("mides");
+		////System.out.println(ve.size());
+		//System.out.println(vp.size());
 		
-		for(int i=0;i<min;++i){
-			int te = rnd.nextInt(ve.size()-1);
-			//System.out.println("Vector");
-			int pe = ve.get(te);
-			Integer re=(Integer) pe;
-			ve.remove(te);
-			int tp1 = rnd.nextInt(vp.size()-1);
-			while(tp1==te)tp1 = rnd.nextInt(vp.size()-1);
-			//System.out.println("Vector2");
-			int rp1 = vp.get(tp1);
-			vp.remove(tp1);
-			int tp2 = rnd.nextInt(vp.size()-1);
-			while(tp2==te)tp2 = rnd.nextInt(vp.size()-1);
-			//System.out.println("Vector3");
-			int rp2 = vp.get(tp2);
-			vp.remove(tp2);
+		
+		for(int i=0;i<min;++i) {
+			int re,rp1,rp2;
+			//System.out.println("mides 0");
+			//System.out.println(ve.size());
+			//System.out.println(vp.size());
+			//System.out.println(v2);
+			
+				//System.out.println("hiii");
+				int te;
+				if(ve.size()==1)te=0;
+				else te = rnd.nextInt(ve.size()-1);
+				//System.out.println(te);
+				re = ve.get(te);
+				
+				ve.remove(te);
+			
+			//System.out.println("mides 1");
+			////System.out.println(ve.size());
+			//System.out.println(vp.size());
+			int tp1=rnd.nextInt(vp.size()-1);
+			rp1 = vp.get(tp1);
+			
+			//System.out.println("mides 2");
+			////System.out.println(ve.size());
+			//System.out.println(vp.size());
+				
+			int tp2;
+			if(vp.size()==1)tp2=0;
+			else tp2=rnd.nextInt(vp.size()-1);
+			rp2 = vp.get(tp2);
+			
+	
+			//System.out.println("mides 3");
+			////System.out.println(ve.size());
+			//System.out.println(vp.size());
+			
+			Estacion e=GeneraProblema.getEstacion(re);
+			Estacion p1=GeneraProblema.getEstacion(rp1);
+			Estacion p2=GeneraProblema.getEstacion(rp2);
+			
+			
+			
 
-			Estacion e=est.get(re);
-			//System.out.println("Vector4");
-			Estacion p1=est.get(rp1);
-			//System.out.println("Vector5");
-			Estacion p2=est.get(rp2);
-			//System.out.println("Vector6");
-			Double auxi=rnd.nextDouble();
-			//System.out.println(auxi);
-
+			//Double n= 
 			Double n= 0.6*e.getNumBicicletasNoUsadas();
-			//Double n= 0.6*e.getNumBicicletasNext();
-			//System.out.println(n);
+			
+			
+			////System.out.println(n);
 			Integer ne=n.intValue();
 			ne=minim(30,ne);
-			//System.out.println(ne);
+			////System.out.println(ne);
 			int np1=ne/2;
 			//System.out.println(np1);
 			int np2=ne-np1;
-			//System.out.println(np2);
+			////System.out.println(np2);
+			/**
+			Integer bienE=bicisBienColocadasIndexE(re,vEst);
+			Integer bienP1=bicisBienColocadasIndexE(rp1,vEst);
+			Integer bienP2=bicisBienColocadasIndexE(rp2,vEst);
+			Integer malP1=bicisMalColocadasIndexE(rp1,vEst);
+			Integer malP2=bicisMalColocadasIndexE(rp2,vEst);
+			*/
+			
+			vEst[rp1].sumaNBicis(np1);
+			vEst[rp2].sumaNBicis(np2);
+			
 			vEst[re].setFurg(i);
 			vEst[re].setBicisAgafen(ne);
-			Integer arp1=vEst[rp1].getBicisColocades();
-			Integer arp2=vEst[rp2].getBicisColocades();
 			Furgoneta aux=new Furgoneta(re,rp1,rp2,np1,np2);
+			
 			vfurg[i]=aux;
-			//System.out.println("Vector7");
-			Integer nsobre=-e.getDemanda()+e.getNumBicicletasNext()-ne;
-			Integer ns=-e.getDemanda()+e.getNumBicicletasNext();
-			Integer t= np1+np2;
-			Integer Brau=0;
-			Double gau=0.0;
-			if (nsobre <0){
-				if(ns>0){
-					if(ne>0)Brau=Brau+minim(ns,ne);
-				}
-			}
-			//System.out.println("Vector8");
+			/**
+			Integer bienEv2=bicisBienColocadasIndexE(re,vEst);
+			Integer bienP1v2=bicisBienColocadasIndexE(rp1,vEst);
+			Integer bienP2v2=bicisBienColocadasIndexE(rp2,vEst);
+			Integer malP1v2=bicisMalColocadasIndexE(rp1,vEst);
+			Integer malP2v2=bicisMalColocadasIndexE(rp2,vEst);
 			
-			Integer falten= -p1.getNumBicicletasNext()+p1.getDemanda()+vEst[rp1].getBicisAgafen();
-			Integer b=bicisBienColocadesEstacionE(arp1,falten);
-			Integer c=bicisBienColocadesEstacionE(arp1+np1,falten);
-			vEst[rp1].setBicisColocades(arp1+np1);
+			Brestan =Brestan+bicisMalColocadasIndexE(re,vEst)-malP1-malP2+malP1v2+malP2v2;
+			BSuman=BSuman-bienP1-bienP2-bienE+bienEv2+bienP1v2+bienP2v2-bienE+bienEv2;
+			
+			*/
 			
 			
-			Integer falten2= -p2.getNumBicicletasNext()+p2.getDemanda()+vEst[rp2].getBicisAgafen();
-			Integer b2=bicisBienColocadesEstacionE(arp2,falten2);
-			Integer c2=bicisBienColocadesEstacionE(arp2+np2,falten2);
-			vEst[rp2].setBicisColocades(arp2+np2);
-			
-			//System.out.println("Vector9");
+			////System.out.println("Vector9");
 			Integer km1= GeneraProblema.distancia(e,p1);
 			Integer km2= GeneraProblema.distancia(p1,p2);
-			//System.out.println(km1);
-			//System.out.println(km2);
-			//System.out.println("Vector9.5");
-			Integer d1=(t+9)/10;
+			////System.out.println(km1);
+			////System.out.println(km2);
+			////System.out.println("Vector9.5");
+			Integer d1=(ne+9)/10;
 			Integer d2=(np2+9)/10;
-			//System.out.println("Vector9.6");
-			gau=(double) d1*km1+d2*(km1+km2);
-			//System.out.println("Vector9.7");
-			BSuman=BSuman-b+c-b2+c2;
-			//System.out.println("Vector9.8");
-			Brestan=Brestan+Brau;
+			////System.out.println("Vector9.6");
+			Double gau=(double) d1*km1+d2*(km1+km2);
+			////System.out.println("Vector9.7");
+			
+			////System.out.println("Vector9.8");
 			g=g+gau;
 			//System.out.println("Vector10");
 			
 		}
+		//System.out.println("Vector102");
 		for (int i=min;i<numF;++i){
+			//System.out.println("Vector10w");
 			vfurg[i]=new Furgoneta();
 		}
-		//System.out.println("restan");
-		//System.out.println(Brestan);
-		return new Estado(vfurg,vEst,g,BSuman,Brestan);
-	}
-
-
-
-
-**/
-
-private class auxiclass implements Comparable<auxiclass> {
-
-	private Integer bicisnousades;
-	private Integer indexestacions;
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + getOuterType().hashCode();
-		result = prime * result + ((bicisnousades == null) ? 0 : bicisnousades.hashCode());
-		result = prime * result + ((indexestacions == null) ? 0 : indexestacions.hashCode());
-		return result;
-	}
-
-	public auxiclass(Integer bicisnousades, Integer indexestacions) {
-		super();
-		this.bicisnousades = bicisnousades;
-		this.indexestacions = indexestacions;
-	}
-	
-	public auxiclass(){
-		bicisnousades=0;
-		indexestacions=-1;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		auxiclass other = (auxiclass) obj;
-		if (!getOuterType().equals(other.getOuterType()))
-			return false;
-		if (bicisnousades == null) {
-			if (other.bicisnousades != null)
-				return false;
-		} else if (!bicisnousades.equals(other.bicisnousades))
-			return false;
-		if (indexestacions == null) {
-			if (other.indexestacions != null)
-				return false;
-		} else if (!indexestacions.equals(other.indexestacions))
-			return false;
-		return true;
-	}
-
-	public Integer getBicisnousades() {
-		return bicisnousades;
-	}
-
-	public void setBicisnousades(Integer bicisnousades) {
-		this.bicisnousades = bicisnousades;
-	}
-
-	public Integer getIndexestacions() {
-		return indexestacions;
-	}
-
-	public void setIndexestacions(Integer indexestacions) {
-		this.indexestacions = indexestacions;
-	}
-
-
-	  @Override
-	  public int compareTo(auxiclass other) {
-		  return Integer.valueOf(bicisnousades).compareTo(other.bicisnousades);
-	  }
-	private Estado getOuterType() {
-		return Estado.this;
-	}
-
-	  // also implement equals() and hashCode()
-	}
-/**
-public static Estado estadoInicial_v3(int numF, int numE){
 		
-		int min= minim(numF,numE);
-		
-		Integer BSuman=0;
-		Integer Brestan=0;
-		Double g=0.0;
-		Furgoneta[] vfurg= new Furgoneta[numF];
-		Struct[] vEst= new Struct[numE];
-		Random rnd= new Random();
-		Estaciones est=GeneraProblema.getEstaciones();
-		java.util.ArrayList<Integer> vp = new java.util.ArrayList<Integer>();
-		//System.out.println("Jose");
-		for(int i=0; i < numE; ++i)
-		{
-			vEst[i]= new Struct();
-			vp.add(i);
-			vp.add(i);
-		}
-
-		auxiclass[] nova= new auxiclass[numE];
+		//System.out.println("Vector12");
 		for(int i=0; i<numE;++i){
-			nova[i].setBicisnousades(est.get(i).getNumBicicletasNoUsadas());
-			nova[i].setIndexestacions(i);
+			//System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
+			BSuman=BSuman+bicisBienColocadasIndexE(i,vEst);
 		}
-		Arrays.sort(nova);
-		
-		for(int i=0;i<min;++i){
-			int re= nova[i].getIndexestacions();
-			int tp1 = rnd.nextInt(vp.size()-1);
-			while(tp1==(int)re)tp1 = rnd.nextInt(vp.size()-1);
-			//System.out.println("Vector2");
-			int rp1 = vp.get(tp1);
-			vp.remove(tp1);
-			int tp2 = rnd.nextInt(vp.size()-1);
-			while(tp2==(int)re)tp2 = rnd.nextInt(vp.size()-1);
-			//System.out.println("Vector3");
-			int rp2 = vp.get(tp2);
-			vp.remove(tp2);
-
-			Estacion e=est.get(re);
-			//System.out.println("Vector4");
-			Estacion p1=est.get(rp1);
-			//System.out.println("Vector5");
-			Estacion p2=est.get(rp2);
-			//System.out.println("Vector6");
-			Double auxi=rnd.nextDouble();
-			//System.out.println(auxi);
-
-			Double n= 0.6*e.getNumBicicletasNoUsadas();
-			//Double n= 0.6*e.getNumBicicletasNext();
-			//System.out.println(n);
-			Integer ne=n.intValue();
-			ne=minim(30,ne);
-			//System.out.println(ne);
-			int np1=ne/2;
-			//System.out.println(np1);
-			int np2=ne-np1;
-			//System.out.println(np2);
-			vEst[re].setFurg(i);
-			vEst[re].setBicisAgafen(ne);
-			Integer arp1=vEst[rp1].getBicisColocades();
-			Integer arp2=vEst[rp2].getBicisColocades();
-			Furgoneta aux=new Furgoneta(re,rp1,rp2,np1,np2);
-			vfurg[i]=aux;
-			//System.out.println("Vector7");
-			Integer nsobre=-e.getDemanda()+e.getNumBicicletasNext()-ne;
-			Integer ns=-e.getDemanda()+e.getNumBicicletasNext();
-			Integer t= np1+np2;
-			Integer Brau=0;
-			Double gau=0.0;
-			if (nsobre <0){
-				if(ns>0){
-					if(ne>0)Brau=Brau+minim(ns,ne);
-				}
+		//System.out.println("Vector13");
+		//System.out.println(numF);
+		for(int i=0; i<numF;++i){
+			int re=vfurg[i].getindexEstacioE();
+			if(re!=-1){
+				//System.out.println("Mal" + re + " " + bicisMalColocadasIndexE(re,vEst));
+				Brestan =Brestan+bicisMalColocadasIndexE(re,vEst);
 			}
-			//System.out.println("Vector8");
-			
-			Integer falten= -p1.getNumBicicletasNext()+p1.getDemanda()+vEst[rp1].getBicisAgafen();
-			Integer b=bicisBienColocadesEstacionE(arp1,falten);
-			Integer c=bicisBienColocadesEstacionE(arp1+np1,falten);
-			vEst[rp1].setBicisColocades(arp1+np1);
-			
-			
-			Integer falten2= -p2.getNumBicicletasNext()+p2.getDemanda()+vEst[rp2].getBicisAgafen();
-			Integer b2=bicisBienColocadesEstacionE(arp2,falten2);
-			Integer c2=bicisBienColocadesEstacionE(arp2+np2,falten2);
-			vEst[rp2].setBicisColocades(arp2+np2);
-			
-			//System.out.println("Vector9");
-			Integer km1= GeneraProblema.distancia(e,p1);
-			Integer km2= GeneraProblema.distancia(p1,p2);
-			//System.out.println(km1);
-			//System.out.println(km2);
-			//System.out.println("Vector9.5");
-			Integer d1=(t+9)/10;
-			Integer d2=(np2+9)/10;
-			//System.out.println("Vector9.6");
-			gau=(double) d1*km1+d2*(km1+km2);
-			//System.out.println("Vector9.7");
-			BSuman=BSuman-b+c-b2+c2;
-			//System.out.println("Vector9.8");
-			Brestan=Brestan+Brau;
-			g=g+gau;
-			//System.out.println("Vector10");
-			
 		}
-		for (int i=min;i<numF;++i){
-			vfurg[i]=new Furgoneta();
-		}
-		//System.out.println("restan");
-		//System.out.println(Brestan);
-		return new Estado(vfurg,vEst,g,BSuman,Brestan);
-	}
+		//System.out.println("Vector14");
+		
+		
+		
+		////System.out.println("restan");
+		//System.out.println("restan" + Brestan);
+		//System.out.println("suman" + BSuman);
+		
 
-	**/
+		return new Estado(vfurg,vEst,g,BSuman,Brestan);
+		
+
+
+	}
+	
+
+	
 	
 	public void print() {
 		
