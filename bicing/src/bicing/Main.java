@@ -21,7 +21,7 @@ public class Main {
 	public static void main(String[] args) {
 		// args[0] nombre del fichero de entrada
 		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-		Path path = Paths.get(System.getProperty("user.dir"), "bicing/file/exemple.txt");
+		Path path = Paths.get(System.getProperty("user.dir"), "bicing-ia/bicing/file/exemple.txt");
 		Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
@@ -211,7 +211,9 @@ public class Main {
 			int delta = s.getBicisColocades() - s.getBicisAgafen();
 			if (delta < 0) {
 				if (dif > 0) beneficios += delta;
-				if (dif < 0) beneficios += delta - dif;
+				if (dif < 0){
+					if(dif>delta)beneficios += delta - dif;
+				}
 			}
 			else {
 				if (dif > 0) beneficios += min(delta, dif);
