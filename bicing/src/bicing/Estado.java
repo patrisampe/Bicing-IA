@@ -378,6 +378,8 @@ public class Estado {
 			if((vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas())==0){
 				vFurgonetas[numFurgoneta].setNp2(0);
 				vFurgonetas[numFurgoneta].setNp1(0);
+				vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioP1()].setBicisColocades(0);
+				vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioP2()].setBicisColocades(0);
 			}
 			else{
 				int diff=(vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2())% (vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()) ;
