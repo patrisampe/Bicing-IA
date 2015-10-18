@@ -44,23 +44,45 @@ public class GeneraProblema {
 		Estacion ed=es.get(e);
 		Estacion p1=null;
 		Estacion p2=null;
-		Integer a=0;
-		Integer b=0;
+		Integer a=-2;
+		Integer b=-2;
 		for(int i=0; i<es.size();++i){
 			Estacion eu=es.get(i);
 			Integer d=calcDistancia(ed,eu);
-			if(d>=a | d>=b ){
+			System.out.println(a);
+			System.out.println(b);
+			System.out.println(d);
+			if(d>=a){
 				if(a>b){
+					System.out.println("dins");
 					b=d;
 					p2=eu;
 				}
 				else{
+					System.out.println("dins2");
 					a=d;
 					p1=eu;
 				}
 			}
+			else if(d>=b){
+				
+				if(b>a){
+					System.out.println("disn3");
+					a=d;
+					p1=eu;
+				}
+				else{
+					System.out.println("disn4");
+					b=d;
+					p2=eu;
+				}
+			}
 			
 		}
+		
+		System.out.println(a);
+		System.out.println(b);
+
 		DosEst aux=new DosEst(p1,p2);
 		return aux;
 		
