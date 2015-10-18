@@ -304,7 +304,7 @@ public class Estado {
 		
 	}
 	/**
-	 * PRE: EstacioP1 té una o menys estacions assignades
+	 * PRE: EstacioP1 tï¿½ una o menys estacions assignades
 	 * @param numFurgoneta
 	 * @param EstacioP1
 	 */
@@ -1060,7 +1060,6 @@ public static Estado estadoInicial_v3(int numF, int numE){
 	
 	public void print() {
 		
-		System.out.println("Estaciones:");
 		System.out.println("Furgonetas:");
 		for (Furgoneta f : vFurgonetas) {
 			Integer E = f.getindexEstacioE(), P1 = f.getindexEstacioP1(), P2 = f.getindexEstacioP2(); 

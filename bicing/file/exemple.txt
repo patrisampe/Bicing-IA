@@ -2,17 +2,17 @@
 
 IMPORTANTE: Dejar un espacio entre los ':' cuando se rellenen los campos
 
-Número de bicis: 1250
-Número de estaciones: 25
-Número de furgonetas: 5
+Número de bicis: 300
+Número de estaciones: 4
+Número de furgonetas: 2
 Tipo demanda(EQUILIBRIUM o RUSH_HOUR): EQUILIBRIUM
 Semilla: 1234
 
-Algoritmo(HC o SA o SA2): SA2
+Algoritmo(HC o SA o SA2): HC
 
 Información adicional sobre la ejecución del algoritmo
 Camino de búsqueda(S/N): N
-Ejecución búsqueda(S/N): N
+Ejecución búsqueda(S/N): S
 
 Si el Algoritmo es SA, rellenad los siguientes campos, en caso contrario dejar en blanco
 Número máximo de iteraciones: 40000

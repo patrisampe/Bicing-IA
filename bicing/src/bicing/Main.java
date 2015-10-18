@@ -70,8 +70,8 @@ public class Main {
 		SearchAgent agent = new SearchAgent(problem, search);
 		long endTime = System.currentTimeMillis();
 		Estado result = (Estado) search.getGoalState();
-		printEstado(result, false);
 		calculBestia(result);
+		printEstado(result, false);
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
 		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
 		System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
@@ -198,12 +198,14 @@ public class Main {
 		Struct[] v = result.getvEstaciones();
 		Estaciones Est = GeneraProblema.getEstaciones();
 		int beneficios = 0;
+		System.out.println("Entren Surten");
 		for (int i = 0; i < v.length; ++i) {
 			Struct s = v[i];
 			Estacion est = Est.get(i);
 			int dif = est.getDemanda() - est.getNumBicicletasNext();
 			if (dif < 0) dif = 0;
 			int delta = s.getBicisColocades() - s.getBicisAgafen();
+			System.out.println(i + " -> " +  s.getBicisColocades() + " " +  s.getBicisAgafen());
 			if (delta > dif) delta = dif;
 			beneficios += delta;
 		}
