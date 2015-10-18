@@ -588,13 +588,12 @@ public class Estado {
 
 			//Double n= 
 			Double n;
-			if(v==1)n= 0.6*e.getNumBicicletasNext();
+			if(v==1)n= 0.6*e.getNumBicicletasNoUsadas();
 			else if(v==2) n=0.6*e.getNumBicicletasNoUsadas();
 			else if(v==3) {
 				Double auxi=rnd.nextDouble();
 				if(auxi<0.0)auxi=auxi*(-1);
 				n= auxi*e.getNumBicicletasNext();
-				
 			}
 			else{
 				Double auxi=rnd.nextDouble();
@@ -613,8 +612,7 @@ public class Estado {
 			//System.out.println(np2);
 			
 			
-			Integer bienP1=bicisBienColocadasIndexE(rp1,vEst);
-			Integer bienP2=bicisBienColocadasIndexE(rp2,vEst);
+			
 			
 			vEst[rp1].sumaNBicis(np1);
 			vEst[rp2].sumaNBicis(np2);
@@ -625,12 +623,6 @@ public class Estado {
 			
 			vfurg[i]=aux;
 			
-			
-			Integer bienP1v2=bicisBienColocadasIndexE(rp1,vEst);
-			Integer bienP2v2=bicisBienColocadasIndexE(rp2,vEst);
-			
-			Brestan =Brestan+bicisMalColocadasIndexE(re,vEst);
-			BSuman=BSuman-bienP1-bienP2+bienP1v2+bienP2v2;
 			
 			
 			//System.out.println("Vector9");
@@ -653,6 +645,18 @@ public class Estado {
 		for (int i=min;i<numF;++i){
 			vfurg[i]=new Furgoneta();
 		}
+		
+		for(int i=0; i<numE;++i){
+			
+			BSuman=BSuman+bicisBienColocadasIndexE(i,vEst);
+		}
+		for(int i=0; i<numF;++i){
+			int re=vfurg[i].getindexEstacioE();
+			Brestan =Brestan+bicisMalColocadasIndexE(re,vEst);
+		}
+		
+
+		
 		//System.out.println("restan");
 		//System.out.println(Brestan);
 		
