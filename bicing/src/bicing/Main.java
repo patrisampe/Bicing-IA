@@ -215,7 +215,7 @@ public class Main {
 			int delta = s.getBicisColocades() - s.getBicisAgafen();
 			if (delta < 0) {
 				if (dif > 0) beneficios += delta;
-				if (dif < 0){
+				if (dif <= 0){
 					if(dif>delta)beneficios += delta - dif;
 				}
 			}
