@@ -438,34 +438,37 @@ public class Estado {
 			Integer bienP2=bicisBienColocadasIndexE(indexP2);
 			Integer malP1=bicisMalColocadasIndexE(indexP1);
 			Integer malP2=bicisMalColocadasIndexE(indexP2);
-			
+			/**
 			if((vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas())==0){
 				
 				Integer np1= vFurgonetas[numFurgoneta].getNp1();
 				Integer np2= vFurgonetas[numFurgoneta].getNp2();
-				vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioP1()].restaNBicis(np1);
-				vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioP2()].restaNBicis(np2);
+				vEstaciones[indexP1].restaNBicis(np1);
+				vEstaciones[indexP2].restaNBicis(np2);
 				vFurgonetas[numFurgoneta].setNp2(0);
 				vFurgonetas[numFurgoneta].setNp1(0);
+				vEstaciones[indexE].setBicisAgafen(0);
 				
 			}
 			else{
-				int diff=(vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2())% (vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()) ;
-				int mig=diff/2;
-				Integer P1=vFurgonetas[numFurgoneta].getindexEstacioP1();
-				Integer P2=vFurgonetas[numFurgoneta].getindexEstacioP2();
+			*/
+				Integer n=(vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2());
+				Integer act=(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()) ;
 				
 				
 				Integer np1=vFurgonetas[numFurgoneta].getNp1();
 				Integer np2=vFurgonetas[numFurgoneta].getNp2();
-				vFurgonetas[numFurgoneta].setNp1(mig);
-				vFurgonetas[numFurgoneta].setNp2(diff-vFurgonetas[numFurgoneta].getNp1());
+				vFurgonetas[numFurgoneta].setNp1(np1*act/n);
+				vFurgonetas[numFurgoneta].setNp2(np2*act/n);
 				
-				
-				vEstaciones[P1].setBicisColocades(vEstaciones[P1].getBicisColocades()-np1+mig);		
-				vEstaciones[P2].setBicisColocades(vEstaciones[P2].getBicisColocades()-np2+vFurgonetas[numFurgoneta].getNp2());
-				vEstaciones[vFurgonetas[numFurgoneta].getindexEstacioE()].setBicisAgafen(diff);
-			}
+				Integer anp1=vFurgonetas[numFurgoneta].getNp1();
+				Integer anp2=vFurgonetas[numFurgoneta].getNp2();
+				Integer c1=vEstaciones[indexP1].getBicisColocades();
+				Integer c2=vEstaciones[indexP2].getBicisColocades();
+				vEstaciones[indexP1].setBicisColocades(c1-np1+anp1);		
+				vEstaciones[indexP2].setBicisColocades(c2-np2+anp2);
+				vEstaciones[indexE].setBicisAgafen(anp1+anp2);
+			
 			
 			//Integer bienEv2=bicisBienColocadasIndexE(indexE);
 			//Integer malEv2=bicisMalColocadasIndexE(indexE);
@@ -473,6 +476,27 @@ public class Estado {
 			Integer bienP2v2=bicisBienColocadasIndexE(indexP2);
 			Integer malP1v2=bicisMalColocadasIndexE(indexP1);
 			Integer malP2v2=bicisMalColocadasIndexE(indexP2);
+			
+			
+			if(indexE == indexP1){
+				bienP1=0;
+				malP1=0;
+				bienP1v2=0;
+				malP1v2=0;
+			}
+			if(indexP1 == indexP2){
+				bienP2=0;
+				malP2=0;
+				bienP2v2=0;
+				malP2v2=0;
+			}
+			if(indexE == indexP2){
+				bienP2=0;
+				malP2=0;
+				bienP2v2=0;
+				malP2v2=0;
+			}
+			
 			
 			//BicisMalColocadas=BicisMalColocadas-malE-malP1-malP2+malEv2+malP1v2+malP2v2;
 			//BicisBienColocadas=BicisBienColocadas-bienE-bienP1-bienP2+bienEv2+bienP1v2+bienP2v2;
@@ -552,6 +576,7 @@ public class Estado {
 		
 		BicisMalColocadas= BicisMalColocadas-male1-male2+male1v2+male2v2;
 		BicisBienColocadas= BicisBienColocadas-bien1-bien2+bien1v2+bien2v2;
+		
 	
 	}
 	/**
