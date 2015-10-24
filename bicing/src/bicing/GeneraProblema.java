@@ -1,15 +1,17 @@
 package bicing;
 import java.util.HashMap;
+import java.util.Random;
 import java.lang.Math;
 import java.util.Map;
+
 import IA.Bicing.Estacion;
 import IA.Bicing.Estaciones;
 public class GeneraProblema {
 
 	private static Estaciones es;
 	private static Map<DosEst,Integer> dist;
+	private static Random r;
 	private static int semilla;
-	
 	private static int ramification; 
 	private static int realramification; 
 	
@@ -91,6 +93,7 @@ public class GeneraProblema {
 	
 	public static void CrearProblema(int nest, int nbic,int dem, int seed) {
 		es = new Estaciones(nest,nbic,dem,seed);
+		r  = new Random(seed);
 		semilla = seed;
 		dist = new HashMap<DosEst,Integer>();
 		calculardist();
@@ -116,6 +119,10 @@ public class GeneraProblema {
 
 	public static int getSemilla() {
 		return semilla;
+	}
+	
+	public static Random getRandom() {
+		return r;
 	}
 
 	public static int getRamification() {

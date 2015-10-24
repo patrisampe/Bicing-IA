@@ -56,22 +56,18 @@ public class Furgoneta {
 	}
 	
 	public Estacion getEstacioE() {
-		if(estacioE == -1)return null;
 		return GeneraProblema.getEstacion(estacioE);
 	}
 	public void setEstacioE(Estacion estacioE) {
-		if(estacioE == null)this.estacioE=-1;
-		else this.estacioE = GeneraProblema.getIndex(estacioE);
+		this.estacioE = GeneraProblema.getIndex(estacioE);
 	}
 	public Estacion getEstacioP1() {
-		if(estacioP1 == -1)return null;
 		return GeneraProblema.getEstacion(estacioP1);
 	}
 	public void setEstacioP1(Estacion estacioP1) {
 		this.estacioP1 = GeneraProblema.getIndex(estacioP1);
 	}
 	public Estacion getEstacioP2() {
-		if(estacioP2 == -1)return null;
 		return GeneraProblema.getEstacion(estacioP2);
 	}
 	public void setEstacioP2(Estacion estacioP2) {
