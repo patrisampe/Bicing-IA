@@ -426,7 +426,7 @@ public class Estado {
 	}
 	
 
-	private void ajustarNumero(Integer numFurgoneta){
+	private void ajustarNumero(Integer numFurgoneta, Integer index2){
 		
 		if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()<vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2()){
 			Integer indexP1=vFurgonetas[numFurgoneta].getindexEstacioP1();
@@ -507,6 +507,28 @@ public class Estado {
 			}
 			
 			
+			if(index2 == indexP1){
+				bienP1=0;
+				malP1=0;
+				bienP1v2=0;
+				malP1v2=0;
+			}
+			/*
+			if(indexP1 == indexP2){
+				bienP2=0;
+				malP2=0;
+				bienP2v2=0;
+				malP2v2=0;
+			}
+			*/
+			if(index2 == indexP2){
+				bienP2=0;
+				malP2=0;
+				bienP2v2=0;
+				malP2v2=0;
+			}
+			
+			
 			//BicisMalColocadas=BicisMalColocadas-malE-malP1-malP2+malEv2+malP1v2+malP2v2;
 			//BicisBienColocadas=BicisBienColocadas-bienE-bienP1-bienP2+bienEv2+bienP1v2+bienP2v2;
 			BicisMalColocadas=BicisMalColocadas-malP1-malP2+malP1v2+malP2v2;
@@ -551,39 +573,45 @@ public class Estado {
 	private void intercambiarprivate(Estacion numEstacion1,Estacion numEstacion2, Integer index1,Integer index2){
 		
 		//System.out.println("  NOOOO");
-		int fnum1=vEstaciones[index1].getFurg();
-		int fnum2=vEstaciones[index2].getFurg();
 		
-		Integer male1=bicisMalColocadasIndexE(index1);
-		Integer male2=bicisMalColocadasIndexE(index2);
-		Integer bien1=bicisBienColocadasIndexE(index1);
-		Integer bien2=bicisBienColocadasIndexE(index2);
-		
-		Integer f1ag=vEstaciones[index1].getBicisAgafen();
-		Integer f2ag=vEstaciones[index2].getBicisAgafen();
-		
-		vEstaciones[index1].setFurg(fnum2);
-		vEstaciones[index2].setFurg(fnum1);
-		vEstaciones[index1].setBicisAgafen(f2ag);
-		vEstaciones[index2].setBicisAgafen(f1ag);
-		
-		if(fnum1 != -1){
-			vFurgonetas[fnum1].setEstacioE(numEstacion2);
-			ajustarNumero(fnum1);
+		if(index1!=index2){
+			
+			int fnum1=vEstaciones[index1].getFurg();
+			int fnum2=vEstaciones[index2].getFurg();
+			
+			Integer male1=bicisMalColocadasIndexE(index1);
+			Integer male2=bicisMalColocadasIndexE(index2);
+			Integer bien1=bicisBienColocadasIndexE(index1);
+			Integer bien2=bicisBienColocadasIndexE(index2);
+			
+			Integer f1ag=vEstaciones[index1].getBicisAgafen();
+			Integer f2ag=vEstaciones[index2].getBicisAgafen();
+			
+			vEstaciones[index1].setFurg(fnum2);
+			vEstaciones[index2].setFurg(fnum1);
+			vEstaciones[index1].setBicisAgafen(f2ag);
+			vEstaciones[index2].setBicisAgafen(f1ag);
+			
+			if(fnum1 != -1){
+				vFurgonetas[fnum1].setEstacioE(numEstacion2);
+				ajustarNumero(fnum1,index1);
+			}
+			if(fnum2 != -1){
+				vFurgonetas[fnum2].setEstacioE(numEstacion1);
+				ajustarNumero(fnum2,index2);
+			}
+	
+			
+			Integer male1v2=bicisMalColocadasIndexE(index1);
+			Integer male2v2=bicisMalColocadasIndexE(index2);
+			Integer bien1v2=bicisBienColocadasIndexE(index1);
+			Integer bien2v2=bicisBienColocadasIndexE(index2);
+			
+			
+			BicisMalColocadas= BicisMalColocadas-male1-male2+male1v2+male2v2;
+			BicisBienColocadas= BicisBienColocadas-bien1-bien2+bien1v2+bien2v2;
+		 
 		}
-		if(fnum2 != -1){
-			vFurgonetas[fnum2].setEstacioE(numEstacion1);
-			ajustarNumero(fnum2);
-		}
-
-		
-		Integer male1v2=bicisMalColocadasIndexE(index1);
-		Integer male2v2=bicisMalColocadasIndexE(index2);
-		Integer bien1v2=bicisBienColocadasIndexE(index1);
-		Integer bien2v2=bicisBienColocadasIndexE(index2);
-		
-		BicisMalColocadas= BicisMalColocadas-male1-male2+male1v2+male2v2;
-		BicisBienColocadas= BicisBienColocadas-bien1-bien2+bien1v2+bien2v2;
 		
 	
 	}
