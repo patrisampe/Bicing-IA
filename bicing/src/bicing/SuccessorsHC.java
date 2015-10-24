@@ -28,8 +28,8 @@ public class SuccessorsHC implements SuccessorFunction {
 				sucesores.add(Operadores.intercambiarE(e, p, b));
 			}
 			
-			sucesores.add(Operadores.intercambiarP1P2(e, i));
-			int nums[] = {1,2,7,13};/*
+			//sucesores.add(Operadores.intercambiarP1P2(e, i));
+			int nums[] = {1};
 			for (int index = 0; index < nums.length; ++index) {
 				Operadores.setNum(nums[index]);
 				sucesores.add(Operadores.decNeNp1(e, i));
@@ -38,11 +38,11 @@ public class SuccessorsHC implements SuccessorFunction {
 				sucesores.add(Operadores.incNeNp2(e, i));
 				sucesores.add(Operadores.incNp1decNp2(e, i));
 				sucesores.add(Operadores.decNp1incNp2(e, i));
-			}*/
+			}/*
 			for (int n = 1; n <= 30; ++n) {
 				sucesores.add(Operadores.cambiarNp1(e, i, n));
 				sucesores.add(Operadores.cambiarNp2(e, i, n));
-			}
+			}*/
 			
 		}
 		for (int i = 0; i < sucesores.size(); ++i) {
@@ -51,6 +51,7 @@ public class SuccessorsHC implements SuccessorFunction {
 				--i;
 			}
 		}
+		GeneraProblema.incRamification(sucesores.size());
 		List ret = new ArrayList();
 		for (Estado cosa : sucesores) {
 			/**

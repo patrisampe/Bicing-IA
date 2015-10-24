@@ -10,7 +10,7 @@ public class GeneraProblema {
 	private static Map<DosEst,Integer> dist;
 	private static int semilla;
 	
-	
+	private static int ramification; 
 	
 	public GeneraProblema() {
 		super();
@@ -93,6 +93,7 @@ public class GeneraProblema {
 		semilla = seed;
 		dist = new HashMap<DosEst,Integer>();
 		calculardist();
+		ramification = 0;
 	}
 	
 	public static Estaciones getEstaciones() {
@@ -115,5 +116,13 @@ public class GeneraProblema {
 	public static int getSemilla() {
 		return semilla;
 	}
+
+	public static int getRamification() {
+		return ramification;
+	}
+
 	
+	public static void incRamification(int ramification) {
+		GeneraProblema.ramification += ramification;
+	}
 }

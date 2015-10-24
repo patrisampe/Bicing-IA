@@ -50,6 +50,9 @@ public class Main {
 
 		calculBestia(estado);
 		printEstado(estado, true);
+		System.out.println("Distancia total recorrida: "+ calcDistTotal(estado)/(double)1000);
+		System.out.println("Gasolina Total: "+ calcGasolinaTotal(estado)/1000);
+		System.out.println("Gasolina Total Inc: "+ estado.getCosteGasolina()/1000);
 		SuccessorsHC succ = new SuccessorsHC();
 		EstadoFinal ef = new EstadoFinal();
 		int numh = getNum(lines.get(23));
@@ -76,11 +79,10 @@ public class Main {
 		System.out.println("Gasolina Total: "+ calcGasolinaTotal(result)/1000);
 		System.out.println("Gasolina Total Inc: "+ result.getCosteGasolina()/1000);
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
-		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
-		System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
+		System.out.println("Sucesores generados " + GeneraProblema.getRamification());
 	}
 	
-	private static double calcGasolinaTotal(Estado result) {
+	public static double calcGasolinaTotal(Estado result) {
 		double gasolina = 0;
 		for (Furgoneta furgo : result.getvFurgonetas()) {
 			int distancia1 = GeneraProblema.distancia(furgo.getEstacioE(), furgo.getEstacioP1());
@@ -92,7 +94,7 @@ public class Main {
 		return gasolina;
 	}
 
-	private static int calcDistTotal(Estado result) {
+	public static int calcDistTotal(Estado result) {
 		int distancia = 0;
 		for (Furgoneta furgo : result.getvFurgonetas()) {
 			distancia += GeneraProblema.distancia(furgo.getEstacioE(), furgo.getEstacioP1()) + GeneraProblema.distancia(furgo.getEstacioP1(), furgo.getEstacioP2());
