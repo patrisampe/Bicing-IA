@@ -15,20 +15,13 @@ public class SuccessorsSA2 implements SuccessorFunction {
 		Random r = new Random(GeneraProblema.getSemilla());
 		List<Estado> sucesores = new ArrayList<Estado>();
 		int f = r.nextInt(e.getvFurgonetas().length);
-		int op = r.nextInt(10);
-		int nums[] = {1,2,7};
-		if (op < 6) Operadores.setNum(nums[r.nextInt(3)]);
-		if (op == 0) sucesores.add(Operadores.decNeNp1(e, f));
-		else if (op == 1) sucesores.add(Operadores.incNeNp1(e, f));
-		else if (op == 2) sucesores.add(Operadores.decNeNp2(e, f));
-		else if (op == 3) sucesores.add(Operadores.incNeNp2(e, f));
-		else if (op == 4) sucesores.add(Operadores.incNp1decNp2(e, f));
-		else if (op == 5) sucesores.add(Operadores.decNp1incNp2(e, f));
-		else if (op == 6) sucesores.add(Operadores.intercambiarP1P2(e, f));
+		int op = r.nextInt(5);
+		if (op == 0) sucesores.add(Operadores.cambiarNp1(e, f, r.nextInt(31)));
+		else if (op == 1) sucesores.add(Operadores.cambiarNp2(e, f, r.nextInt(31)));
 		else {
 			int e2 = r.nextInt(e.getvEstaciones().length);
-			if (op == 7) sucesores.add(Operadores.modificarP1(e, f, e2));
-			else if (op == 8) sucesores.add(Operadores.modificarP2(e, f, e2));
+			if (op == 2) sucesores.add(Operadores.modificarP1(e, f, e2));
+			else if (op == 3) sucesores.add(Operadores.modificarP2(e, f, e2));
 			else {
 				int e3 = GeneraProblema.getEstaciones().indexOf(e.getvFurgonetas()[f].getEstacioE());
 				sucesores.add(Operadores.intercambiarE(e, e2, e3));
