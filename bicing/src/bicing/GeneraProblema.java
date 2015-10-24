@@ -11,6 +11,7 @@ public class GeneraProblema {
 	private static int semilla;
 	
 	private static int ramification; 
+	private static int realramification; 
 	
 	public GeneraProblema() {
 		super();
@@ -124,5 +125,13 @@ public class GeneraProblema {
 	
 	public static void incRamification(int ramification) {
 		GeneraProblema.ramification += ramification;
+	}
+	public static int getRealRamification() {
+		return realramification;
+	}
+
+	
+	public static void incRealRamification(int ramification) {
+		GeneraProblema.realramification += ramification;
 	}
 }

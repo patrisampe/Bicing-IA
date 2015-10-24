@@ -45,6 +45,7 @@ public class SuccessorsHC implements SuccessorFunction {
 			}*/
 			
 		}
+		GeneraProblema.incRealRamification(sucesores.size());
 		for (int i = 0; i < sucesores.size(); ++i) {
 			if (sucesores.get(i) == null) {
 				sucesores.remove(i);

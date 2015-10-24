@@ -79,7 +79,8 @@ public class Main {
 		System.out.println("Gasolina Total: "+ calcGasolinaTotal(result)/1000);
 		System.out.println("Gasolina Total Inc: "+ result.getCosteGasolina()/1000);
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
-		System.out.println("Sucesores generados " + GeneraProblema.getRamification());
+		System.out.println("Sucesores generados: " + GeneraProblema.getRamification());
+		System.out.println("Operadores aplicados: " + GeneraProblema.getRealRamification());
 	}
 	
 	public static double calcGasolinaTotal(Estado result) {
