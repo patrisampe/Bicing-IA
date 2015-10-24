@@ -21,7 +21,7 @@ public class Main {
 	public static void main(String[] args) {
 		// args[0] nombre del fichero de entrada
 		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-		Path path = Paths.get(System.getProperty("user.dir"), "file/exemple.txt");
+		Path path = Paths.get(System.getProperty("user.dir"), "bicing-ia/bicing/file/exemple.txt");
 		Charset charset = Charset.forName("ISO-8859-1");
 		try {
 			List<String> lines = Files.readAllLines(path, charset);
@@ -49,14 +49,20 @@ public class Main {
 		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
 
 		calculBestia(estado);
+		//System.out.println ("HIII buuu");
 		printEstado(estado, true);
-		System.out.println("Distancia total recorrida: "+ calcDistTotal(estado)/(double)1000);
-		System.out.println("Gasolina Total: "+ calcGasolinaTotal(estado)/1000);
-		System.out.println("Gasolina Total Inc: "+ estado.getCosteGasolina()/1000);
+		//System.out.println ("HIII");
+		//System.out.println("Distancia total recorrida: "+ calcDistTotal(estado)/(double)1000);
+		//System.out.println("Gasolina Total: "+ calcGasolinaTotal(estado)/1000);
+		//System.out.println("Gasolina Total Inc: "+ estado.getCosteGasolina()/1000);
 		SuccessorsHC succ = new SuccessorsHC();
+		//System.out.println("GGGG " );
 		EstadoFinal ef = new EstadoFinal();
+		//System.out.println("GGGGDD " );
 		int numh = getNum(lines.get(23));
+		//System.out.println("GGGGEEEEE " );
 		Problem problem = null;
+		//System.out.println("GGGGIII " );
 		switch (numh) {
 			case 1: 
 				problem = new Problem(estado, succ, ef, new FuncionHeuristica1()); 
@@ -68,15 +74,22 @@ public class Main {
 				problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
 				break;			
 		}
+		//System.out.println("lll" );
 		Search search = new HillClimbingSearch();
+		//System.out.println("ooooooOOO" );
 		long startTime = System.currentTimeMillis();
+		//System.out.println("ooooooIIIII" );
 		SearchAgent agent = new SearchAgent(problem, search);
+		//System.out.println("oooPPPPPPP" );
 		long endTime = System.currentTimeMillis();
+		//System.out.println("oo754ERGFX" );
 		Estado result = (Estado) search.getGoalState();
+		//System.out.println("ooooooFFFFFOOO" );
 		calculBestia(result);
+		//System.out.println("oIIDSFKADL" );
 		printEstado(result, false);
 		System.out.println("Distancia total recorrida: "+ calcDistTotal(result)/(double)1000);
-		System.out.println("Gasolina Total: "+ calcGasolinaTotal(result)/1000);
+	    System.out.println("Gasolina Total: "+ calcGasolinaTotal(result)/1000);
 		System.out.println("Gasolina Total Inc: "+ result.getCosteGasolina()/1000);
 		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
 		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
@@ -88,10 +101,13 @@ public class Main {
 	public static double calcGasolinaTotal(Estado result) {
 		double gasolina = 0;
 		for (Furgoneta furgo : result.getvFurgonetas()) {
+			if(furgo.getindexEstacioE() != -1 && furgo.getindexEstacioP1() != -1 && furgo.getindexEstacioP2() != -1)
+			{
 			int distancia1 = GeneraProblema.distancia(furgo.getEstacioE(), furgo.getEstacioP1());
 			int distancia2 = GeneraProblema.distancia(furgo.getEstacioP1(), furgo.getEstacioP2());
 			gasolina += ((furgo.getNp1()+furgo.getNp2() + 9)/ 10)*distancia1;
 			gasolina += ((furgo.getNp2() + 9)/ 10)*(distancia2);
+			}
 		    
 		}
 		return gasolina;
@@ -100,8 +116,11 @@ public class Main {
 	public static int calcDistTotal(Estado result) {
 		int distancia = 0;
 		for (Furgoneta furgo : result.getvFurgonetas()) {
-			distancia += GeneraProblema.distancia(furgo.getEstacioE(), furgo.getEstacioP1()) + GeneraProblema.distancia(furgo.getEstacioP1(), furgo.getEstacioP2());
+			//System.out.println("BUUUUUUUU ");
+			if(furgo.getindexEstacioE() != -1 && furgo.getindexEstacioP1() != -1 && furgo.getindexEstacioP2()!= -1) distancia += GeneraProblema.distancia(furgo.getEstacioE(), furgo.getEstacioP1()) + GeneraProblema.distancia(furgo.getEstacioP1(), furgo.getEstacioP2());
+			//System.out.println("lulululul");
 		}
+		//System.out.println("BUUUUUUUU dududu");
 		return distancia;
 	}
 
@@ -265,6 +284,7 @@ public class Main {
     }
     
     private static void printActions(List actions) {
+    	System.out.println( "ACTIIIIOONSS ");
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
             System.out.println(action);

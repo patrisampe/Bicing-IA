@@ -188,7 +188,7 @@ public class Estado {
 	
 	
 	public void incrementarNNENP1(Integer n, Integer numFurgoneta){
-		//System.out.println(" incrementarNNENP1");
+		//////System.out.println(" incrementarNNENP1");
 		
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
@@ -216,7 +216,7 @@ public class Estado {
 	
 	public void incrementarNNP1decrementarNP2(Integer n, Integer numFurgoneta){
 		
-		//System.out.println(" incrementarNNP1decrementarNP2");
+		//////System.out.println(" incrementarNNP1decrementarNP2");
 		
 		Integer P1=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer P2=vFurgonetas[numFurgoneta].getindexEstacioP2();
@@ -242,7 +242,7 @@ public class Estado {
 	}
 	
 	public void incrementarNNP2decrementarNP1(Integer n, Integer numFurgoneta){
-		//System.out.println(" incrementarNNP2decrementarNP1");
+		//////System.out.println(" incrementarNNP2decrementarNP1");
 		
 		Integer P1=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer P2=vFurgonetas[numFurgoneta].getindexEstacioP2();
@@ -267,7 +267,7 @@ public class Estado {
 		
 	}
 	public void incrementarNNENP2(Integer n, Integer numFurgoneta){
-		//System.out.println(" incrementarNNENP2");
+		//////System.out.println(" incrementarNNENP2");
 		
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP2();
 		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
@@ -293,7 +293,7 @@ public class Estado {
 		
 	}
 	public void decrementarNNENP2(Integer n, Integer numFurgoneta){
-		//System.out.println(" decrementarNNENP2");
+		//////System.out.println(" decrementarNNENP2");
 		
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP2();
 		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
@@ -318,7 +318,7 @@ public class Estado {
 		
 	}
 	public void decrementarNNENP1(Integer n, Integer numFurgoneta){
-		//System.out.println("  decrementarNNENP1");
+		//////System.out.println("  decrementarNNENP1");
 		
 		Integer iP=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer iE=vFurgonetas[numFurgoneta].getindexEstacioE();
@@ -342,7 +342,7 @@ public class Estado {
 		
 	}
 	public void intercambiarP1P2(Integer numFurgoneta){
-		//System.out.println("  intercambiarP1P2");
+		//////System.out.println("  intercambiarP1P2");
 		
 		Integer P1 = vFurgonetas[numFurgoneta].getindexEstacioP1();
 		vFurgonetas[numFurgoneta].setindexEstacioP1(vFurgonetas[numFurgoneta].getindexEstacioP2());
@@ -358,14 +358,14 @@ public class Estado {
 	 * @param EstacioP1
 	 */
 	public void canviarP1(Integer numFurgoneta, Integer EstacioP1){
-		//System.out.println("PATRIII dee");
+		//////System.out.println("PATRIII dee");
 		Integer P=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer nP1=vFurgonetas[numFurgoneta].getNp1();
-		//System.out.println("PATRIII");
+		//////System.out.println("PATRIII");
 		Integer bienP1=bicisBienColocadasIndexE(P);
-		//System.out.println("PATRIII 2");
+		//////System.out.println("PATRIII 2");
 		Integer bienEP1=bicisBienColocadasIndexE(EstacioP1);
-		//System.out.println("PATRIII 3");
+		//////System.out.println("PATRIII 3");
 		Integer malP1=bicisMalColocadasIndexE(P);
 		Integer malEP1=bicisMalColocadasIndexE(EstacioP1);
 		
@@ -413,18 +413,18 @@ public class Estado {
 	
 	
 	public void canviarP1(Integer numFurgoneta, Estacion EstacioP1){
-		//System.out.println("  canviarP1");
-		//System.out.println(EstacioP1.getDemanda());
+		//////System.out.println("  canviarP1");
+		//////System.out.println(EstacioP1.getDemanda());
 		Integer e1=GeneraProblema.getIndex(EstacioP1);
 		canviarP1(numFurgoneta,e1);
 		
-		//System.out.println( " bicis bien");
-		//System.out.println(BicisBienColocadas);
-		//System.out.println(BicisMalColocadas);
+		//////System.out.println( " bicis bien");
+		//////System.out.println(BicisBienColocadas);
+		//////System.out.println(BicisMalColocadas);
 		
 	}
 	public void canviarP2(Integer numFurgoneta, Estacion EstacioP2){
-		//System.out.println("  canviarP2");
+		//////System.out.println("  canviarP2");
 		Integer e2=GeneraProblema.getIndex(EstacioP2);
 		canviarP2(numFurgoneta,e2);
 
@@ -432,13 +432,22 @@ public class Estado {
 	
 
 	private void ajustarNumero(Integer numFurgoneta, Integer index2){
-		
-		if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()<vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2()){
+		//System.out.println("  UUULL ");
+		Integer b=0;
+		if(vFurgonetas[numFurgoneta].getindexEstacioE() != -1){
+			b=vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas();
+		}
+		//System.out.println("  UUULL 2");
+		if(b<vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2()){
+			//System.out.println("  UUOUOUO ");
+			
 			Integer indexP1=vFurgonetas[numFurgoneta].getindexEstacioP1();
 			Integer indexP2=vFurgonetas[numFurgoneta].getindexEstacioP2();
 			Integer indexE=vFurgonetas[numFurgoneta].getindexEstacioE();
 			//Integer bienE=bicisBienColocadasIndexE(indexE);
 			//Integer malE=bicisMalColocadasIndexE(indexE);
+			
+			//System.out.println(" DDDD ");
 			Integer bienP1=bicisBienColocadasIndexE(indexP1);
 			Integer bienP2=bicisBienColocadasIndexE(indexP2);
 			Integer malP1=bicisMalColocadasIndexE(indexP1);
@@ -457,11 +466,21 @@ public class Estado {
 			}
 			else{
 			*/
+			
+			//System.out.println("  EEEE ");
 				Integer n=(vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2());
-				Integer act=(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()) ;
-				if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas() > 30){
-					act = 30;
+				Integer act=0;
+				if(indexE != -1)
+				{
+					act=(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()) ;
+				
+					if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas() > 30){
+						act = 30;
+					}
 				}
+				
+				//System.out.println("  FFFF ");
+				
 				if(indexP1==indexP2){
 					Integer np1=vFurgonetas[numFurgoneta].getNp1();
 					Integer np2=vFurgonetas[numFurgoneta].getNp2();
@@ -470,7 +489,8 @@ public class Estado {
 					if(indexP1 != -1)vEstaciones[indexP1].sumaNBicis(act);
 					vFurgonetas[numFurgoneta].setNp1(act);
 					vFurgonetas[numFurgoneta].setNp2(0);
-					vEstaciones[indexE].setBicisAgafen(act);
+					////System.out.println("  EEEEppp ");
+					if(indexE != -1)vEstaciones[indexE].setBicisAgafen(act);
 				}
 				else{
 					Integer np1=vFurgonetas[numFurgoneta].getNp1();
@@ -480,20 +500,20 @@ public class Estado {
 					
 					Integer anp1=vFurgonetas[numFurgoneta].getNp1();
 					Integer anp2=vFurgonetas[numFurgoneta].getNp2();
-					Integer c1=vEstaciones[indexP1].getBicisColocades();
+					Integer c1=0;
+					if(indexP1!=-1)c1=vEstaciones[indexP1].getBicisColocades();
 					
-					
-					
-					vEstaciones[indexP1].setBicisColocades(c1-np1+anp1);
-					Integer c2=vEstaciones[indexP2].getBicisColocades();
-					vEstaciones[indexP2].setBicisColocades(c2-np2+anp2);
-					
-					//System.out.println(" np1" + np1 + " anp1 " +anp1 + " c1 " + c1);
-					//System.out.println(" np2" + np1 + " anp2 " +anp2 + " c2 " + c2);
-					vEstaciones[indexE].setBicisAgafen(anp1+anp2);
+					if(indexP1 != -1)vEstaciones[indexP1].setBicisColocades(c1-np1+anp1);
+					Integer c2=0;
+					if(indexP2 != -1)vEstaciones[indexP2].getBicisColocades();
+					if(indexP2 != -1)vEstaciones[indexP2].setBicisColocades(c2-np2+anp2);
+					////System.out.println("  EEEE OOOOO");
+					//////System.out.println(" np1" + np1 + " anp1 " +anp1 + " c1 " + c1);
+					//////System.out.println(" np2" + np1 + " anp2 " +anp2 + " c2 " + c2);
+					if(indexE != -1)vEstaciones[indexE].setBicisAgafen(anp1+anp2);
 				}
 			
-			
+				////System.out.println("  LLLL ");
 			//Integer bienEv2=bicisBienColocadasIndexE(indexE);
 			//Integer malEv2=bicisMalColocadasIndexE(indexE);
 			Integer bienP1v2=bicisBienColocadasIndexE(indexP1);
@@ -556,7 +576,7 @@ public class Estado {
 	}
 	/**
 	public void intercambiarEs(Integer numFurgoneta1, Integer numFurgoneta2){
-		//System.out.println("  NOOOO");
+		//////System.out.println("  NOOOO");
 		Integer EF1=vFurgonetas[numFurgoneta1].getindexEstacioE();
 		Integer EF2=vFurgonetas[numFurgoneta2].getindexEstacioE();
 		
@@ -587,38 +607,48 @@ public class Estado {
 	}
 	**/
 	
-	private void intercambiarprivate(Estacion numEstacion1,Estacion numEstacion2, Integer index1,Integer index2){
+	private void intercambiarprivate(Integer index1,Integer index2){
 		
-		//System.out.println("  NOOOO");
+		//////System.out.println("  NOOOO");
 		
 		if(index1!=index2){
 			
-			int fnum1=vEstaciones[index1].getFurg();
-			int fnum2=vEstaciones[index2].getFurg();
+			int fnum1=-1;
+			if(index1 != -1)fnum1=vEstaciones[index1].getFurg();
+			int fnum2=-1;
+			if(index2 != -1)fnum2=vEstaciones[index2].getFurg();
 			
 			Integer male1=bicisMalColocadasIndexE(index1);
 			Integer male2=bicisMalColocadasIndexE(index2);
 			Integer bien1=bicisBienColocadasIndexE(index1);
 			Integer bien2=bicisBienColocadasIndexE(index2);
+			//System.out.println("holiitaaa ");
+			Integer f1ag=0;
+			Integer f2ag=0;
+			if(index1 != -1)vEstaciones[index1].getBicisAgafen();
+			if(index2 != -1)vEstaciones[index2].getBicisAgafen();
 			
-			Integer f1ag=vEstaciones[index1].getBicisAgafen();
-			Integer f2ag=vEstaciones[index2].getBicisAgafen();
-			
-			vEstaciones[index1].setFurg(fnum2);
-			vEstaciones[index2].setFurg(fnum1);
-			vEstaciones[index1].setBicisAgafen(f2ag);
-			vEstaciones[index2].setBicisAgafen(f1ag);
-			
+			if(index1 != -1)vEstaciones[index1].setFurg(fnum2);
+			if(index2 != -1)vEstaciones[index2].setFurg(fnum1);
+			if(index1 != -1)vEstaciones[index1].setBicisAgafen(f2ag);
+			if(index2 != -1)vEstaciones[index2].setBicisAgafen(f1ag);
+			//System.out.println("holiitaaa 2");
 			if(fnum1 != -1){
-				vFurgonetas[fnum1].setEstacioE(numEstacion2);
+				//System.out.println("holiitaaa 2.2");
+				vFurgonetas[fnum1].setindexEstacioE(index2);
+				//System.out.println("holiitaaa 2.3");
 				ajustarNumero(fnum1,index1);
+				//System.out.println("holiitaaa 2.3.1");
 			}
 			if(fnum2 != -1){
-				vFurgonetas[fnum2].setEstacioE(numEstacion1);
+				//System.out.println("holiitaaa 2.4");
+				vFurgonetas[fnum2].setindexEstacioE(index1);
+				//System.out.println("holiitaaa 2.5");
 				ajustarNumero(fnum2,index2);
+				//System.out.println("holiitaaa 2.5.1");
 			}
 	
-			
+			//System.out.println("holiitaaa 3");
 			Integer male1v2=bicisMalColocadasIndexE(index1);
 			Integer male2v2=bicisMalColocadasIndexE(index2);
 			Integer bien1v2=bicisBienColocadasIndexE(index1);
@@ -637,14 +667,17 @@ public class Estado {
 	 * @param numEstacion1
 	 * @param numEstacion2
 	 */
+	/**
 	public void intercambiarE(Estacion numEstacion1, Estacion numEstacion2){
 		Estaciones es=GeneraProblema.getEstaciones();
-		int index1=es.indexOf(numEstacion1);
-		int index2=es.indexOf(numEstacion2);
+		int index1=-1;
+		if(numEstacion1 != null)index1=es.indexOf(numEstacion1);
+		int index2=-1;
+		if(numEstacion2 != null)index2=es.indexOf(numEstacion2);
 		intercambiarprivate(numEstacion1,numEstacion2,index1,index2);
 	}
 	
-	
+	*/
 	
 	/**
 	 * Como m�nimo una de las dos estaciones tiene de tener una Furgoneta assignada
@@ -652,9 +685,7 @@ public class Estado {
 	 * @param numEstacion2
 	 */
 	public void intercambiarE(Integer numEstacion1, Integer numEstacion2){
-		Estacion e1=GeneraProblema.getEstacion(numEstacion1);
-		Estacion e2=GeneraProblema.getEstacion(numEstacion2);
-		intercambiarprivate(e1,e2,numEstacion1,numEstacion2);
+		intercambiarprivate(numEstacion1,numEstacion2);
 	}
 	
 	private static int minim(int a,int b){
@@ -668,12 +699,12 @@ public class Estado {
 	
 	
 	public static Estado estadoInicial_v1(int numF, int numE){
-		System.out.println("proooofii  ");
+		////System.out.println("proooofii  ");
 		int min= minim(numF,numE);
 		
-		//System.out.println(numE);
-		//System.out.println(numF);
-		//System.out.println(min);
+		//////System.out.println(numE);
+		//////System.out.println(numF);
+		//////System.out.println(min);
 		
 		Integer BSuman=0;
 		Integer Brestan=0;
@@ -685,9 +716,9 @@ public class Estado {
 		Estaciones est=GeneraProblema.getEstaciones();
 		java.util.ArrayList<Auxi> ve = new java.util.ArrayList<Auxi>();
 		java.util.ArrayList<Auxi> vp = new java.util.ArrayList<Auxi>();
-		System.out.println("proooof 0");
+		////System.out.println("proooof 0");
 		
-		//System.out.println("Jose");
+		//////System.out.println("Jose");
 		for(int i=0; i < numE; ++i)
 		{
 			Estacion e=GeneraProblema.getEstacion(i);
@@ -699,19 +730,19 @@ public class Estado {
 			
 			
 		}
-		System.out.println("hiiii");
+		////System.out.println("hiiii");
 		Collections.sort(ve,(Comparator<Auxi>)ve.get(0));
-		System.out.println("hiiii 2");
+		////System.out.println("hiiii 2");
 
 		
 		for(int i=0;i<min;++i) {
 			
-			//System.out.println("mides 0");
-			//System.out.println(ve.size());
-			//System.out.println(vp.size());
-			//System.out.println(v2);
+			//////System.out.println("mides 0");
+			//////System.out.println(ve.size());
+			//////System.out.println(vp.size());
+			//////System.out.println(v2);
 			
-			System.out.println("hiiii 3");
+			////System.out.println("hiiii 3");
 			Integer re=ve.get(i).getIndex();
 			
 			
@@ -719,45 +750,45 @@ public class Estado {
 			DosEst aux=GeneraProblema.estmesaprop(re);
 			
 			
-			//System.out.println("mides 1");
-			////System.out.println(ve.size());
-			//System.out.println(vp.size());
+			//////System.out.println("mides 1");
+			////////System.out.println(ve.size());
+			//////System.out.println(vp.size());
 			Estacion p1=aux.getA();
 			Estacion p2=aux.getB();
 			Integer rp1=GeneraProblema.getIndex(p1);
 			Integer rp2=GeneraProblema.getIndex(p2);
-			System.out.println("niiii");
-			System.out.println(rp1);
-			System.out.println(rp2);
-			//System.out.println("mides 2");
-			////System.out.println(ve.size());
-			//System.out.println(vp.size());
+			////System.out.println("niiii");
+			////System.out.println(rp1);
+			////System.out.println(rp2);
+			//////System.out.println("mides 2");
+			////////System.out.println(ve.size());
+			//////System.out.println(vp.size());
 				
 		
 			
 	
-			//System.out.println("mides 3");
-			////System.out.println(ve.size());
-			//System.out.println(vp.size());
+			//////System.out.println("mides 3");
+			////////System.out.println(ve.size());
+			//////System.out.println(vp.size());
 			
 			Estacion e=GeneraProblema.getEstacion(re);
 
 			Integer sobren=ve.get(i).getSobren();
-			System.out.println("SOOBREEEEN");
-			System.out.println(sobren);
-			System.out.println("hiiii 3.5");
+			////System.out.println("SOOBREEEEN");
+			////System.out.println(sobren);
+			////System.out.println("hiiii 3.5");
 
 			//Double n= 
 				Integer ne= minim(e.getNumBicicletasNoUsadas(),sobren);
 				if(ne<0)ne=0;
 			
-			////System.out.println(n);
+			////////System.out.println(n);
 			ne=minim(30,ne);
-			////System.out.println(ne);
+			////////System.out.println(ne);
 			int np1=ne/2;
-			//System.out.println(np1);
+			//////System.out.println(np1);
 			int np2=ne-np1;
-			////System.out.println(np2);
+			////////System.out.println(np2);
 			/**
 			Integer bienE=bicisBienColocadasIndexE(re,vEst);
 			Integer bienP1=bicisBienColocadasIndexE(rp1,vEst);
@@ -765,15 +796,15 @@ public class Estado {
 			Integer malP1=bicisMalColocadasIndexE(rp1,vEst);
 			Integer malP2=bicisMalColocadasIndexE(rp2,vEst);
 			*/
-			System.out.println("hiiii 3.7");
+			////System.out.println("hiiii 3.7");
 			
 			vEst[rp1].sumaNBicis(np1);
 			vEst[rp2].sumaNBicis(np2);
-			System.out.println("hiiii 3.8");
+			////System.out.println("hiiii 3.8");
 			vEst[re].setFurg(i);
 			vEst[re].setBicisAgafen(ne);
 			Furgoneta audi=new Furgoneta(re,rp1,rp2,np1,np2);
-			System.out.println("hiiii 4");
+			////System.out.println("hiiii 4");
 			vfurg[i]=audi;
 			
 			/**
@@ -789,65 +820,65 @@ public class Estado {
 			
 			*/
 			
-			////System.out.println("Vector9");
+			////////System.out.println("Vector9");
 			Integer km1= GeneraProblema.distancia(e,p1);
 			Integer km2= GeneraProblema.distancia(p1,p2);
-			////System.out.println(km1);
-			////System.out.println(km2);
-			////System.out.println("Vector9.5");
+			////////System.out.println(km1);
+			////////System.out.println(km2);
+			////////System.out.println("Vector9.5");
 			Integer d1=(ne+9)/10;
 			Integer d2=(np2+9)/10;
-			////System.out.println("Vector9.6");
+			////////System.out.println("Vector9.6");
 			Double gau=(double) d1*km1+d2*km2;
-			////System.out.println("Vector9.7");
+			////////System.out.println("Vector9.7");
 			
-			////System.out.println("Vector9.8");
+			////////System.out.println("Vector9.8");
 			g=g+gau;
-			System.out.println("hiiii 5");
-			//System.out.println("Vector10");
+			////System.out.println("hiiii 5");
+			//////System.out.println("Vector10");
 			
 		}
-		//System.out.println("Vector102");
+		//////System.out.println("Vector102");
 		for (int i=min;i<numF;++i){
-			//System.out.println("Vector10w");
+			//////System.out.println("Vector10w");
 			vfurg[i]=new Furgoneta();
 		}
 		
-		//System.out.println("Vector12");
+		//////System.out.println("Vector12");
 		for(int i=0; i<numE;++i){
-			//System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
+			//////System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
 			BSuman=BSuman+bicisBienColocadasIndexE(i,vEst);
 		}
-		//System.out.println("Vector13");
-		//System.out.println(numF);
+		//////System.out.println("Vector13");
+		//////System.out.println(numF);
 		for(int i=0; i<numF;++i){
 			int re=vfurg[i].getindexEstacioE();
 			if(re!=-1){
-				//System.out.println("Mal" + re + " " + bicisMalColocadasIndexE(re,vEst));
+				//////System.out.println("Mal" + re + " " + bicisMalColocadasIndexE(re,vEst));
 				Brestan =Brestan+bicisMalColocadasIndexE(re,vEst);
 			}
 		}
-		//System.out.println("Vector14");
+		//////System.out.println("Vector14");
 		
 		
 		
-		////System.out.println("restan");
-		//System.out.println("restan" + Brestan);
-		//System.out.println("suman" + BSuman);
+		////////System.out.println("restan");
+		//////System.out.println("restan" + Brestan);
+		//////System.out.println("suman" + BSuman);
 		
-		System.out.println("FIN ESTADO INICIAL");
+		////System.out.println("FIN ESTADO INICIAL");
 		return new Estado(vfurg,vEst,g,BSuman,Brestan);
 		
 
 	}
 	
 	public static Estado estadoInicial_v2(int numF, int numE){
-		System.out.println("proooof");
+		////System.out.println("proooof");
 		int min= minim(numF,numE);
 		
-		//System.out.println(numE);
-		//System.out.println(numF);
-		//System.out.println(min);
+		//////System.out.println(numE);
+		//////System.out.println(numF);
+		//////System.out.println(min);
 		
 		Integer BSuman=0;
 		Integer Brestan=0;
@@ -862,7 +893,7 @@ public class Estado {
 		
 		
 		
-		//System.out.println("Jose");
+		//////System.out.println("Jose");
 		for(int i=0; i < numE; ++i)
 		{
 			vEst[i]= new Struct();
@@ -870,36 +901,36 @@ public class Estado {
 			vp.add(i);
 			vp.add(i);
 		}
-		//System.out.println("mides");
-		////System.out.println(ve.size());
-		//System.out.println(vp.size());
+		//////System.out.println("mides");
+		////////System.out.println(ve.size());
+		//////System.out.println(vp.size());
 		
 		
 		for(int i=0;i<min;++i) {
 			int re,rp1,rp2;
-			//System.out.println("mides 0");
-			//System.out.println(ve.size());
-			//System.out.println(vp.size());
-			//System.out.println(v2);
+			//////System.out.println("mides 0");
+			//////System.out.println(ve.size());
+			//////System.out.println(vp.size());
+			//////System.out.println(v2);
 			
-				//System.out.println("hiii");
+				//////System.out.println("hiii");
 				int te;
 				if(ve.size()==1)te=0;
 				else te = rnd.nextInt(ve.size()-1);
-				//System.out.println(te);
+				//////System.out.println(te);
 				re = ve.get(te);
 				
 				ve.remove(te);
 			
-			//System.out.println("mides 1");
-			////System.out.println(ve.size());
-			//System.out.println(vp.size());
+			//////System.out.println("mides 1");
+			////////System.out.println(ve.size());
+			//////System.out.println(vp.size());
 			int tp1=rnd.nextInt(vp.size()-1);
 			rp1 = vp.get(tp1);
 			
-			//System.out.println("mides 2");
-			////System.out.println(ve.size());
-			//System.out.println(vp.size());
+			//////System.out.println("mides 2");
+			////////System.out.println(ve.size());
+			//////System.out.println(vp.size());
 				
 			int tp2;
 			if(vp.size()==1)tp2=0;
@@ -907,9 +938,9 @@ public class Estado {
 			rp2 = vp.get(tp2);
 			
 	
-			//System.out.println("mides 3");
-			////System.out.println(ve.size());
-			//System.out.println(vp.size());
+			//////System.out.println("mides 3");
+			////////System.out.println(ve.size());
+			//////System.out.println(vp.size());
 			
 			Estacion e=GeneraProblema.getEstacion(re);
 			Estacion p1=GeneraProblema.getEstacion(rp1);
@@ -922,14 +953,14 @@ public class Estado {
 			Double n= 0.6*e.getNumBicicletasNoUsadas();
 			
 			
-			////System.out.println(n);
+			////////System.out.println(n);
 			Integer ne=n.intValue();
 			ne=minim(30,ne);
-			////System.out.println(ne);
+			////////System.out.println(ne);
 			int np1=ne/2;
-			//System.out.println(np1);
+			//////System.out.println(np1);
 			int np2=ne-np1;
-			////System.out.println(np2);
+			////////System.out.println(np2);
 			/**
 			Integer bienE=bicisBienColocadasIndexE(re,vEst);
 			Integer bienP1=bicisBienColocadasIndexE(rp1,vEst);
@@ -959,50 +990,50 @@ public class Estado {
 			*/
 			
 			
-			////System.out.println("Vector9");
+			////////System.out.println("Vector9");
 			Integer km1= GeneraProblema.distancia(e,p1);
 			Integer km2= GeneraProblema.distancia(p1,p2);
-			////System.out.println(km1);
-			////System.out.println(km2);
-			////System.out.println("Vector9.5");
+			////////System.out.println(km1);
+			////////System.out.println(km2);
+			////////System.out.println("Vector9.5");
 			Integer d1=(ne+9)/10;
 			Integer d2=(np2+9)/10;
-			////System.out.println("Vector9.6");
+			////////System.out.println("Vector9.6");
 			Double gau=(double) d1*km1+d2*km2;
-			////System.out.println("Vector9.7");
+			////////System.out.println("Vector9.7");
 			
-			////System.out.println("Vector9.8");
+			////////System.out.println("Vector9.8");
 			g=g+gau;
-			//System.out.println("Vector10");
+			//////System.out.println("Vector10");
 			
 		}
-		//System.out.println("Vector102");
+		//////System.out.println("Vector102");
 		for (int i=min;i<numF;++i){
-			//System.out.println("Vector10w");
+			//////System.out.println("Vector10w");
 			vfurg[i]=new Furgoneta();
 		}
 		
-		//System.out.println("Vector12");
+		//////System.out.println("Vector12");
 		for(int i=0; i<numE;++i){
-			//System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
+			//////System.out.println("Bien" + i + " " + bicisBienColocadasIndexE(i,vEst));
 			BSuman=BSuman+bicisBienColocadasIndexE(i,vEst);
 		}
-		//System.out.println("Vector13");
-		//System.out.println(numF);
+		//////System.out.println("Vector13");
+		//////System.out.println(numF);
 		for(int i=0; i<numF;++i){
 			int re=vfurg[i].getindexEstacioE();
 			if(re!=-1){
-				//System.out.println("Mal" + re + " " + bicisMalColocadasIndexE(re,vEst));
+				//////System.out.println("Mal" + re + " " + bicisMalColocadasIndexE(re,vEst));
 				Brestan =Brestan+bicisMalColocadasIndexE(re,vEst);
 			}
 		}
-		//System.out.println("Vector14");
+		//////System.out.println("Vector14");
 		
 		
 		
-		////System.out.println("restan");
-		//System.out.println("restan" + Brestan);
-		System.out.println("FIN ESTADO INICIAL");
+		////////System.out.println("restan");
+		//////System.out.println("restan" + Brestan);
+		////System.out.println("FIN ESTADO INICIAL");
 		
 
 		return new Estado(vfurg,vEst,g,BSuman,Brestan);
@@ -1029,3 +1060,4 @@ public class Estado {
 	
 	
 }
+
