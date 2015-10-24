@@ -7,7 +7,7 @@ public class Operadores {
 	
 	
 	public static int num = 1;
-	
+
 	private static boolean neSePasaria(Estado e, int f) {
 		Furgoneta furgo = e.getvFurgonetas()[f];
 		int np1 = furgo.getNp1(), np2 = furgo.getNp2();
@@ -18,10 +18,10 @@ public class Operadores {
 	private static void updateCosteFurgoneta (Estado inicial, Estado sucesor, int f) {
 		double ahorro = costeTransporte(inicial,f);
 		double gasto = costeTransporte(sucesor,f);
-		sucesor.setCosteGasolina(inicial.getCosteGasolina()+gasto-ahorro);
+		sucesor.setCosteGasolina(sucesor.getCosteGasolina()+gasto-ahorro);
 	}
 	
-	private static double costeTransporte(Estacion p1, Estacion p2, int nb) {
+	private static int costeTransporte(Estacion p1, Estacion p2, int nb) {
 		return ((nb + 9)/ 10)*GeneraProblema.distancia(p1, p2);
 	}
 	
