@@ -85,8 +85,8 @@ public class Main {
 		for (Furgoneta furgo : result.getvFurgonetas()) {
 			int distancia1 = GeneraProblema.distancia(furgo.getEstacioE(), furgo.getEstacioP1());
 			int distancia2 = GeneraProblema.distancia(furgo.getEstacioP1(), furgo.getEstacioP2());
-			gasolina += ((furgo.getNp1() + 9)/ 10)*distancia1;
-			gasolina += ((furgo.getNp2() + 9)/ 10)*distancia2;
+			gasolina += ((furgo.getNp1()+furgo.getNp2() + 9)/ 10)*distancia1;
+			gasolina += ((furgo.getNp2() + 9)/ 10)*(distancia2);
 		    
 		}
 		return gasolina;
