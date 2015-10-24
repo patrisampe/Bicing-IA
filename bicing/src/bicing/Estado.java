@@ -114,6 +114,7 @@ public class Estado {
 	
 	
 	private Integer bicisBienColocadasIndexE(Integer e){
+		if(e==-1)return 0;
 		Integer falten=GeneraProblema.getEstacion(e).getDemanda()-GeneraProblema.getEstacion(e).getNumBicicletasNext();
 		Integer coloquem = vEstaciones[e].getBicisColocades()-vEstaciones[e].getBicisAgafen();
 		if(falten>0 && coloquem>0)return minim(falten,coloquem);
@@ -123,6 +124,7 @@ public class Estado {
 	
 	
 	private Integer bicisMalColocadasIndexE(Integer e){
+		if(e==-1)return 0;
 		Estacion Es=GeneraProblema.getEstacion(e);
 		Integer mal=0;
 		Integer hay=Es.getNumBicicletasNext();
@@ -148,6 +150,7 @@ public class Estado {
 	}
 	
 	private static Integer bicisBienColocadasIndexE(Integer e,Struct[] vEst){
+		if(e==-1)return 0;
 		Integer falten=GeneraProblema.getEstacion(e).getDemanda()-GeneraProblema.getEstacion(e).getNumBicicletasNext();
 		Integer coloquem = vEst[e].getBicisColocades()-vEst[e].getBicisAgafen();
 		if(falten>0 && coloquem>0)return minim(falten,coloquem);
@@ -157,6 +160,7 @@ public class Estado {
 	
 	
 	private static Integer bicisMalColocadasIndexE(Integer e, Struct[] vEst){
+		if(e==-1)return 0;
 		Estacion Es=GeneraProblema.getEstacion(e);
 		Integer mal=0;
 		Integer hay=Es.getNumBicicletasNext();
@@ -355,17 +359,19 @@ public class Estado {
 	 * @param EstacioP1
 	 */
 	public void canviarP1(Integer numFurgoneta, Integer EstacioP1){
-		
+		System.out.println("PATRIII dee");
 		Integer P=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer nP1=vFurgonetas[numFurgoneta].getNp1();
-		
+		System.out.println("PATRIII");
 		Integer bienP1=bicisBienColocadasIndexE(P);
+		System.out.println("PATRIII 2");
 		Integer bienEP1=bicisBienColocadasIndexE(EstacioP1);
+		System.out.println("PATRIII 3");
 		Integer malP1=bicisMalColocadasIndexE(P);
 		Integer malEP1=bicisMalColocadasIndexE(EstacioP1);
 		
 		vEstaciones[EstacioP1].sumaNBicis(nP1);
-		vEstaciones[P].restaNBicis(nP1);
+		if(P!=-1)vEstaciones[P].restaNBicis(nP1);
 		// NO CANVIO LA FURGONETA PERQUE ES P1
 		vFurgonetas[numFurgoneta].setindexEstacioP1(EstacioP1);
 		
@@ -457,24 +463,36 @@ public class Estado {
 				if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas() > 30){
 					act = 30;
 				}
-				Integer np1=vFurgonetas[numFurgoneta].getNp1();
-				Integer np2=vFurgonetas[numFurgoneta].getNp2();
-				vFurgonetas[numFurgoneta].setNp1(np1*act/n);
-				vFurgonetas[numFurgoneta].setNp2(np2*act/n);
-				
-				Integer anp1=vFurgonetas[numFurgoneta].getNp1();
-				Integer anp2=vFurgonetas[numFurgoneta].getNp2();
-				Integer c1=vEstaciones[indexP1].getBicisColocades();
-				
-				
-				
-				vEstaciones[indexP1].setBicisColocades(c1-np1+anp1);
-				Integer c2=vEstaciones[indexP2].getBicisColocades();
-				vEstaciones[indexP2].setBicisColocades(c2-np2+anp2);
-				
-				//System.out.println(" np1" + np1 + " anp1 " +anp1 + " c1 " + c1);
-				//System.out.println(" np2" + np1 + " anp2 " +anp2 + " c2 " + c2);
-				vEstaciones[indexE].setBicisAgafen(anp1+anp2);
+				if(indexP1==indexP2){
+					Integer np1=vFurgonetas[numFurgoneta].getNp1();
+					Integer np2=vFurgonetas[numFurgoneta].getNp2();
+					vEstaciones[indexP1].restaNBicis(np1);
+					vEstaciones[indexP1].restaNBicis(np2);
+					vEstaciones[indexP1].sumaNBicis(np2);
+					vFurgonetas[numFurgoneta].setNp1(act);
+					vFurgonetas[numFurgoneta].setNp2(0);
+					vEstaciones[indexE].setBicisAgafen(act);
+				}
+				else{
+					Integer np1=vFurgonetas[numFurgoneta].getNp1();
+					Integer np2=vFurgonetas[numFurgoneta].getNp2();
+					vFurgonetas[numFurgoneta].setNp1(np1*act/n);
+					vFurgonetas[numFurgoneta].setNp2(np2*act/n);
+					
+					Integer anp1=vFurgonetas[numFurgoneta].getNp1();
+					Integer anp2=vFurgonetas[numFurgoneta].getNp2();
+					Integer c1=vEstaciones[indexP1].getBicisColocades();
+					
+					
+					
+					vEstaciones[indexP1].setBicisColocades(c1-np1+anp1);
+					Integer c2=vEstaciones[indexP2].getBicisColocades();
+					vEstaciones[indexP2].setBicisColocades(c2-np2+anp2);
+					
+					//System.out.println(" np1" + np1 + " anp1 " +anp1 + " c1 " + c1);
+					//System.out.println(" np2" + np1 + " anp2 " +anp2 + " c2 " + c2);
+					vEstaciones[indexE].setBicisAgafen(anp1+anp2);
+				}
 			
 			
 			//Integer bienEv2=bicisBienColocadasIndexE(indexE);
@@ -513,14 +531,14 @@ public class Estado {
 				bienP1v2=0;
 				malP1v2=0;
 			}
-			/*
+			
 			if(indexP1 == indexP2){
 				bienP2=0;
 				malP2=0;
 				bienP2v2=0;
 				malP2v2=0;
 			}
-			*/
+			
 			if(index2 == indexP2){
 				bienP2=0;
 				malP2=0;
@@ -818,7 +836,7 @@ public class Estado {
 		//System.out.println("restan" + Brestan);
 		//System.out.println("suman" + BSuman);
 		
-
+		System.out.println("FIN ESTADO INICIAL");
 		return new Estado(vfurg,vEst,g,BSuman,Brestan);
 		
 
@@ -985,7 +1003,7 @@ public class Estado {
 		
 		////System.out.println("restan");
 		//System.out.println("restan" + Brestan);
-		//System.out.println("suman" + BSuman);
+		System.out.println("FIN ESTADO INICIAL");
 		
 
 		return new Estado(vfurg,vEst,g,BSuman,Brestan);
