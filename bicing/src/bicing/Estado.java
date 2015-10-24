@@ -748,7 +748,7 @@ public class Estado {
 			Integer d1=(ne+9)/10;
 			Integer d2=(np2+9)/10;
 			////System.out.println("Vector9.6");
-			Double gau=(double) d1*km1+d2*(km1+km2);
+			Double gau=(double) d1*km1+d2*km2;
 			////System.out.println("Vector9.7");
 			
 			////System.out.println("Vector9.8");
@@ -918,7 +918,7 @@ public class Estado {
 			Integer d1=(ne+9)/10;
 			Integer d2=(np2+9)/10;
 			////System.out.println("Vector9.6");
-			Double gau=(double) d1*km1+d2*(km1+km2);
+			Double gau=(double) d1*km1+d2*km2;
 			////System.out.println("Vector9.7");
 			
 			////System.out.println("Vector9.8");
