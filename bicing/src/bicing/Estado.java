@@ -474,7 +474,7 @@ public class Estado {
 				{
 					act=(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()) ;
 				
-					if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas() > 30){
+					if(act > 30){
 						act = 30;
 					}
 				}
@@ -613,42 +613,33 @@ public class Estado {
 		
 		if(index1!=index2){
 			
-			int fnum1=-1;
-			if(index1 != -1)fnum1=vEstaciones[index1].getFurg();
-			int fnum2=-1;
-			if(index2 != -1)fnum2=vEstaciones[index2].getFurg();
+			int fnum1=vEstaciones[index1].getFurg();
+			int fnum2=vEstaciones[index2].getFurg();
 			
 			Integer male1=bicisMalColocadasIndexE(index1);
 			Integer male2=bicisMalColocadasIndexE(index2);
 			Integer bien1=bicisBienColocadasIndexE(index1);
 			Integer bien2=bicisBienColocadasIndexE(index2);
-			//System.out.println("holiitaaa ");
-			Integer f1ag=0;
-			Integer f2ag=0;
-			if(index1 != -1)vEstaciones[index1].getBicisAgafen();
-			if(index2 != -1)vEstaciones[index2].getBicisAgafen();
+			
+			Integer f1ag=0,f2ag=0;
+			if(index1 != -1)f1ag=vEstaciones[index1].getBicisAgafen();
+			if(index2 != -1)f2ag=vEstaciones[index2].getBicisAgafen();
 			
 			if(index1 != -1)vEstaciones[index1].setFurg(fnum2);
 			if(index2 != -1)vEstaciones[index2].setFurg(fnum1);
 			if(index1 != -1)vEstaciones[index1].setBicisAgafen(f2ag);
 			if(index2 != -1)vEstaciones[index2].setBicisAgafen(f1ag);
-			//System.out.println("holiitaaa 2");
+			
 			if(fnum1 != -1){
-				//System.out.println("holiitaaa 2.2");
 				vFurgonetas[fnum1].setindexEstacioE(index2);
-				//System.out.println("holiitaaa 2.3");
 				ajustarNumero(fnum1,index1);
-				//System.out.println("holiitaaa 2.3.1");
 			}
 			if(fnum2 != -1){
-				//System.out.println("holiitaaa 2.4");
 				vFurgonetas[fnum2].setindexEstacioE(index1);
-				//System.out.println("holiitaaa 2.5");
 				ajustarNumero(fnum2,index2);
-				//System.out.println("holiitaaa 2.5.1");
 			}
 	
-			//System.out.println("holiitaaa 3");
+			
 			Integer male1v2=bicisMalColocadasIndexE(index1);
 			Integer male2v2=bicisMalColocadasIndexE(index2);
 			Integer bien1v2=bicisBienColocadasIndexE(index1);
