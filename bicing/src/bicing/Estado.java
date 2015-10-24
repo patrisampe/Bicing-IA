@@ -465,9 +465,15 @@ public class Estado {
 				Integer anp1=vFurgonetas[numFurgoneta].getNp1();
 				Integer anp2=vFurgonetas[numFurgoneta].getNp2();
 				Integer c1=vEstaciones[indexP1].getBicisColocades();
+				
+				
+				
+				vEstaciones[indexP1].setBicisColocades(c1-np1+anp1);
 				Integer c2=vEstaciones[indexP2].getBicisColocades();
-				vEstaciones[indexP1].setBicisColocades(c1-np1+anp1);		
 				vEstaciones[indexP2].setBicisColocades(c2-np2+anp2);
+				
+				//System.out.println(" np1" + np1 + " anp1 " +anp1 + " c1 " + c1);
+				//System.out.println(" np2" + np1 + " anp2 " +anp2 + " c2 " + c2);
 				vEstaciones[indexE].setBicisAgafen(anp1+anp2);
 			
 			
@@ -569,7 +575,6 @@ public class Estado {
 			vFurgonetas[fnum2].setEstacioE(numEstacion1);
 			ajustarNumero(fnum2);
 		}
-		
 
 		
 		Integer male1v2=bicisMalColocadasIndexE(index1);
