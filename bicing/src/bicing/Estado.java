@@ -200,8 +200,8 @@ public class Estado {
 		
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()+n);
 		
-		vEstaciones[iP].sumaNBicis(n);
-		vEstaciones[iE].sumaNBicisAg(n);
+		if(iP != -1)vEstaciones[iP].sumaNBicis(n);
+		if(iE != -1)vEstaciones[iE].sumaNBicisAg(n);
 		
 		Integer bienEv2=bicisBienColocadasIndexE(iE);
 		Integer bienP1v2=bicisBienColocadasIndexE(iP);
@@ -228,8 +228,8 @@ public class Estado {
 		
 		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()-n);
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()+n);
-		vEstaciones[P1].sumaNBicis(n);
-		vEstaciones[P2].restaNBicis(n);
+		if(P1!=-1)vEstaciones[P1].sumaNBicis(n);
+		if(P2!=-1)vEstaciones[P2].restaNBicis(n);
 		
 		Integer bienP1v2=bicisBienColocadasIndexE(P1);
 		Integer bienP2v2=bicisBienColocadasIndexE(P2);
@@ -254,8 +254,8 @@ public class Estado {
 		
 		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()+n);
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-n);
-		vEstaciones[P2].sumaNBicis(n);
-		vEstaciones[P1].restaNBicis(n);
+		if(P2 != -1)vEstaciones[P2].sumaNBicis(n);
+		if(P1 != -1)vEstaciones[P1].restaNBicis(n);
 		
 		Integer bienP1v2=bicisBienColocadasIndexE(P1);
 		Integer bienP2v2=bicisBienColocadasIndexE(P2);
@@ -280,8 +280,8 @@ public class Estado {
 		Integer malP2=bicisMalColocadasIndexE(iP);
 		Integer np2=vFurgonetas[numFurgoneta].getNp2();
 		vFurgonetas[numFurgoneta].setNp2(np2+n);
-		vEstaciones[iP].sumaNBicis(n);
-		vEstaciones[iE].sumaNBicisAg(n);
+		if(iP != -1)vEstaciones[iP].sumaNBicis(n);
+		if(iE != -1)vEstaciones[iE].sumaNBicisAg(n);
 		
 		Integer bienEv2=bicisBienColocadasIndexE(iE);
 		Integer bienP2v2=bicisBienColocadasIndexE(iP);
@@ -305,8 +305,8 @@ public class Estado {
 		
 		vFurgonetas[numFurgoneta].setNp2(vFurgonetas[numFurgoneta].getNp2()-n);
 
-		vEstaciones[iP].restaNBicis(n);
-		vEstaciones[iE].restaNBicisAg(n);
+		if(iP != -1)vEstaciones[iP].restaNBicis(n);
+		if(iE != -1)vEstaciones[iE].restaNBicisAg(n);
 		
 		Integer bienEv2=bicisBienColocadasIndexE(iE);
 		Integer bienP2v2=bicisBienColocadasIndexE(iP);
@@ -329,8 +329,8 @@ public class Estado {
 		Integer malE=bicisMalColocadasIndexE(iE);
 		
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp1()-n);
-		vEstaciones[iP].restaNBicis(n);
-		vEstaciones[iE].restaNBicisAg(n);
+		if(iP != -1)vEstaciones[iP].restaNBicis(n);
+		if(iE != -1)vEstaciones[iE].restaNBicisAg(n);
 		
 		Integer bienEv2=bicisBienColocadasIndexE(iE);
 		Integer malP1v2=bicisMalColocadasIndexE(iP);
@@ -344,14 +344,13 @@ public class Estado {
 	public void intercambiarP1P2(Integer numFurgoneta){
 		//System.out.println("  intercambiarP1P2");
 		
-		Estacion P1 = vFurgonetas[numFurgoneta].getEstacioP1();
-		vFurgonetas[numFurgoneta].setEstacioP1(vFurgonetas[numFurgoneta].getEstacioP2());
-		vFurgonetas[numFurgoneta].setEstacioP2(P1);
+		Integer P1 = vFurgonetas[numFurgoneta].getindexEstacioP1();
+		vFurgonetas[numFurgoneta].setindexEstacioP1(vFurgonetas[numFurgoneta].getindexEstacioP2());
+		vFurgonetas[numFurgoneta].setindexEstacioP2(P1);
 		
 		Integer n=vFurgonetas[numFurgoneta].getNp1();
 		vFurgonetas[numFurgoneta].setNp1(vFurgonetas[numFurgoneta].getNp2());
 		vFurgonetas[numFurgoneta].setNp2(n);
-		
 	}
 	/**
 	 * PRE: EstacioP1 t� una o menys estacions assignades
@@ -359,19 +358,19 @@ public class Estado {
 	 * @param EstacioP1
 	 */
 	public void canviarP1(Integer numFurgoneta, Integer EstacioP1){
-		System.out.println("PATRIII dee");
+		//System.out.println("PATRIII dee");
 		Integer P=vFurgonetas[numFurgoneta].getindexEstacioP1();
 		Integer nP1=vFurgonetas[numFurgoneta].getNp1();
-		System.out.println("PATRIII");
+		//System.out.println("PATRIII");
 		Integer bienP1=bicisBienColocadasIndexE(P);
-		System.out.println("PATRIII 2");
+		//System.out.println("PATRIII 2");
 		Integer bienEP1=bicisBienColocadasIndexE(EstacioP1);
-		System.out.println("PATRIII 3");
+		//System.out.println("PATRIII 3");
 		Integer malP1=bicisMalColocadasIndexE(P);
 		Integer malEP1=bicisMalColocadasIndexE(EstacioP1);
 		
-		vEstaciones[EstacioP1].sumaNBicis(nP1);
-		if(P!=-1)vEstaciones[P].restaNBicis(nP1);
+		if(EstacioP1 != -1)vEstaciones[EstacioP1].sumaNBicis(nP1);
+		if(P != -1)vEstaciones[P].restaNBicis(nP1);
 		// NO CANVIO LA FURGONETA PERQUE ES P1
 		vFurgonetas[numFurgoneta].setindexEstacioP1(EstacioP1);
 		
@@ -395,8 +394,8 @@ public class Estado {
 		Integer malP2=bicisMalColocadasIndexE(P2);
 		Integer malEP2=bicisMalColocadasIndexE(EstacioP2);
 		
-		vEstaciones[EstacioP2].sumaNBicis(nP2);
-		vEstaciones[P2].restaNBicis(nP2);
+		if(EstacioP2 != -1)vEstaciones[EstacioP2].sumaNBicis(nP2);
+		if(P2 != -1)vEstaciones[P2].restaNBicis(nP2);
 		// NO CANVIO LA FURGONETA PERQUE ES P2
 		vFurgonetas[numFurgoneta].setindexEstacioP2(EstacioP2);
 		
@@ -466,9 +465,9 @@ public class Estado {
 				if(indexP1==indexP2){
 					Integer np1=vFurgonetas[numFurgoneta].getNp1();
 					Integer np2=vFurgonetas[numFurgoneta].getNp2();
-					vEstaciones[indexP1].restaNBicis(np1);
-					vEstaciones[indexP1].restaNBicis(np2);
-					vEstaciones[indexP1].sumaNBicis(np2);
+					if(indexP1 != -1)vEstaciones[indexP1].restaNBicis(np1);
+					if(indexP1 != -1)vEstaciones[indexP1].restaNBicis(np2);
+					if(indexP1 != -1)vEstaciones[indexP1].sumaNBicis(act);
 					vFurgonetas[numFurgoneta].setNp1(act);
 					vFurgonetas[numFurgoneta].setNp2(0);
 					vEstaciones[indexE].setBicisAgafen(act);
