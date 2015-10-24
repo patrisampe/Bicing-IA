@@ -454,8 +454,9 @@ public class Estado {
 			*/
 				Integer n=(vFurgonetas[numFurgoneta].getNp1()+vFurgonetas[numFurgoneta].getNp2());
 				Integer act=(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas()) ;
-				
-				
+				if(vFurgonetas[numFurgoneta].getEstacioE().getNumBicicletasNoUsadas() > 30){
+					act = 30;
+				}
 				Integer np1=vFurgonetas[numFurgoneta].getNp1();
 				Integer np2=vFurgonetas[numFurgoneta].getNp2();
 				vFurgonetas[numFurgoneta].setNp1(np1*act/n);
@@ -484,12 +485,14 @@ public class Estado {
 				bienP1v2=0;
 				malP1v2=0;
 			}
+			/*
 			if(indexP1 == indexP2){
 				bienP2=0;
 				malP2=0;
 				bienP2v2=0;
 				malP2v2=0;
 			}
+			*/
 			if(indexE == indexP2){
 				bienP2=0;
 				malP2=0;
