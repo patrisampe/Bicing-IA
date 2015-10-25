@@ -32,9 +32,7 @@ public class Operadores {
 	}
 	
 	private static double costeTransporte(Estado e, int f) {
-		//System.out.println("lililil");
 		Furgoneta furgo = e.getvFurgonetas()[f];
-		//System.out.println("lololol");
 		if(furgo.getindexEstacioE() == -1)return 0.0;
 		
 		Estacion E = furgo.getEstacioE();
@@ -56,7 +54,6 @@ public class Operadores {
 				d2=costeTransporte(E,P2,np2);
 			}
 		}
-		//System.out.println("HIII");
 		
 		double coste = d1+d2;
 		
@@ -66,13 +63,14 @@ public class Operadores {
 	
 	public static Estado intercambiarE(Estado e, int a, int b) {
 		Estado ret = new Estado(e);
+		if (a == b) return ret;
 		//System.out.println("podemooos");
 		ret.intercambiarE(a, b);
 		//System.out.println("");
 		int f1 = -1;
 		int f2 = -1;
 		
-		if(a != -1)e.getvEstaciones()[a].getFurg();
+		if(a != -1)f1 = e.getvEstaciones()[a].getFurg();
 		if(b != -1)f2 = e.getvEstaciones()[b].getFurg();
 		if (f1 != -1) updateCosteFurgoneta(e,ret,f1);
 		if (f2 != -1) updateCosteFurgoneta(e,ret,f2);
