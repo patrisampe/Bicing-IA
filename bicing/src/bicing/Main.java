@@ -1,11 +1,9 @@
 package bicing;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.charset.Charset;
-import java.nio.file.Paths;
-import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import IA.Bicing.Estacion;
@@ -18,85 +16,63 @@ import aima.search.informed.SimulatedAnnealingSearch;
 
 public class Main {
 	
-	public static void main(String[] args) {
-		// args[0] nombre del fichero de entrada
-		//Path path = Paths.get(System.getProperty("user.dir"), args[0]);
-		Path path = Paths.get(System.getProperty("user.dir"), "bicing-ia/bicing/file/exemple.txt");
-		Charset charset = Charset.forName("ISO-8859-1");
-		try {
-			List<String> lines = Files.readAllLines(path, charset);
-			String alg = getString(lines.get(10));
-			if (alg.equals("HC")) HC(lines);
-			else SA(lines);
-		    } catch (Exception e) {
-		      System.out.println(e);
-		    }		
+	public static void main(String[] args) throws Exception {
+		int repeticiones = 5;
+		int numB = 1250;
+		int numE = 25;
+		
+		int iteraciones = 25;
+		int dems[] = {Estaciones.EQUILIBRIUM, Estaciones.RUSH_HOUR};
+		int itMAX = 5000;
+		int semillas[] = {1234,242359,986,5437,72463,97856,7105,3189,13594,4};
+		int it = 10;
+		int k = 1;
+		double lam = 0.1;
+		FileWriter fichero1 = new FileWriter("exp7.1.txt");
+		fichero1.write("Semilla Demanda Furgonetas BeneficiosReales Tiempo\n");
+		System.out.print("Semilla Demanda Furgonetas BeneficiosReales Tiempo\n");
+		for (int j = 0; j < semillas.length; ++j) {
+			int seed = semillas[j];
+			for (int i = 0; i <=1; ++i) {
+				int dem = dems[i];
+				int numF = 0;
+				for (int iti = 0; iti <= iteraciones; ++iti) {
+					numF += 1;
+					GeneraProblema.CrearProblema(numE, numB, dem, seed);
+					Estado estado = Estado.estadoInicial_v1(numF, numE);
+					SuccessorsSA2 succSA = new SuccessorsSA2();
+					EstadoFinal ef = new EstadoFinal();
+					Problem problem = new Problem(estado, succSA, ef, new FuncionHeuristica3());
+					double money = 0;
+					double time = 0;
+					double gas = 0;
+					double dist = 0;
+					for (int r = 0; r < repeticiones; ++r) {
+						Search search= new SimulatedAnnealingSearch(itMAX, it, k, lam);
+						long startTime = System.currentTimeMillis();
+						SearchAgent agent = new SearchAgent(problem, search);
+						long endTime = System.currentTimeMillis();
+						Estado result = (Estado) search.getGoalState();
+						money += result.getBicisBienColocadas()-result.getBicisMalColocadas();
+						time +=endTime-startTime;
+						gas += result.getCosteGasolina()/1000;
+						dist += calcDistTotal(result)/1000;
+					}
+					money /= repeticiones;	
+					time /= repeticiones;	
+					gas /= repeticiones;
+					dist /= repeticiones;
+					String demanda;
+					if (dems[i] == Estaciones.EQUILIBRIUM) demanda = "EQUILIBRIUM";
+					else demanda = "RUSH_HOUR";
+					fichero1.write(seed + " " + demanda + " " + numF + " " + (money - gas) + " " + time + "\n");
+					System.out.print(seed + " " + demanda + " " + numF + " "  + (money - gas) + " " + time + "\n");
+				}
+			}
+		}
+		fichero1.close();
 	}
 	
-	private static void HC(List<String> lines) throws Exception {
-		System.out.println("HillClimbing\n");
-		//Leemos datos necesarios para HC
-		int numB = getNum(lines.get(4));
-		int numE = getNum(lines.get(5));
-		int numF = getNum(lines.get(6));
-		int dem = readDemanda(lines.get(7));
-		int seed = getNum(lines.get(8));
-		GeneraProblema.CrearProblema(numE, numB, dem, seed);
-		printEstaciones(numF);
-		int estadoIni = getNum(lines.get(26));
-		Estado estado = null;
-		if (estadoIni == 1) estado = Estado.estadoInicial_v1(numF, numE);
-		else if (estadoIni == 2) estado = Estado.estadoInicial_v2(numF, numE);
-
-		calculBestia(estado);
-		//System.out.println ("HIII buuu");
-		printEstado(estado, true);
-		//System.out.println ("HIII");
-		//System.out.println("Distancia total recorrida: "+ calcDistTotal(estado)/(double)1000);
-		//System.out.println("Gasolina Total: "+ calcGasolinaTotal(estado)/1000);
-		//System.out.println("Gasolina Total Inc: "+ estado.getCosteGasolina()/1000);
-		SuccessorsHC succ = new SuccessorsHC();
-		//System.out.println("GGGG " );
-		EstadoFinal ef = new EstadoFinal();
-		//System.out.println("GGGGDD " );
-		int numh = getNum(lines.get(23));
-		//System.out.println("GGGGEEEEE " );
-		Problem problem = null;
-		//System.out.println("GGGGIII " );
-		switch (numh) {
-			case 1: 
-				problem = new Problem(estado, succ, ef, new FuncionHeuristica1()); 
-				break;
-			case 2: 
-				problem = new Problem(estado, succ, ef, new FuncionHeuristica2()); 
-				break;
-			default: 
-				problem = new Problem(estado, succ, ef, new FuncionHeuristica3()); 
-				break;			
-		}
-		//System.out.println("lll" );
-		Search search = new HillClimbingSearch();
-		//System.out.println("ooooooOOO" );
-		long startTime = System.currentTimeMillis();
-		//System.out.println("ooooooIIIII" );
-		SearchAgent agent = new SearchAgent(problem, search);
-		//System.out.println("oooPPPPPPP" );
-		long endTime = System.currentTimeMillis();
-		//System.out.println("oo754ERGFX" );
-		Estado result = (Estado) search.getGoalState();
-		//System.out.println("ooooooFFFFFOOO" );
-		calculBestia(result);
-		//System.out.println("oIIDSFKADL" );
-		printEstado(result, false);
-		System.out.println("Distancia total recorrida: "+ calcDistTotal(result)/(double)1000);
-	    System.out.println("Gasolina Total: "+ calcGasolinaTotal(result)/1000);
-		System.out.println("Gasolina Total Inc: "+ result.getCosteGasolina()/1000);
-		if (getString(lines.get(13)).equals("S")) printActions(agent.getActions());
-		if (getString(lines.get(14)).equals("S")) printInstrumentation(agent.getInstrumentation());
-		System.out.println("HC ha tardado " + (endTime - startTime) + " ms");
-		System.out.println("Sucesores generados: " + GeneraProblema.getRamification());
-		System.out.println("Operadores aplicados: " + GeneraProblema.getRealRamification());
-	}
 	
 	public static double calcGasolinaTotal(Estado result) {
 		double gasolina = 0;
@@ -290,4 +266,5 @@ public class Main {
             System.out.println(action);
         }
     }
+
 }

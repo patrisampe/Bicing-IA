@@ -65,6 +65,8 @@ public class Operadores {
 		Estado ret = new Estado(e);
 		if (a == b) return ret;
 		//System.out.println("podemooos");
+		//System.out.println("HOOOLAAAA ");
+		
 		ret.intercambiarE(a, b);
 		//System.out.println("");
 		int f1 = -1;

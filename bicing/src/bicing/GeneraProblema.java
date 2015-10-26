@@ -105,6 +105,7 @@ public class GeneraProblema {
 	}
 	
 	public static Estacion getEstacion(Integer index){
+		if(index == -1)return null;
 		return  es.get(index);
 	}
 	

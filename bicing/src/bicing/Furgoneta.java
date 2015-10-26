@@ -57,6 +57,7 @@ public class Furgoneta {
 	
 	public Estacion getEstacioE() {
 		return GeneraProblema.getEstacion(estacioE);
+		
 	}
 	public void setEstacioE(Estacion estacioE) {
 		this.estacioE = GeneraProblema.getIndex(estacioE);

@@ -613,8 +613,13 @@ public class Estado {
 		
 		if(index1!=index2){
 			
-			int fnum1=vEstaciones[index1].getFurg();
-			int fnum2=vEstaciones[index2].getFurg();
+			int fnum1=-1;
+			if(index1 != -1)fnum1=vEstaciones[index1].getFurg();
+			//System.out.println("HOOOLAAAA 2"+index1 + "HHHHH "+index2);
+			int fnum2=-1;
+			if(index2!=-1)fnum2=vEstaciones[index2].getFurg();
+			
+			
 			
 			Integer male1=bicisMalColocadasIndexE(index1);
 			Integer male2=bicisMalColocadasIndexE(index2);
